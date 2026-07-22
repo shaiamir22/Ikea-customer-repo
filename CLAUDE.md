@@ -1,116 +1,53 @@
-# IKEA Customer Repo
+# IKEA — customer repo
 
-Context repo for Moveo's IKEA engagement. Use this file to get oriented before
-working on anything related to this account.
+_This is a **customer repo**, not a single project. It groups every Moveo ↔ IKEA workstream under one roof. It is intentionally **not** a moveo-pm project — there is **no `methodology_version`** here, so the plugin's project skills won't treat this root as a project._
 
-## Project
+## How this repo is laid out
 
-Moveo is building a WhatsApp personal shopping agent for IKEA. Kicked off end
-of February 2026. The agent lets customers/employees:
-- Search for products in-store or from home
-- Get recommendations and compare products
-- Navigate the store, find where items are located
-- Build a "favorites" basket
-- (Future/upsell) checkout, cross-sell, personalized re-engagement (e.g.
-  "you bought a toddler bed a year ago, here's a bed for a 3-year-old")
+```
+IKEA/
+├── CLAUDE.md                ← this file (customer index)
+├── CUSTOMER-STATUS.md       ← customer dashboard + the marker that this is a customer root
+├── STAKEHOLDERS.md          ← shared stakeholder registry across all workstreams
+├── README.md                ← 60-second human orientation
+├── context/                 ← CROSS-PROJECT context only (events spanning workstreams)
+│   ├── open-action-items.md ← cross-project / relationship-level action items (per-project items stay in <project>/context/)
+│   ├── meetings/            ← cross-project meetings & calls
+│   ├── stakeholder-notes/   ← cross-project 1:1s & stakeholder feedback
+│   ├── research/            ← cross-project research, competitor scans
+│   └── comms/               ← cross-project outbound/inbound comms worth logging
+├── .claude/                 ← enables the moveo-pm plugin (settings.json) + prototype preview (launch.json)
+└── <project>/               ← one full moveo-pm project per workstream (CLAUDE.md w/ methodology_version, PROJECT-STATUS.md, spec, context/)
+```
 
-Two user layers: IKEA employees (in-store, phase 1) and end customers
-(future).
+The customer-level `context/` mirrors a project's `context/` (same `meetings|stakeholder-notes|research|comms` buckets + `open-action-items.md`) — the difference is **scope**: only material that spans workstreams or belongs to the relationship lives here. Anything tied to one workstream belongs in `<project>/context/`.
 
-## Status (as of 2026-07-21)
+## Two ways to work here
 
-- Product is not yet complete.
-- Pilot with ~1,000 IKEA employees scheduled for end of July 2026 (IKEA
-  wanted it live during their sale period but delayed it to end-of-month for
-  reasons on their side).
-- Latency: ~8s average (down from worse), but spikes to 25s still happen.
-  One known cause: a bug that called the model 5x for a single reply.
-- Quality: more stable than a month ago, but rare crashes/wrong answers
-  persist. Current usage is mostly internal testers (10 users/day, 30-200
-  msgs/day); real signal starts once ~1,000 employees are live.
-- No stress/load testing done yet against API rate limits — not expected to
-  be an issue at 1,000-2,000 users but needs revisiting as usage scales
-  toward Sep/Oct.
+**Drill into one project** — `cd` into the project subfolder and run the moveo-pm skills there. They resolve to the nearest `CLAUDE.md` (walk-up), so they target that project. **Run project skills from inside a project subfolder, not from this customer root** — from here they have no project to act on.
 
-## The cost crisis (top priority)
+**See the whole customer**
+- Live cross-project rollup: `pm-brief projects_root=<path to this repo>` → "what's active / what's next" across all projects. (The customer-aware `pm-brief` also picks this up from a default global run, via the `CUSTOMER-STATUS.md` marker.)
+- Durable account state: open `CUSTOMER-STATUS.md`. It holds relationship/commercial state and links to each project's `PROJECT-STATUS.md` — it does **not** restate per-project execution detail.
 
-- Current cost: ~₪0.10/message (LLM inference cost, on Gemini).
-- At a projected ~500k messages/mo, that's **~₪50k/mo**.
-- Target: **~₪2k/mo** — a ~25x (two orders of magnitude) reduction.
-- This is the single blocking issue before the product is viable to sell.
+## Conventions
 
-Levers being considered:
-1. **Caching**
-   - *Implicit*: shared session memory across users on the same serverless
-     instance (same "Lambda"-style server handling many users at once) —
-     free repeat answers within that shared context window.
-   - *Explicit*: pre-defined answers for static/service questions (e.g.
-     store hours, prices of fixed items) — doesn't work for
-     product-recommendation questions that depend on conversation context.
-2. **Model optimization**
-   - Currently on Gemini (expensive, closed-source).
-   - Cheaper closed-source models: 10x-100x cheaper per message, same
-     pay-per-message model, but introduces dependence on shared rate
-     limits/bandwidth (a prior outage on Claude was caused by this).
-   - Open-source models (e.g. Llama) self-hosted on rented GPUs: fixed
-     hourly cost (~$2/hr per GPU, ballpark $100-120/day for a small
-     cluster) instead of per-message cost. Cost becomes independent of
-     message volume — the main structural fix for scaling to 20k+
-     users/day. Tradeoff: takes on infra ops, and needs a smaller model
-     since a full large-model cluster is enormous overkill (a small
-     8-GPU cluster of top-tier cards can run $500k+ upfront/committed
-     spend — not what's needed here).
-3. **Latency/cost are coupled**: some of the latency issues (e.g. the 5x
-   model-call bug) are also cost issues — fixing one often fixes both.
+- `CUSTOMER-STATUS.md` is the canonical marker that this folder is a customer root.
+- Project status is owned per-project (`<project>/PROJECT-STATUS.md`). Customer status links to it rather than duplicating it, so nothing drifts.
+- Cross-project context lives in `./context/`; project-specific context lives in `<project>/context/`. Same bucket names at both levels — scope decides where a note lands.
+- Cross-project / relationship-level action items go in `./context/open-action-items.md`; per-project action items stay in `<project>/context/open-action-items.md`. Don't restate per-project items at the customer level.
+- One git repo for the whole customer (the customer mono-repo). The moveo-pm plugin is enabled once, at this root, and inherited by every project.
 
-## Team
+## Running skills from the customer root
 
-- **Niv** — sole developer. Junior. Currently a single point of failure
-  ("one-man show"). Needs a senior developer added alongside him for
-  redundancy — non-negotiable before scaling further with IKEA.
-- **Tali** — product-focused, has more dev experience than Niv but isn't
-  doing hands-on code work. Open question: either she ramps up as real
-  redundancy for Niv, or there's no reason to keep two product-only people
-  on a team this size. Time-sensitive — she's reportedly being pursued for
-  another role elsewhere.
-- Arnon (Meltser) has been the de facto client-facing lead but has had ~zero
-  bandwidth for this account; Shai is now taking over that role.
+Most moveo-pm skills are **project-scoped** and refuse to run without a `methodology_version` (which this root deliberately lacks). Two patterns apply here:
 
-## Client / stakeholders
+- **`digest`** — when the input spans workstreams (a kickoff, a customer-wide call, a handoff), run it from this customer root and it writes to `./context/{meetings|stakeholder-notes|research|comms}/` and syncs any cross-project action items into `./context/open-action-items.md`. When the input is about a single workstream, `cd` into that project and run `digest` there instead.
+- **Everything else** (`brief`, `status`, `prd`, `prototype`, `refresh-status`, `monday`, `sync-drive`) is project-scoped — `cd` into a project subfolder. For the customer-wide rollup use `pm-brief projects_root=<this repo>`.
 
-- **Shuki** — tech lead on IKEA's side. Cares most about product quality and
-  answer accuracy/service, with secondary interest in the AI/tech itself.
-- **Merchandising & logistics dept** — interested in pricing-related
-  features.
-- **Service dept** — interested in service quality / answer accuracy.
-- **Sales/logistics** — interested in ROI: upsell/cross-sell numbers.
-- IKEA has effectively unlimited budget appetite and ambition for this
-  product long-term, but the immediate blocker is proving the current
-  product works and is affordable before expanding scope.
-- Real usage signal so far is mostly internal test conversations, not real
-  customer-style questions. The upcoming employee pilot is meant to
-  generate genuine usage patterns (real product questions: origin, specs,
-  compatibility) to design around.
+## What NOT to do
 
-## Financials (sensitive — internal only)
-
-- IKEA has not paid Moveo for ~5 months of work. Two people have been
-  full-time on this for ~5 months at a loss.
-- Securing payment (via Elad/Eldar) is an active, urgent workstream,
-  separate from the technical work but a blocker for how much further
-  free work continues.
-
-## Shai's mandate
-
-1. Define a formal work plan across the three active workstreams — cost,
-   quality, latency — with owners and targets.
-2. Fix the team single-point-of-failure risk (Tali's role, and/or hire a
-   senior developer).
-3. Join the daily 08:30 IKEA status sync (started 2026-07-22).
-4. Support getting Moveo paid for outstanding work.
-5. Longer-term: use this account to unlock upsell (cross-sell recs,
-   personalization, checkout) once cost/quality/latency are under control.
-
-## Meeting notes
-
-See `docs/meetings/` for raw sync notes, newest first.
+- **Do not add a `methodology_version` to this file** — it would make the plugin treat the customer root as a (malformed) project.
+- **Do not duplicate per-project status here.** Link to it.
+- **Do not modify files in any project's `prototypes/archive/`.** Frozen snapshots.
+- **Do not commit secrets** (no `.env`, no API keys).

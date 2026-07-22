@@ -1,0 +1,14 @@
+{
+  "enabledPlugins": {
+    "moveo-pm@moveo-pm": true
+  },
+  "extraKnownMarketplaces": {
+    "moveo-pm": {
+      "source": {
+        "source": "github",
+        "repo": "davidmintz-ops/moveo-pm-plugin"
+      },
+      "autoUpdate": true
+    }
+  }
+}
