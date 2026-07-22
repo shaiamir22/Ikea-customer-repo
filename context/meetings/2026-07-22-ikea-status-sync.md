@@ -1,6 +1,7 @@
 # IKEA daily status sync — 2026-07-22
 
 - Title (client-side): "פגישת סטטוס פרויקט - סוכן חכם איקאה - July 22"
+- Recording: https://fathom.video/share/K57MzEsJ4tymdhHpxV8gzeyechbDBEBn
 
 ## Purpose
 
