@@ -21,7 +21,12 @@ December is when their CEO reviews the agent to decide on a public launch, with 
 the American owners riding on it.
 
 We are entering that conversation with three unresolved things: **five months unpaid**, a
-**retainer whose scope nobody has written down**, and a **single developer**.
+**retainer whose scope nobody has written down**, and **one person writing code**.
+
+On the last of those: Taly is staying on the team, and Arnon wants her taking technical tasks. That
+is the redundancy answer, and it removes the risk we were most exposed to. It is a ramp rather than
+a switch, so it does not change who is on call for 2/8 — but by the customer phase it should mean
+Niv is no longer a single point of failure.
 
 ---
 
@@ -79,7 +84,7 @@ The central reframe, and the thing I would like us to agree to say with one voic
 
 | Gate | When | What has to be true |
 |---|---|---|
-| **G0 — Employee release lands** | now → Sun 2/8 | Fallback model routing confirmed live (Gemini outages crashed the agent on 21/7 and stopped Efrat's testing). 24/7 support staffed in writing — two people; Taly is unavailable launch week. Efrat's no-proactive-messaging rule enforced as a technical guard, not a promise. Onboarding QR/link updated; Avi's short video delivered for the internal publication after the sale ends 30/7. |
+| **G0 — Employee release lands** | now → Sun 2/8 | Fallback model routing confirmed live (Gemini outages crashed the agent on 21/7 and stopped Efrat's testing). 24/7 support staffed in writing — two people. Taly is on the team and ramping onto technical work at Arnon's direction, but she is unavailable during launch week itself, so the 2/8 rota has to be named explicitly rather than assumed. Efrat's no-proactive-messaging rule enforced as a technical guard, not a promise. Onboarding QR/link updated; Avi's short video delivered for the internal publication after the sale ends 30/7. |
 | **G1 — Retainer DoD + commercial reset** | this week | §3 agreed internally, then with IKEA. Delta list priced. Arrears conversation attached to it via Elad/Eldar. Postpone the Wednesday client meeting until we are aligned; no future-ideas deck there. |
 | **G2 — Evidence from 1,500 employees** | Aug → Oct | This is Hai's "substantial sample", turned into a measurement plan: the larger survey (ratings + free text); conversation analytics out of DynamoDB (I need access via Arnon); an eval set built from real observed failures; latency and cost curves at real volume; a written quality bar with a pass mark. |
 | **G3 — Customer-readiness gates** | Sep → Nov | The eight items in §5, each pass/fail. |
@@ -147,8 +152,10 @@ Stating these openly is the point — none of them should be answered with a gue
 - What the CISO/DPO will permit on external AI providers and on data retention.
 - The real concurrency ceiling and the real cost per conversation at customer volume — both
   untested.
-- Whether we have a second developer by then. Niv is still a single point of failure and Tali's
-  role is unresolved and time-sensitive.
+- How quickly Taly's technical ramp turns into real redundancy. She is staying and Arnon wants her
+  on technical tasks, so *whether* we get a second pair of hands is settled. What is still open is
+  whether she is genuinely covering for Niv by the customer phase, or still ramping — and that is
+  a scheduling question we can answer ourselves rather than an unknown to live with.
 - Whether IKEA wants a service channel or a commerce surface. In-chat payment contradicts their
   in-store model; we should stop offering it until they say otherwise.
 
@@ -162,7 +169,9 @@ acceptable in exchange for the ~87% cost saving.
 
 1. **Retainer DoD** (§3) — agreed as written, or amended?
 2. **Which commercial model do we open with** (§6) — fixed-scope Phase 2, or T&M with a cap?
-3. **Who staffs 24/7 support from Sun 2/8?** Niv alone is not a plan, and Taly is out that week.
+3. **Who staffs 24/7 support from Sun 2/8?** Niv alone is not a plan, and Taly is out that specific
+   week. Related, and worth settling in the same breath: what is the ramp plan for Taly's technical
+   tasks, who mentors it, and what does she own by the customer phase?
 4. **Do we book the CISO + DPO conversation as one bundled session** covering fraud detection and
    customer-phase privacy together?
 5. **Who owns the arrears conversation with IKEA, and does it go before or after the scope reset?**
