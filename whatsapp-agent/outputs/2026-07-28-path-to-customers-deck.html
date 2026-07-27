@@ -1,0 +1,997 @@
+<title>IKEA — the path to end customers</title>
+
+<div class="deck" id="deck">
+
+  <div class="rail" aria-hidden="true"><div class="rail-fill" id="railFill"></div></div>
+
+  <div class="stage" id="stage">
+
+    <!-- 1 -->
+    <section class="slide slide--title is-active" data-label="Title" data-notes="Open with the frame, not the detail: “We're three days from the employee release and five months unpaid. I want us to leave this meeting saying the same thing to IKEA about what happens after 2/8.” Then say the five decisions are at the end and you'll take twelve minutes to get there.">
+      <div class="titlewrap">
+        <p class="eyebrow">Ikea sync internal &nbsp;·&nbsp; Tue 28.07.26 &nbsp;·&nbsp; 10:00</p>
+        <h1 class="display">From employees<br>to end customers</h1>
+        <p class="standfirst">The path, the gates, and the five things I need decided this morning.</p>
+        <div class="byline">
+          <span>Shai Amir</span>
+          <span class="sep" aria-hidden="true"></span>
+          <span>David Mintz · Elad Kobi · Hai Morgenstern · Arnon Meltser</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2 -->
+    <section class="slide" data-label="Where we are" data-notes="Lead with the strength — the product is genuinely good and the cost reduction is ours. Then land the three unresolved items without drama. Do not editorialise about the arrears here; Elad owns that thread and slide 10 asks him for it.">
+      <p class="eyebrow">01 &nbsp;/&nbsp; Where we are</p>
+      <h2 class="headline">The product is strong. The commercial frame around it is not.</h2>
+      <div class="stats">
+        <div class="stat"><span class="stat__n">25,480</span><span class="stat__l">products, live catalogue</span></div>
+        <div class="stat"><span class="stat__n">122K</span><span class="stat__l">stock records</span></div>
+        <div class="stat"><span class="stat__n">24</span><span class="stat__l">agent tools</span></div>
+        <div class="stat"><span class="stat__n">~30%</span><span class="stat__l">answered with no LLM call</span></div>
+        <div class="stat"><span class="stat__n">~25</span><span class="stat__l">checks per answer</span></div>
+        <div class="stat"><span class="stat__n">9.3s</span><span class="stat__l">average response</span></div>
+        <div class="stat stat--good"><span class="stat__n">$0.03&thinsp;→&thinsp;$0.01</span><span class="stat__l">cost per conversation — delivered under the retainer</span></div>
+      </div>
+      <ul class="unresolved">
+        <li><span class="chip chip--open">open</span> Five months unpaid</li>
+        <li><span class="chip chip--open">open</span> A retainer whose scope nobody has written down</li>
+        <li><span class="chip chip--open">open</span> One person writing code — Taly is staying and ramping onto technical work, but not by 2/8</li>
+      </ul>
+    </section>
+
+    <!-- 3 -->
+    <section class="slide" data-label="Promised vs. real" data-notes="Say plainly: IKEA can reconstruct this timeline themselves, so we should walk in having already said it. Note the slip is not one-sided — IKEA pushed the pilot more than once and the sale moved it again — but do not lead with that. The SLA point is the one that changes what we can claim.">
+      <p class="eyebrow">02 &nbsp;/&nbsp; What was promised</p>
+      <h2 class="headline">The signed plan had us publicly live in April.</h2>
+      <div class="timeline">
+        <div class="tl-track" aria-hidden="true"></div>
+        <div class="tl-node">
+          <span class="tl-date">03.02.26</span>
+          <span class="tl-body">Project start<br><em>10-week plan</em></span>
+        </div>
+        <div class="tl-node">
+          <span class="tl-date">Weeks 5–6</span>
+          <span class="tl-body">Internal employee launch</span>
+        </div>
+        <div class="tl-node">
+          <span class="tl-date">Weeks 9–10</span>
+          <span class="tl-body">“Peak loads of tens of thousands of concurrent users, gradual 10% rollout, then full launch”</span>
+        </div>
+        <div class="tl-node tl-node--now">
+          <span class="tl-date">02.08.26</span>
+          <span class="tl-body"><strong>Employee launch actually happens</strong><br><em>~15 weeks past plan</em></span>
+        </div>
+      </div>
+      <div class="callout callout--open">
+        <p class="callout__k">And the number everyone assumes exists</p>
+        <p class="callout__v">There is <strong>no SLA, no latency target and no concurrency figure</strong> anywhere in the SOW or the quote. I read both end to end. When we're asked to “finish to the committed level,” that level has never been written down — so we should write it, before December, rather than have it written for us.</p>
+      </div>
+    </section>
+
+    <!-- 4 -->
+    <section class="slide slide--thesis" data-label="The reframe" data-notes="Slow down here. This is the one sentence I want everyone repeating to IKEA. If we let December be a launch date we will either ship something unsafe or miss it publicly. If it is a decision gate, a single working branch pilot is a win rather than a shortfall.">
+      <p class="eyebrow">03 &nbsp;/&nbsp; The reframe</p>
+      <blockquote class="thesis">
+        December is a <em>decision gate</em>,<br>not a launch date.
+      </blockquote>
+      <p class="thesis__sub">What we bring their CEO is a working customer pilot at one branch, plus real data — not a promise of national coverage. Stronger evidence, and survivable with the team we actually have.</p>
+    </section>
+
+    <!-- 5 -->
+    <section class="slide" data-label="Five gates" data-notes="Walk left to right, fifteen seconds a gate. The only one with a date pressure today is G0. G1 is what this meeting is for. Flag that I want the Wednesday client meeting postponed until G1 is agreed internally, and no future-ideas deck in that room.">
+      <p class="eyebrow">04 &nbsp;/&nbsp; The path</p>
+      <h2 class="headline">Five gates between the employee pilot and a customer.</h2>
+      <div class="gates">
+        <article class="gate">
+          <p class="gate__code">G0</p>
+          <p class="gate__when">now → Sun 02.08</p>
+          <h3 class="gate__t">The employee release lands</h3>
+          <p class="gate__b">Fallback model routing confirmed live. 24/7 rota named in writing. Efrat's no-proactive-messaging rule enforced as a technical guard. QR/link updated, Avi's video delivered after the sale ends 30/7.</p>
+        </article>
+        <article class="gate gate--now">
+          <p class="gate__code">G1</p>
+          <p class="gate__when">this week</p>
+          <h3 class="gate__t">Retainer DoD + commercial reset</h3>
+          <p class="gate__b">Write down what the ₪10k covers. Price the delta list. Attach the arrears conversation to it. Postpone Wednesday until we're aligned.</p>
+        </article>
+        <article class="gate">
+          <p class="gate__code">G2</p>
+          <p class="gate__when">Aug → Oct</p>
+          <h3 class="gate__t">Evidence from 1,500 employees</h3>
+          <p class="gate__b">The larger survey, conversation analytics out of DynamoDB, an eval set built from real observed failures, latency and cost curves at real volume, a written quality bar with a pass mark.</p>
+        </article>
+        <article class="gate">
+          <p class="gate__code">G3</p>
+          <p class="gate__when">Sep → Nov</p>
+          <h3 class="gate__t">Customer-readiness gates</h3>
+          <p class="gate__b">Eight items, each pass/fail — next slide. None of them optional, all of them paid scope.</p>
+        </article>
+        <article class="gate">
+          <p class="gate__code">G4</p>
+          <p class="gate__when">Dec decision → Q1</p>
+          <h3 class="gate__t">Staged customer launch</h3>
+          <p class="gate__b">Netanya branch pilot → geographic widening → national. Bounds Meta cost, PII exposure and the concurrency ceiling at the same time.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- 6 -->
+    <section class="slide" data-label="Customer gates" data-notes="This is the heart of it. Do not read all eight — point at the state column and say: three of these are blocked on IKEA decisions they have already declined once, and two of them we cannot even describe until we measure. Then move on. The Hebrew client doc has the full IKEA-owes / Moveo-owes split.">
+      <p class="eyebrow">05 &nbsp;/&nbsp; G3 in detail</p>
+      <h2 class="headline">What is genuinely different about a customer.</h2>
+      <div class="grid8">
+        <article class="g8"><h3>Consent &amp; entry point</h3><p>Customers arrive cold. QR/link entry, privacy notice on first contact, IKEA's WABA with approved Meta template categories, a written proactive-messaging policy.</p><p class="g8__s"><span class="chip">IKEA + Moveo</span><span class="chip chip--open">not started</span></p></article>
+        <article class="g8"><h3>Privacy &amp; security</h3><p>Consumer PII at scale: DPA, retention policy, and a ruling on whether an external AI provider may see customer messages.</p><p class="g8__s"><span class="chip">IKEA + Moveo</span><span class="chip chip--open">blocked on CISO/DPO</span></p></article>
+        <article class="g8"><h3>Unit economics</h3><p>$0.01/conversation is our layer. Meta conversation fees on IKEA's WABA are a second layer, unmodelled, and land on them.</p><p class="g8__s"><span class="chip">Moveo</span><span class="chip chip--open">half-modelled</span></p></article>
+        <article class="g8"><h3>Capacity</h3><p>The bottleneck is AWS Lambda's 1000-concurrency limit. No load test has ever run, so we state no capacity number until one does.</p><p class="g8__s"><span class="chip">Moveo</span><span class="chip chip--open">not measured</span></p></article>
+        <article class="g8"><h3>Quality bar</h3><p>Customers screenshot failures. Photo&thinsp;→&thinsp;SKU is the known weak point — five separate survey respondents named it.</p><p class="g8__s"><span class="chip">Moveo</span><span class="chip chip--open">known gap</span></p></article>
+        <article class="g8"><h3>Human escalation</h3><p>Hand-off into the contact centre <em>with conversation context</em>. Without it a customer launch moves load onto the call centre instead of relieving it.</p><p class="g8__s"><span class="chip">IKEA + Moveo</span><span class="chip chip--open">declined June — reopen</span></p></article>
+        <article class="g8"><h3>Content coverage</h3><p>Customers ask order status, delivery, assembly, returns, credits. Delivery/assembly is already their top priority; post-purchase data was declined.</p><p class="g8__s"><span class="chip">IKEA</span><span class="chip chip--open">declined June — reopen</span></p></article>
+        <article class="g8"><h3>Language</h3><p>Hebrew is primary and is the one language the new PoC has not been tested in. Arabic and French were requested, not built.</p><p class="g8__s"><span class="chip">Moveo</span><span class="chip chip--open">not built</span></p></article>
+      </div>
+    </section>
+
+    <!-- 7 -->
+    <section class="slide" data-label="Retainer line" data-notes="The argument in one line: undefined scope means every new request lands inside the retainer by default. Use the cost reduction as proof the retainer already delivers value — that is what makes the boundary defensible rather than defensive.">
+      <p class="eyebrow">06 &nbsp;/&nbsp; The ₪10k line</p>
+      <h2 class="headline">Undefined scope means everything lands inside it by default.</h2>
+      <div class="split">
+        <div class="col col--in">
+          <p class="col__h"><span class="chip chip--good">inside the retainer</span></p>
+          <ul class="list">
+            <li>Routine maintenance</li>
+            <li>Bug fixes</li>
+            <li>Ongoing cost optimisation <em>— $0.03 → $0.01 is the proof this is real value</em></li>
+            <li>Model-cost monitoring</li>
+            <li>Keeping catalogue &amp; stock integration current</li>
+          </ul>
+        </div>
+        <div class="col col--out">
+          <p class="col__h"><span class="chip chip--open">outside — priced separately</span></p>
+          <ul class="list">
+            <li>The cost-optimisation re-architecture <em>— new architecture, not upkeep</em></li>
+            <li>Load / stress testing <em>— never run; needed for any capacity claim</em></li>
+            <li>Automated QA tooling <em>— 209 conversations were reviewed by hand</em></li>
+            <li>Dedicated 24/7 staffing <em>— two people, not a side duty</em></li>
+            <li>Fraud detection <em>— gated on the CISO conversation</em></li>
+            <li>All eight customer-readiness gates</li>
+          </ul>
+        </div>
+      </div>
+      <p class="foot">The quote already says it: anything outside the listed scope is priced separately. We just never used the clause.</p>
+    </section>
+
+    <!-- 8 -->
+    <section class="slide" data-label="Commercial" data-notes="Present both honestly, then give my view only if asked: fixed-scope first, because you cannot open an open-ended billing conversation with a client who has not paid in five months. But this is Elad and David's call, not mine.">
+      <p class="eyebrow">07 &nbsp;/&nbsp; Commercial shape</p>
+      <h2 class="headline">Two models. I want us to pick which one we open with.</h2>
+      <div class="models">
+        <article class="model">
+          <h3 class="model__t">Fixed-scope<br><span>“Phase 2 — Go Public”</span></h3>
+          <p class="model__d">One priced project. Closed scope, defined success metrics, gated on the December review.</p>
+          <p class="model__k model__k--for">For</p>
+          <p class="model__b">Cleanest to invoice against given five months unpaid. Keeps the ₪10k strictly maintenance. Forces IKEA to define what “public launch” actually means.</p>
+          <p class="model__k model__k--against">Against</p>
+          <p class="model__b">Scope negotiation takes time we may not have before December.</p>
+        </article>
+        <article class="model">
+          <h3 class="model__t">Time &amp; materials<br><span>partnership</span></h3>
+          <p class="model__d">Bill the dynamic work as it happens, under a monthly cap.</p>
+          <p class="model__k model__k--for">For</p>
+          <p class="model__b">No renegotiation per feature. Matches how the work actually behaves. The direction the 22/7 refinement session leaned toward.</p>
+          <p class="model__k model__k--against">Against</p>
+          <p class="model__b">Weakest leverage on the arrears — open-ended billing to a client who hasn't paid is a hard sell internally. Needs a cap to be acceptable.</p>
+        </article>
+      </div>
+      <p class="foot foot--strong">Either way, two things hold: the retainer DoD goes in writing, and the eight G3 items are paid scope, not retainer.</p>
+    </section>
+
+    <!-- 9 -->
+    <section class="slide" data-label="Unknowns" data-notes="The purpose of this slide is defensive: nobody in this room should answer any of these with a guess in front of IKEA on Wednesday. If someone pushes for a capacity number, the answer is “after the load test,” not an estimate.">
+      <p class="eyebrow">08 &nbsp;/&nbsp; Honest gaps</p>
+      <h2 class="headline">What nobody knows yet — and shouldn't guess at on Wednesday.</h2>
+      <ul class="unknowns">
+        <li><span class="u-k">SLA &amp; committed capacity</span><span class="u-v">Not in the signed documents at all. Must be written before it can be met.</span></li>
+        <li><span class="u-k">WABA ownership &amp; Meta fees</span><span class="u-v">Whose account the customer phase runs on, and who absorbs per-conversation fees at volume.</span></li>
+        <li><span class="u-k">Order &amp; delivery APIs</span><span class="u-v">Whether IKEA will open them, having declined the receipts integration in June.</span></li>
+        <li><span class="u-k">CISO / DPO ruling</span><span class="u-v">What is permitted on external AI providers and on data retention.</span></li>
+        <li><span class="u-k">Real ceiling, real cost</span><span class="u-v">Concurrency and cost per conversation at customer volume — both untested.</span></li>
+        <li><span class="u-k">Service channel or commerce surface</span><span class="u-v">In-chat payment contradicts their in-store model. We should stop offering it until they ask.</span></li>
+      </ul>
+      <div class="callout">
+        <p class="callout__k">Already open on their side</p>
+        <p class="callout__v">Data-protection sign-off to send real customer messages to an external AI provider &nbsp;·&nbsp; whether +4–7s latency is acceptable for the ~87% cost saving.</p>
+      </div>
+    </section>
+
+    <!-- 10 -->
+    <section class="slide slide--ask" data-label="Decisions" data-notes="Do not leave the room without 1, 2 and 3. Four and five can be assigned rather than resolved. Read them out and capture the answer against each one on the runner sheet.">
+      <p class="eyebrow">09 &nbsp;/&nbsp; The ask</p>
+      <h2 class="headline">Five decisions, this morning.</h2>
+      <ol class="asks">
+        <li><span class="ask__n">1</span><span class="ask__b"><strong>Retainer definition of done</strong> — agreed as drafted, or amended? Nothing else works until this line exists.</span></li>
+        <li><span class="ask__n">2</span><span class="ask__b"><strong>Which commercial model do we open with</strong> — fixed-scope Phase 2, or T&amp;M with a monthly cap?</span></li>
+        <li><span class="ask__n">3</span><span class="ask__b"><strong>Who staffs 24/7 from Sun 02.08?</strong> Niv alone is not a plan and Taly is out that week. Same breath: what does Taly own by the customer phase, and who mentors the ramp?</span></li>
+        <li><span class="ask__n">4</span><span class="ask__b"><strong>Do we book CISO + DPO as one bundled session?</strong> One meeting unblocks both fraud detection and the customer phase.</span></li>
+        <li><span class="ask__n">5</span><span class="ask__b"><strong>Who owns the arrears conversation, and does it go before or after the scope reset?</strong> My view: same conversation — scope first, arrears as the consequence.</span></li>
+      </ol>
+    </section>
+
+    <!-- 11 -->
+    <section class="slide" data-label="This week" data-notes="Close by handing back time. If we agree the five, this is what I do without coming back to you. End on the Wednesday posture — that is the decision most likely to be reversed in the corridor afterwards.">
+      <p class="eyebrow">10 &nbsp;/&nbsp; If we agree</p>
+      <h2 class="headline">Then here is my week, without coming back to you.</h2>
+      <div class="week">
+        <div class="w-row"><span class="w-d">Mon–Tue</span><span class="w-b">Confirm fallback model routing is live in production. Name the 24/7 rota in writing and publish it to the team.</span></div>
+        <div class="w-row"><span class="w-d">Tue</span><span class="w-b">Retainer DoD written up and circulated for sign-off. Delta list sent for pricing.</span></div>
+        <div class="w-row w-row--flag"><span class="w-d">Wed</span><span class="w-b"><strong>Postpone the client meeting</strong> until the DoD is agreed internally. No future-ideas deck in that room — the conversation is scope and readiness, nothing else.</span></div>
+        <div class="w-row"><span class="w-d">Thu</span><span class="w-b">Request DynamoDB analytics access via Arnon. Draft the larger employee survey so it ships with the release.</span></div>
+        <div class="w-row"><span class="w-d">Sun 02.08</span><span class="w-b">1,500 employees. Opt-in only. No proactive messages to anyone who hasn't written first — enforced as a guard, not a promise.</span></div>
+      </div>
+      <p class="foot">Sources — quote 29.01.26 · work plan <span class="he">תוכנית עבודה IKEA Smart Agent</span> · SOW · status &amp; roadmap deck 13.07 · employee survey, 30 of 104, 20.07 · Efrat Zigler Gagatsis 20.07 · internal prep 27.07 · Arnon roadmap 27.07 · PoC handover 27.07 · status sync 22.07 · Trello “production (Scale)”.</p>
+    </section>
+
+  </div>
+
+  <div class="notes" id="notes" hidden>
+    <p class="notes__h">Presenter note</p>
+    <p class="notes__b" id="notesBody"></p>
+  </div>
+
+  <footer class="hud">
+    <button class="nav" id="prev" type="button" aria-label="Previous slide">←</button>
+    <span class="hud__label" id="hudLabel">Title</span>
+    <button class="nav" id="next" type="button" aria-label="Next slide">→</button>
+    <span class="hud__count"><span id="cur">1</span>&thinsp;/&thinsp;<span id="tot">11</span></span>
+    <button class="nav nav--wide" id="notesBtn" type="button" aria-pressed="false">Notes <kbd>N</kbd></button>
+  </footer>
+
+</div>
+
+<style>
+  :root {
+    --ink:      #0C1A1D;
+    --paper:    #ECEFEB;
+    --surface:  #F6F7F4;
+    --petrol:   #14585E;
+    --clay:     #A64B21;
+    --moss:     #47734C;
+    --mute:     #63767A;
+    --hair:     #C9D0CB;
+    --fg:       var(--ink);
+    --bg:       var(--paper);
+    --card:     var(--surface);
+
+    --sans: ui-sans-serif, -apple-system, "Segoe UI Variable Text", "Segoe UI", Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Bitstream Charter", Charter, "Source Serif Pro", Georgia, serif;
+    --mono: ui-monospace, "SF Mono", SFMono-Regular, "Cascadia Mono", Menlo, Consolas, "DejaVu Sans Mono", monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --ink:     #E6EBE7;
+      --paper:   #0B1417;
+      --surface: #121F22;
+      --petrol:  #5BB3B4;
+      --clay:    #DE8A5A;
+      --moss:    #82B489;
+      --mute:    #8FA2A3;
+      --hair:    #24373A;
+      --fg:      var(--ink);
+      --bg:      var(--paper);
+      --card:    var(--surface);
+    }
+  }
+  :root[data-theme="dark"] {
+    --ink:     #E6EBE7;
+    --paper:   #0B1417;
+    --surface: #121F22;
+    --petrol:  #5BB3B4;
+    --clay:    #DE8A5A;
+    --moss:    #82B489;
+    --mute:    #8FA2A3;
+    --hair:    #24373A;
+    --fg:      var(--ink);
+    --bg:      var(--paper);
+    --card:    var(--surface);
+  }
+  :root[data-theme="light"] {
+    --ink:     #0C1A1D;
+    --paper:   #ECEFEB;
+    --surface: #F6F7F4;
+    --petrol:  #14585E;
+    --clay:    #A64B21;
+    --moss:    #47734C;
+    --mute:    #63767A;
+    --hair:    #C9D0CB;
+    --fg:      var(--ink);
+    --bg:      var(--paper);
+    --card:    var(--surface);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .deck {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    padding: 0 0 0.75rem;
+  }
+
+  /* ---------- progress rail ---------- */
+  .rail {
+    height: 2px;
+    background: var(--hair);
+    flex: 0 0 auto;
+  }
+  .rail-fill {
+    height: 100%;
+    width: 0;
+    background: var(--petrol);
+    transition: width 260ms cubic-bezier(.4,0,.2,1);
+  }
+
+  /* ---------- stage ---------- */
+  .stage {
+    flex: 1 1 auto;
+    display: grid;
+    place-items: center;
+    padding: clamp(0.75rem, 2vw, 2rem);
+    min-height: 0;
+  }
+
+  .slide {
+    display: none;
+    container-type: inline-size;
+    width: min(100%, 1500px);
+    aspect-ratio: 16 / 9;
+    max-height: calc(100vh - 7rem);
+    background: var(--card);
+    border: 1px solid var(--hair);
+    padding: 5.2cqi 5.6cqi;
+    overflow: hidden;
+    position: relative;
+    flex-direction: column;
+  }
+  .slide.is-active {
+    display: flex;
+    animation: rise 320ms cubic-bezier(.2,.7,.3,1) both;
+  }
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .slide.is-active { animation: none; }
+    .rail-fill { transition: none; }
+  }
+
+  /* ---------- shared type ---------- */
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 1.28cqi;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--petrol);
+    margin: 0 0 3.2cqi;
+    flex: 0 0 auto;
+  }
+  .headline {
+    font-size: 4.3cqi;
+    line-height: 1.08;
+    letter-spacing: -0.028em;
+    font-weight: 650;
+    text-wrap: balance;
+    margin: 0 0 3.4cqi;
+    max-width: 22ch;
+    flex: 0 0 auto;
+  }
+  .foot {
+    font-size: 1.42cqi;
+    line-height: 1.5;
+    color: var(--mute);
+    margin: auto 0 0;
+    padding-top: 2.4cqi;
+    border-top: 1px solid var(--hair);
+  }
+  .foot--strong { color: var(--fg); font-size: 1.62cqi; }
+  .he { font-family: var(--sans); }
+
+  /* ---------- 1. title ---------- */
+  .slide--title { justify-content: center; }
+  .titlewrap { max-width: 82%; }
+  .slide--title .eyebrow { margin-bottom: 4.4cqi; }
+  .display {
+    font-size: 8.2cqi;
+    line-height: 0.98;
+    letter-spacing: -0.04em;
+    font-weight: 680;
+    margin: 0 0 3.6cqi;
+  }
+  .standfirst {
+    font-family: var(--serif);
+    font-size: 2.5cqi;
+    line-height: 1.4;
+    color: var(--fg);
+    margin: 0 0 6cqi;
+    max-width: 34ch;
+  }
+  .byline {
+    display: flex;
+    align-items: center;
+    gap: 1.6cqi;
+    font-family: var(--mono);
+    font-size: 1.34cqi;
+    letter-spacing: 0.06em;
+    color: var(--mute);
+    flex-wrap: wrap;
+  }
+  .byline .sep { width: 2.4cqi; height: 1px; background: var(--hair); }
+
+  /* ---------- 2. stats ---------- */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 1px;
+    background: var(--hair);
+    border: 1px solid var(--hair);
+    margin-bottom: 3.4cqi;
+    flex: 0 0 auto;
+  }
+  .stat {
+    background: var(--card);
+    padding: 2cqi 1.7cqi;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7cqi;
+  }
+  .stat--good { grid-column: span 6; }
+  .stat--good .stat__n { color: var(--moss); }
+  .stat__n {
+    font-size: 3cqi;
+    font-weight: 640;
+    letter-spacing: -0.03em;
+    font-variant-numeric: tabular-nums;
+  }
+  .stat__l {
+    font-size: 1.28cqi;
+    line-height: 1.35;
+    color: var(--mute);
+  }
+  .unresolved {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5cqi;
+    font-size: 1.82cqi;
+  }
+  .unresolved li { display: flex; align-items: baseline; gap: 1.4cqi; }
+
+  /* ---------- chips ---------- */
+  .chip {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 1.06cqi;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+    padding: 0.42em 0.75em;
+    border: 1px solid var(--hair);
+    color: var(--mute);
+    white-space: nowrap;
+    flex: 0 0 auto;
+  }
+  .chip--open { color: var(--clay); border-color: color-mix(in oklab, var(--clay) 40%, transparent); }
+  .chip--good { color: var(--moss); border-color: color-mix(in oklab, var(--moss) 40%, transparent); }
+
+  /* ---------- 3. timeline ---------- */
+  .timeline {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2.6cqi;
+    position: relative;
+    padding-top: 2.4cqi;
+    margin-bottom: 3.6cqi;
+    flex: 0 0 auto;
+  }
+  .tl-track {
+    position: absolute;
+    top: 0.55cqi;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: var(--hair);
+  }
+  .tl-node { position: relative; padding-right: 1.6cqi; }
+  .tl-node::before {
+    content: "";
+    position: absolute;
+    top: -2.05cqi;
+    left: 0;
+    width: 1.1cqi;
+    height: 1.1cqi;
+    border-radius: 50%;
+    background: var(--hair);
+  }
+  .tl-node--now::before { background: var(--clay); }
+  .tl-date {
+    display: block;
+    font-family: var(--mono);
+    font-size: 1.2cqi;
+    letter-spacing: 0.1em;
+    color: var(--petrol);
+    margin-bottom: 0.9cqi;
+  }
+  .tl-node--now .tl-date { color: var(--clay); }
+  .tl-body { display: block; font-size: 1.56cqi; line-height: 1.42; }
+  .tl-body em { color: var(--mute); font-style: normal; }
+
+  /* ---------- callout ---------- */
+  .callout {
+    border-left: 2px solid var(--petrol);
+    padding: 0.2cqi 0 0.2cqi 2.4cqi;
+    margin: auto 0 0;
+  }
+  .callout--open { border-left-color: var(--clay); }
+  .callout__k {
+    font-family: var(--mono);
+    font-size: 1.14cqi;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--mute);
+    margin: 0 0 1cqi;
+  }
+  .callout__v {
+    font-size: 1.72cqi;
+    line-height: 1.5;
+    margin: 0;
+    max-width: 74ch;
+  }
+
+  /* ---------- 4. thesis ---------- */
+  .slide--thesis { justify-content: center; }
+  .thesis {
+    font-family: var(--serif);
+    font-size: 6.6cqi;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin: 0 0 4cqi;
+    max-width: 90%;
+  }
+  .thesis em { color: var(--clay); font-style: italic; }
+  .thesis__sub {
+    font-size: 2.2cqi;
+    line-height: 1.5;
+    max-width: 52ch;
+    color: var(--fg);
+    margin: 0;
+    padding-left: 0.1cqi;
+  }
+
+  /* ---------- 5. gates ---------- */
+  .gates {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1px;
+    background: var(--hair);
+    border: 1px solid var(--hair);
+    flex: 1 1 auto;
+    min-height: 0;
+  }
+  .gate {
+    background: var(--card);
+    padding: 2.2cqi 1.8cqi;
+    display: flex;
+    flex-direction: column;
+    gap: 1.1cqi;
+  }
+  .gate--now { background: color-mix(in oklab, var(--petrol) 8%, var(--card)); }
+  .gate__code {
+    font-family: var(--mono);
+    font-size: 2.4cqi;
+    font-weight: 600;
+    color: var(--petrol);
+    margin: 0;
+    letter-spacing: -0.01em;
+  }
+  .gate__when {
+    font-family: var(--mono);
+    font-size: 1.1cqi;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--mute);
+    margin: -0.6cqi 0 0;
+  }
+  .gate__t {
+    font-size: 1.72cqi;
+    line-height: 1.22;
+    font-weight: 620;
+    letter-spacing: -0.012em;
+    margin: 0.4cqi 0 0;
+  }
+  .gate__b {
+    font-size: 1.3cqi;
+    line-height: 1.48;
+    color: var(--mute);
+    margin: 0;
+  }
+
+  /* ---------- 6. eight gates ---------- */
+  .grid8 {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--hair);
+    border: 1px solid var(--hair);
+    flex: 1 1 auto;
+    min-height: 0;
+  }
+  .g8 {
+    background: var(--card);
+    padding: 1.8cqi 1.6cqi;
+    display: flex;
+    flex-direction: column;
+    gap: 0.9cqi;
+  }
+  .g8 h3 {
+    font-size: 1.62cqi;
+    line-height: 1.2;
+    letter-spacing: -0.012em;
+    font-weight: 620;
+    margin: 0;
+  }
+  .g8 p {
+    font-size: 1.22cqi;
+    line-height: 1.45;
+    color: var(--mute);
+    margin: 0;
+  }
+  .g8 em { font-style: italic; color: var(--fg); }
+  .g8__s {
+    margin-top: auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6cqi;
+    padding-top: 0.8cqi;
+  }
+  .g8__s .chip { font-size: 0.94cqi; }
+
+  /* ---------- 7. split ---------- */
+  .split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--hair);
+    border: 1px solid var(--hair);
+    flex: 1 1 auto;
+    min-height: 0;
+  }
+  .col {
+    background: var(--card);
+    padding: 2.4cqi 2.2cqi;
+    display: flex;
+    flex-direction: column;
+    gap: 1.8cqi;
+  }
+  .col__h { margin: 0; }
+  .list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.15cqi;
+    font-size: 1.5cqi;
+    line-height: 1.35;
+  }
+  .list li { padding-left: 1.5cqi; position: relative; }
+  .list li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.62em;
+    width: 0.62cqi;
+    height: 1px;
+    background: var(--hair);
+  }
+  .list em { font-style: normal; color: var(--mute); }
+
+  /* ---------- 8. models ---------- */
+  .models {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--hair);
+    border: 1px solid var(--hair);
+    flex: 1 1 auto;
+    min-height: 0;
+    margin-bottom: 0;
+  }
+  .model {
+    background: var(--card);
+    padding: 2.4cqi 2.2cqi;
+    display: flex;
+    flex-direction: column;
+    gap: 1.1cqi;
+  }
+  .model__t {
+    font-size: 2.15cqi;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    font-weight: 640;
+    margin: 0 0 0.5cqi;
+  }
+  .model__t span { color: var(--mute); font-weight: 500; }
+  .model__d { font-size: 1.46cqi; line-height: 1.45; margin: 0 0 0.6cqi; }
+  .model__k {
+    font-family: var(--mono);
+    font-size: 1.04cqi;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    margin: 0;
+  }
+  .model__k--for { color: var(--moss); }
+  .model__k--against { color: var(--clay); }
+  .model__b { font-size: 1.36cqi; line-height: 1.48; color: var(--mute); margin: 0; }
+
+  /* ---------- 9. unknowns ---------- */
+  .unknowns {
+    list-style: none;
+    margin: 0 0 3cqi;
+    padding: 0;
+    display: grid;
+    gap: 1px;
+    background: var(--hair);
+    border-top: 1px solid var(--hair);
+    border-bottom: 1px solid var(--hair);
+    flex: 0 0 auto;
+  }
+  .unknowns li {
+    background: var(--card);
+    display: grid;
+    grid-template-columns: 30% 1fr;
+    gap: 2.4cqi;
+    padding: 1.35cqi 0;
+    align-items: baseline;
+  }
+  .u-k {
+    font-family: var(--mono);
+    font-size: 1.2cqi;
+    letter-spacing: 0.07em;
+    color: var(--petrol);
+    text-transform: uppercase;
+  }
+  .u-v { font-size: 1.5cqi; line-height: 1.4; }
+
+  /* ---------- 10. asks ---------- */
+  .slide--ask .headline { margin-bottom: 3cqi; }
+  .asks {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    background: var(--hair);
+    border-top: 1px solid var(--hair);
+    border-bottom: 1px solid var(--hair);
+    flex: 1 1 auto;
+    min-height: 0;
+  }
+  .asks li {
+    background: var(--card);
+    display: grid;
+    grid-template-columns: 5cqi 1fr;
+    gap: 1.6cqi;
+    align-items: baseline;
+    padding: 1.55cqi 0;
+    flex: 1 1 0;
+  }
+  .ask__n {
+    font-family: var(--mono);
+    font-size: 2.3cqi;
+    font-weight: 600;
+    color: var(--petrol);
+    font-variant-numeric: tabular-nums;
+  }
+  .ask__b { font-size: 1.66cqi; line-height: 1.42; max-width: 78ch; }
+  .ask__b strong { font-weight: 640; }
+
+  /* ---------- 11. week ---------- */
+  .week {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    background: var(--hair);
+    border-top: 1px solid var(--hair);
+    border-bottom: 1px solid var(--hair);
+    flex: 0 0 auto;
+  }
+  .w-row {
+    background: var(--card);
+    display: grid;
+    grid-template-columns: 16% 1fr;
+    gap: 2.4cqi;
+    padding: 1.5cqi 0;
+    align-items: baseline;
+  }
+  .w-d {
+    font-family: var(--mono);
+    font-size: 1.24cqi;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--petrol);
+  }
+  .w-b { font-size: 1.56cqi; line-height: 1.42; }
+  .w-row--flag .w-d { color: var(--clay); }
+
+  /* ---------- notes ---------- */
+  .notes {
+    flex: 0 0 auto;
+    margin: 0 clamp(0.75rem, 2vw, 2rem);
+    padding: 0.9rem 1.1rem;
+    border: 1px solid var(--hair);
+    border-left: 2px solid var(--clay);
+    background: var(--card);
+    max-width: 1500px;
+    align-self: center;
+    width: calc(100% - clamp(1.5rem, 4vw, 4rem));
+  }
+  .notes[hidden] { display: none; }
+  .notes__h {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--clay);
+    margin: 0 0 0.4rem;
+  }
+  .notes__b { font-size: 0.86rem; line-height: 1.55; margin: 0; color: var(--fg); }
+
+  /* ---------- hud ---------- */
+  .hud {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.5rem clamp(0.75rem, 2vw, 2rem) 0;
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--mute);
+    letter-spacing: 0.08em;
+  }
+  .hud__label {
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    min-width: 12ch;
+  }
+  .hud__count {
+    margin-left: auto;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.1em;
+  }
+  .nav {
+    font: inherit;
+    background: transparent;
+    color: var(--fg);
+    border: 1px solid var(--hair);
+    padding: 0.3rem 0.62rem;
+    cursor: pointer;
+    line-height: 1;
+  }
+  .nav:hover { border-color: var(--petrol); color: var(--petrol); }
+  .nav:focus-visible { outline: 2px solid var(--petrol); outline-offset: 2px; }
+  .nav[aria-pressed="true"] { border-color: var(--clay); color: var(--clay); }
+  .nav--wide { margin-left: 0.9rem; }
+  .nav kbd { font: inherit; opacity: 0.55; }
+
+  /* ---------- narrow screens ---------- */
+  @media (max-width: 820px) {
+    .slide {
+      aspect-ratio: auto;
+      max-height: none;
+      min-height: calc(100vh - 8rem);
+      padding: 7cqi 6cqi;
+    }
+    .stats { grid-template-columns: repeat(2, 1fr); }
+    .stat--good { grid-column: span 2; }
+    .stat__n { font-size: 5cqi; }
+    .stat__l { font-size: 2.4cqi; }
+    .timeline, .gates, .grid8, .split, .models { grid-template-columns: 1fr; }
+    .unknowns li, .w-row, .asks li { grid-template-columns: 1fr; gap: 0.8cqi; padding: 2.4cqi 0; }
+    .tl-track { display: none; }
+    .tl-node::before { display: none; }
+    .headline { font-size: 6.6cqi; }
+    .display { font-size: 11cqi; }
+    .thesis { font-size: 9cqi; }
+    .eyebrow, .u-k, .w-d, .tl-date, .gate__when { font-size: 2.2cqi; }
+    .standfirst, .thesis__sub { font-size: 3.6cqi; }
+    .tl-body, .u-v, .w-b, .ask__b, .callout__v, .list, .g8 p, .gate__b, .model__b, .model__d, .unresolved { font-size: 2.7cqi; }
+    .gate__t, .g8 h3 { font-size: 3.2cqi; }
+    .chip, .g8__s .chip { font-size: 1.9cqi; }
+    .foot { font-size: 2.2cqi; }
+  }
+
+  /* ---------- print: one slide per page ---------- */
+  @media print {
+    .hud, .rail, .notes { display: none !important; }
+    .deck { display: block; }
+    .stage { display: block; padding: 0; }
+    .slide {
+      display: flex !important;
+      break-after: page;
+      aspect-ratio: 16 / 9;
+      max-height: none;
+      width: 100%;
+      border: none;
+      animation: none;
+    }
+  }
+</style>
+
+<script>
+  (function () {
+    var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+    var railFill = document.getElementById('railFill');
+    var curEl = document.getElementById('cur');
+    var totEl = document.getElementById('tot');
+    var labelEl = document.getElementById('hudLabel');
+    var notesEl = document.getElementById('notes');
+    var notesBody = document.getElementById('notesBody');
+    var notesBtn = document.getElementById('notesBtn');
+    var i = 0;
+    var notesOn = false;
+
+    totEl.textContent = slides.length;
+
+    function render() {
+      slides.forEach(function (s, n) { s.classList.toggle('is-active', n === i); });
+      curEl.textContent = i + 1;
+      labelEl.textContent = slides[i].dataset.label || '';
+      railFill.style.width = ((i + 1) / slides.length * 100) + '%';
+      notesBody.textContent = slides[i].dataset.notes || 'No note for this slide.';
+      if (location.hash !== '#' + (i + 1)) {
+        history.replaceState(null, '', '#' + (i + 1));
+      }
+    }
+
+    function go(n) {
+      i = Math.max(0, Math.min(slides.length - 1, n));
+      render();
+    }
+
+    function toggleNotes() {
+      notesOn = !notesOn;
+      notesEl.hidden = !notesOn;
+      notesBtn.setAttribute('aria-pressed', String(notesOn));
+    }
+
+    document.getElementById('prev').addEventListener('click', function () { go(i - 1); });
+    document.getElementById('next').addEventListener('click', function () { go(i + 1); });
+    notesBtn.addEventListener('click', toggleNotes);
+
+    document.addEventListener('keydown', function (e) {
+      if (e.metaKey || e.ctrlKey || e.altKey) return;
+      var k = e.key;
+      if (k === 'ArrowRight' || k === 'PageDown' || k === ' ') { e.preventDefault(); go(i + 1); }
+      else if (k === 'ArrowLeft' || k === 'PageUp') { e.preventDefault(); go(i - 1); }
+      else if (k === 'Home') { e.preventDefault(); go(0); }
+      else if (k === 'End') { e.preventDefault(); go(slides.length - 1); }
+      else if (k === 'n' || k === 'N') { e.preventDefault(); toggleNotes(); }
+    });
+
+    var start = parseInt((location.hash || '').replace('#', ''), 10);
+    go(isNaN(start) ? 0 : start - 1);
+  })();
+</script>
