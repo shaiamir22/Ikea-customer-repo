@@ -14,7 +14,7 @@ Review project status, address stability issues, and plan for the upcoming emplo
 - **Public launch decision (Dec):** the CEO will review agent performance in December to decide on a public launch. Success is critical to secure investment from the American owners, who hold high performance standards. The CEO will be added to the agent's user list for a passive review in the meantime.
 - **Strategic feature priority:** integrating with the delivery/assembly status system is the top priority — it automates a high-volume customer service query and reduces call center load. Strategic focus stays on shopping assistance, not design tools.
 - **Future vision (phase 3):** capture the full customer journey by linking agent interactions to in-store purchases; add food menus, allergy info, and mobile ordering for the restaurant.
-- **Planning cadence:** a new team member ("Pistachio") will help structure a formal roadmap (short/medium/long-term) to avoid the unfocused effort of the past.
+- **Planning cadence:** Shai, newly onto the account, will structure a formal roadmap (short/medium/long-term) to avoid the unfocused effort of the past. (He is referred to by a nickname — "פיסטוק" / "Pistachio" — throughout the Hebrew recordings; it is not a second person.)
 - Business framing: the agent is seen internally as a "game-changer" for product-catalog search and assembly guidance, already surpassing the official IKEA website — a stable launch is non-negotiable to avoid negative internal perception.
 
 ## Next steps
