@@ -1,0 +1,874 @@
+<title>IKEA Smart Agent v1 — Engineering Briefing</title>
+
+<style>
+  :root {
+    --paper:      #FCFBF8;
+    --paper-2:    #F4F2EC;
+    --ink:        #16202A;
+    --ink-soft:   #4A5A69;
+    --ink-faint:  #7C8996;
+    --blue:       #1F5C8B;
+    --blue-wash:  #E8EFF5;
+    --signal:     #B4471F;
+    --signal-wash:#F7EAE3;
+    --good:       #33694C;
+    --good-wash:  #E7EFE9;
+    --rule:       #DCD8CF;
+    --rule-hard:  #B9B4A9;
+
+    --sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+    --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+
+    --measure: 74ch;
+    --step:    clamp(1.6rem, 3.5vw, 2.6rem);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --paper:      #101820;
+      --paper-2:    #18222C;
+      --ink:        #E8E6E1;
+      --ink-soft:   #A8B4BF;
+      --ink-faint:  #74828E;
+      --blue:       #6FA8CF;
+      --blue-wash:  #172C3B;
+      --signal:     #E08356;
+      --signal-wash:#33201A;
+      --good:       #6FAE8A;
+      --good-wash:  #17291F;
+      --rule:       #2A3440;
+      --rule-hard:  #3C4854;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper:      #101820;
+    --paper-2:    #18222C;
+    --ink:        #E8E6E1;
+    --ink-soft:   #A8B4BF;
+    --ink-faint:  #74828E;
+    --blue:       #6FA8CF;
+    --blue-wash:  #172C3B;
+    --signal:     #E08356;
+    --signal-wash:#33201A;
+    --good:       #6FAE8A;
+    --good-wash:  #17291F;
+    --rule:       #2A3440;
+    --rule-hard:  #3C4854;
+  }
+  :root[data-theme="light"] {
+    --paper:      #FCFBF8;
+    --paper-2:    #F4F2EC;
+    --ink:        #16202A;
+    --ink-soft:   #4A5A69;
+    --ink-faint:  #7C8996;
+    --blue:       #1F5C8B;
+    --blue-wash:  #E8EFF5;
+    --signal:     #B4471F;
+    --signal-wash:#F7EAE3;
+    --good:       #33694C;
+    --good-wash:  #E7EFE9;
+    --rule:       #DCD8CF;
+    --rule-hard:  #B9B4A9;
+  }
+
+  * { box-sizing: border-box; }
+
+  .sheet {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    padding: 0 clamp(1rem, 4vw, 3rem) 6rem;
+  }
+
+  .wrap {
+    max-width: 62rem;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 3.25rem;
+  }
+
+  /* ---------- masthead ---------- */
+
+  .masthead {
+    border-bottom: 2px solid var(--ink);
+    padding: 3rem 0 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+  .stamp {
+    font-family: var(--mono);
+    font-size: .7rem;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--blue);
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem 1.25rem;
+  }
+  .stamp b { color: var(--signal); font-weight: 600; }
+  .masthead h1 {
+    font-size: var(--step);
+    line-height: 1.08;
+    letter-spacing: -.025em;
+    font-weight: 750;
+    margin: 0;
+    text-wrap: balance;
+    max-width: 20ch;
+  }
+  .masthead .standfirst {
+    max-width: var(--measure);
+    color: var(--ink-soft);
+    font-size: 1.02rem;
+    margin: 0;
+  }
+  .meta-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+    gap: 1rem 1.5rem;
+    border-top: 1px solid var(--rule);
+    padding-top: 1.25rem;
+  }
+  .meta-grid div { display: flex; flex-direction: column; gap: .2rem; }
+  .meta-grid dt,
+  .lbl {
+    font-family: var(--mono);
+    font-size: .66rem;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+  .meta-grid dd { margin: 0; font-size: .92rem; font-weight: 550; }
+
+  /* ---------- sections ---------- */
+
+  .sec { display: flex; flex-direction: column; gap: 1.1rem; }
+  .sec > p, .sec > ul, .sec > ol { max-width: var(--measure); margin: 0; }
+  .sec ul, .sec ol { padding-left: 1.15rem; display: flex; flex-direction: column; gap: .5rem; }
+
+  .sec-head {
+    display: flex;
+    align-items: baseline;
+    gap: .85rem;
+    border-bottom: 1px solid var(--rule-hard);
+    padding-bottom: .55rem;
+  }
+  .sec-head .num {
+    font-family: var(--mono);
+    font-size: .8rem;
+    font-weight: 600;
+    color: var(--blue);
+    letter-spacing: .06em;
+  }
+  .sec-head h2 {
+    font-size: 1.32rem;
+    letter-spacing: -.017em;
+    font-weight: 700;
+    margin: 0;
+    flex: 1;
+    text-wrap: balance;
+  }
+  .sec-head .aside {
+    font-family: var(--mono);
+    font-size: .68rem;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+
+  h3 {
+    font-size: 1rem;
+    letter-spacing: -.008em;
+    font-weight: 680;
+    margin: .6rem 0 0;
+  }
+
+  /* ---------- callout ---------- */
+
+  .call {
+    border-left: 3px solid var(--blue);
+    background: var(--blue-wash);
+    padding: 1rem 1.15rem;
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    max-width: var(--measure);
+  }
+  .call.warn { border-left-color: var(--signal); background: var(--signal-wash); }
+  .call p { margin: 0; }
+  .call .lbl { color: var(--blue); }
+  .call.warn .lbl { color: var(--signal); }
+
+  /* ---------- tables ---------- */
+
+  .scroll { overflow-x: auto; border: 1px solid var(--rule); }
+  table { border-collapse: collapse; width: 100%; font-size: .87rem; min-width: 34rem; }
+  thead th {
+    text-align: left;
+    font-family: var(--mono);
+    font-size: .64rem;
+    letter-spacing: .13em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    font-weight: 600;
+    padding: .7rem .8rem;
+    background: var(--paper-2);
+    border-bottom: 1px solid var(--rule-hard);
+    white-space: nowrap;
+  }
+  tbody td { padding: .68rem .8rem; border-bottom: 1px solid var(--rule); vertical-align: top; }
+  tbody tr:last-child td { border-bottom: 0; }
+  .num-col { font-variant-numeric: tabular-nums; text-align: right; white-space: nowrap; }
+  td code, .code {
+    font-family: var(--mono);
+    font-size: .82em;
+    color: var(--blue);
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  /* ---------- estimate slot ---------- */
+
+  .slot {
+    display: inline-block;
+    min-width: 3.2rem;
+    border-bottom: 1.5px dotted var(--rule-hard);
+    text-align: center;
+    font-family: var(--mono);
+    font-size: .78rem;
+    color: var(--ink-faint);
+  }
+  .slot::after { content: "\00a0"; }
+  .slot-hd { color: var(--signal) !important; }
+
+  /* ---------- pills ---------- */
+
+  .pill {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: .63rem;
+    letter-spacing: .09em;
+    text-transform: uppercase;
+    font-weight: 600;
+    padding: .17rem .45rem;
+    border: 1px solid currentColor;
+    white-space: nowrap;
+  }
+  .pill.in   { color: var(--good); }
+  .pill.out  { color: var(--ink-faint); }
+  .pill.risk { color: var(--signal); }
+  .pill.open { color: var(--blue); }
+
+  /* ---------- scope columns ---------- */
+
+  .cols {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+    gap: 1.5rem;
+  }
+  .col { display: flex; flex-direction: column; gap: .6rem; }
+  .col > ul { margin: 0; padding-left: 1.1rem; font-size: .9rem; }
+  .col-head {
+    display: flex; align-items: center; gap: .5rem;
+    border-bottom: 1px solid var(--rule); padding-bottom: .4rem;
+  }
+
+  /* ---------- release rail ---------- */
+
+  .rail { display: flex; flex-direction: column; gap: 0; }
+  .rel {
+    display: grid;
+    grid-template-columns: 4.5rem 1fr;
+    gap: 0 1.25rem;
+    border-top: 1px solid var(--rule);
+    padding: 1.15rem 0;
+  }
+  .rel:first-child { border-top: 1px solid var(--rule-hard); }
+  .rel-id {
+    font-family: var(--mono);
+    font-weight: 700;
+    font-size: 1.05rem;
+    color: var(--blue);
+    letter-spacing: -.01em;
+  }
+  .rel-when {
+    font-family: var(--mono);
+    font-size: .64rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-top: .15rem;
+    display: block;
+  }
+  .rel-body { display: flex; flex-direction: column; gap: .5rem; min-width: 0; }
+  .rel-body h3 { margin: 0; font-size: 1.02rem; }
+  .rel-body p { margin: 0; font-size: .92rem; max-width: var(--measure); }
+  .rel-body .ships { font-size: .85rem; color: var(--ink-soft); }
+  .rel.gate { background: var(--paper-2); padding-left: .75rem; padding-right: .75rem; }
+  .rel.gate .rel-id { color: var(--signal); }
+
+  /* ---------- checklist ---------- */
+
+  .check { list-style: none; padding: 0 !important; }
+  .check li {
+    display: grid;
+    grid-template-columns: 1.4rem 1fr;
+    gap: .6rem;
+    font-size: .91rem;
+    align-items: start;
+  }
+  .check li::before {
+    content: "";
+    width: .82rem; height: .82rem;
+    border: 1.5px solid var(--rule-hard);
+    margin-top: .32rem;
+  }
+
+  /* ---------- footer ---------- */
+
+  .foot {
+    border-top: 2px solid var(--ink);
+    padding-top: 1.25rem;
+    font-size: .82rem;
+    color: var(--ink-faint);
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    max-width: var(--measure);
+  }
+  .foot a { color: var(--blue); }
+
+  strong { font-weight: 680; }
+  em { font-style: italic; }
+
+  @media print {
+    .sheet { padding: 0; font-size: 11pt; }
+    .sec, .rel { break-inside: avoid; }
+    .scroll { overflow: visible; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+  }
+</style>
+
+<div class="sheet">
+<div class="wrap">
+
+  <header class="masthead">
+    <div class="stamp">
+      <span>Moveo&nbsp;×&nbsp;IKEA</span>
+      <span>Build sheet — v1</span>
+      <span>2026-07-28</span>
+      <span><b>Review: Sun 2026-08-02</b></span>
+    </div>
+    <h1>IKEA Smart Agent v1 — engineering briefing</h1>
+    <p class="standfirst">
+      The product half of the Sunday work plan. Every job and objective below is written to be
+      estimated in dev-days, sequenced, and given dependencies. <strong>The technical breakdown is
+      yours</strong> — this sheet defines what we are building and what bar it has to clear, not how
+      long it takes. The blank slots are for you to fill.
+    </p>
+    <dl class="meta-grid">
+      <div><dt>Product owner</dt><dd>Shai Amir</dd></div>
+      <div><dt>Breakdown owed by</dt><dd>Tali &amp; Niv, with Arnon</dd></div>
+      <div><dt>Full spec</dt><dd class="code">IKEA_WhatsApp_Shopping_Agent_PRD.md</dd></div>
+      <div><dt>Release plan</dt><dd class="code">2026-07-28-release-plan-to-december.md</dd></div>
+    </dl>
+  </header>
+
+  <!-- 00 -->
+  <section class="sec">
+    <div class="sec-head">
+      <span class="num">00</span>
+      <h2>Start here — the reframe everything else follows from</h2>
+    </div>
+    <div class="call">
+      <span class="lbl">The frame</span>
+      <p><strong>December is a decision gate, not a launch date.</strong> What goes in front of
+      IKEA's CEO is a working single-branch customer pilot plus data — not a promise of national
+      coverage. Scope is deliberately narrowed to be achievable with the team we actually have.</p>
+    </div>
+    <p>Two consequences that should shape how you estimate:</p>
+    <ul>
+      <li><strong>One branch, not the country.</strong> Netanya, live with real customers. National rollout is what December <em>decides</em>, not what December ships.</li>
+      <li><strong>The SLA has to be authored, not looked up.</strong> No latency, accuracy or concurrency figure exists anywhere in the SOW or the quote. Section 03 is our proposed bar — it is a draft to argue with on Sunday, not a given.</li>
+    </ul>
+    <div class="call warn">
+      <span class="lbl">Raise Sunday morning</span>
+      <p>The work-plan review and the 1,500-employee release <strong>land on the same day</strong>.
+      Separate them or explicitly staff both. Also: Tali is out for two weeks from that same Sunday,
+      so the on-call rota cannot assume her.</p>
+    </div>
+  </section>
+
+  <!-- 01 -->
+  <section class="sec">
+    <div class="sec-head">
+      <span class="num">01</span>
+      <h2>What v1 is — and what it deliberately is not</h2>
+      <span class="aside">Definition of done</span>
+    </div>
+    <p>The shopping assistant IKEA can put in front of real customers at one branch, with the
+    operational evidence to decide whether it goes national.</p>
+    <div class="cols">
+      <div class="col">
+        <div class="col-head"><span class="pill in">In v1</span></div>
+        <ul>
+          <li>Product search &amp; discovery — 25,480 live products</li>
+          <li>Stock availability by branch — 122K records, 5 branches</li>
+          <li>Product detail, comparison, recommendations</li>
+          <li>In-store navigation — aisle &amp; bin</li>
+          <li>Favorites basket — 30-day cart</li>
+          <li>Delivery &amp; assembly status <em>(IKEA's top priority)</em></li>
+          <li>Human escalation with conversation context</li>
+          <li>Hebrew primary, English secondary</li>
+        </ul>
+      </div>
+      <div class="col">
+        <div class="col-head"><span class="pill out">Out of v1</span></div>
+        <ul>
+          <li>The LLM-sandwich re-architecture <em>(Phase 3 enabler — see 04)</em></li>
+          <li>Search quality on semantically complex queries <em>(&quot;ארונית קלה&quot; → &quot;כוורת&quot;)</em></li>
+          <li>Photo→SKU recognition <em>(decision owed — OQ-12)</em></li>
+          <li>Fraud detection <em>(CISO-gated, separate workstream)</em></li>
+          <li>Arabic and French</li>
+          <li>In-chat payment / checkout</li>
+          <li>Push and proactive messaging <em>(forbidden by Efrat's rule)</em></li>
+          <li>Restaurant menus, allergy info, mobile ordering</li>
+          <li>National rollout</li>
+        </ul>
+      </div>
+    </div>
+    <div class="call">
+      <span class="lbl">Standing rule, agreed 2026-07-28</span>
+      <p>When a new request arrives mid-flight, <strong>stop and name it as new scope</strong> rather
+      than letting it land in the retainer by default. This already happened once — data arrived from
+      Shuki and Nathan and entered development with no scope decision attached.</p>
+    </div>
+  </section>
+
+  <!-- 02 -->
+  <section class="sec">
+    <div class="sec-head">
+      <span class="num">02</span>
+      <h2>Jobs to be done — estimate each one</h2>
+      <span class="aside">J01–J15</span>
+    </div>
+    <p>Written from the user's side. Most of the employee jobs are largely built — the estimate is
+    the delta to reach the quality bar in section 03, not a rebuild. Say so where that delta is zero.</p>
+
+    <h3>Employee jobs · live Sun 2026-08-02</h3>
+    <div class="scroll">
+      <table>
+        <thead>
+          <tr><th>ID</th><th>Job</th><th>Note</th><th class="num-col slot-hd">Dev-days</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>J01</code></td>
+            <td>Check whether a product is in stock at my branch, without leaving the customer to find a terminal</td>
+            <td>Must state branch + quantity band, and say plainly when stock is unknown rather than guessing</td>
+            <td class="num-col"><span class="slot"></span></td>
+          </tr>
+          <tr>
+            <td><code>J02</code></td>
+            <td>Get the aisle and bin location so I can direct a customer precisely</td>
+            <td>Distinguish showroom / self-serve / warehouse-only</td>
+            <td class="num-col"><span class="slot"></span></td>
+          </tr>
+          <tr>
+            <td><code>J03</code></td>
+            <td>Surface plausible products when a customer describes rather than names what they need</td>
+            <td>Semantically complex queries explicitly <strong>excluded</strong> from the December bar</td>
+            <td class="num-col"><span class="slot"></span></td>
+          </tr>
+          <tr>
+            <td><code>J04</code></td>
+            <td>Get delivery and assembly status so I don't hand the customer to the call centre</td>
+            <td>IKEA's top strategic feature. Tracking link needs end-to-end test, reported to Avi</td>
+            <td class="num-col"><span class="slot"></span></td>
+          </tr>
+          <tr>
+            <td><code>J05</code></td>
+            <td>Report a bad answer in one tap, so the failure becomes an eval case</td>
+            <td>Feeds the eval pipeline in O5. New build</td>
+            <td class="num-col"><span class="slot"></span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Customer jobs · Netanya pilot</h3>
+    <div class="scroll">
+      <table>
+        <thead>
+          <tr><th>ID</th><th>Job</th><th>Note</th><th class="num-col slot-hd">Dev-days</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>J06</code></td>
+            <td>Scan a QR in-store and start chatting without installing anything</td>
+            <td>Entry at entrance, self-serve area, checkout. Blocked on Meta template approval</td>
+            <td class="num-col"><span class="slot"></span></td>
+          </tr>
+          <tr>
+            <td><code>J07</code></td>
+            <td>Know I'm talking to AI and what happens to my data, before I continue</td>
+            <td>Privacy notice on first contact. Blocked on DPO ruling</td>
+            <td class="num-col"><span class="slot"></span></td>
+          </tr>
+          <tr>
+            <td><code>J08</code></td>
+            <td>Get handed to a human <em>with my conversation attached</em>, so I don't repeat myself</td>
+            <td>Without this, a customer launch moves load <em>onto</em> the call centre — which contradicts the business case</td>
+            <td class="num-col"><span class="slot"></span></td>
+          </tr>
+          <tr>
+            <td><code>J09</code></td>
+            <td>Check an order I already placed, so I don't call the service centre</td>
+            <td>Needs IKEA order/delivery API access — declined once in June (OQ-14)</td>
+            <td class="num-col"><span class="slot"></span></td>
+          </tr>
+          <tr>
+            <td><code>J10</code></td>
+            <td>Be understood writing Hebrew the way I actually speak — abbreviations, typos, colloquial names</td>
+            <td>Hebrew robustness only. Arabic/French are out of v1</td>
+            <td class="num-col"><span class="slot"></span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Operator jobs · these exist because they're manual or impossible today</h3>
+    <div class="scroll">
+      <table>
+        <thead>
+          <tr><th>ID</th><th>Job</th><th>Note</th><th class="num-col slot-hd">Dev-days</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>J11</code></td>
+            <td>The agent fails over automatically when the primary model provider dies</td>
+            <td><span class="pill risk">Blocks 08-02</span> Verified by fault injection, not by waiting for the next outage</td>
+            <td class="num-col"><span class="slot"></span></td>
+          </tr>
+          <tr>
+            <td><code>J12</code></td>
+            <td>A named person is on call at 21:00 on release day, with a written response policy</td>
+            <td><span class="pill risk">Blocks 08-02</span> Policy, not code — but it has to exist in writing</td>
+            <td class="num-col">—</td>
+          </tr>
+          <tr>
+            <td><code>J13</code></td>
+            <td>Know whether quality is holding from an automated eval run</td>
+            <td>Niv reviewed <strong>209 conversations by hand</strong> recently. That does not survive 1,500 users</td>
+            <td class="num-col"><span class="slot"></span></td>
+          </tr>
+          <tr>
+            <td><code>J14</code></td>
+            <td>State a capacity number backed by a load test rather than a guess</td>
+            <td><span class="pill risk">No capability</span> No load test has ever run on this system</td>
+            <td class="num-col"><span class="slot"></span></td>
+          </tr>
+          <tr>
+            <td><code>J15</code></td>
+            <td>See per-message cost per day against target, without calculating it by hand</td>
+            <td>Feeds O1</td>
+            <td class="num-col"><span class="slot"></span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 03 -->
+  <section class="sec">
+    <div class="sec-head">
+      <span class="num">03</span>
+      <h2>The bar — five objectives, authored because none exists</h2>
+      <span class="aside">O1–O5</span>
+    </div>
+    <p>This is where most of the risk sits, and it is the substance of the four headings Sunday asks
+    for. Figures marked <span class="pill open">provisional</span> need a decision before the plan can
+    be costed against them — argue with them on Sunday.</p>
+    <div class="scroll">
+      <table>
+        <thead>
+          <tr><th>ID</th><th>Objective</th><th>Target</th><th class="num-col slot-hd">Dev-days</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>O1</code></td>
+            <td><strong>Cost</strong> — a monthly target stated together with the load it is measured at</td>
+            <td><span class="pill open">Provisional</span> ₪5–8k/mo at national load. All-in model at three tiers, <strong>including Meta conversation fees</strong>, which are currently unmodelled and land on IKEA. See section 04.</td>
+            <td class="num-col"><span class="slot"></span></td>
+          </tr>
+          <tr>
+            <td><code>O2</code></td>
+            <td><strong>Reliability</strong> — crash-free at target load</td>
+            <td>≥99.5% monthly availability. <strong>Zero</strong> unhandled-exception outages &gt;5 min. Automatic provider failover within one request. Error budget with a written rule for when it's spent.</td>
+            <td class="num-col"><span class="slot"></span></td>
+          </tr>
+          <tr>
+            <td><code>O3</code></td>
+            <td><strong>Capacity</strong> — a number backed by a test</td>
+            <td>Load test run at least once. A stated ceiling we'll put in writing to IKEA. Lambda headroom confirmed or a mitigation costed. See section 05.</td>
+            <td class="num-col"><span class="slot"></span></td>
+          </tr>
+          <tr>
+            <td><code>O4</code></td>
+            <td><strong>Latency</strong> — hold the line</td>
+            <td><span class="pill open">Provisional</span> p50 ≤9s, p95 ≤15s — a <strong>no-regression constraint on the cost work</strong>, not an improvement goal. Currently 9.3s average.</td>
+            <td class="num-col"><span class="slot"></span></td>
+          </tr>
+          <tr>
+            <td><code>O5</code></td>
+            <td><strong>Quality</strong> — a pass mark, measured automatically</td>
+            <td>300-case eval set from real observed failures. <strong>≥90%</strong> on catalogue &amp; stock intents, <strong>≥85%</strong> overall. Runs per release. Zero hand-reviewed conversations needed to state a number.</td>
+            <td class="num-col"><span class="slot"></span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="call warn">
+      <span class="lbl">Smallest task, largest blast radius</span>
+      <p><strong>The eval set is currently unlocated.</strong> It blocks confirming that the lighter
+      routed model passes quality checks (which gates J11 and therefore 08-02), and it blocks O5
+      entirely. Finding it is the highest-leverage hour anyone spends this week.</p>
+    </div>
+    <h3>Why latency is not funded as its own line item</h3>
+    <p>At 8–9s we are near the floor of the current implementation; going materially lower means a
+    rewrite, estimated at three months minimum. It improves as a by-product of the cost work. One
+    useful consequence of setting p95 ≤15s: the re-architecture's <strong>+4–7s on a 9.3s base lands
+    at 13–16s</strong>, which straddles the bar — so this target partially answers a client question
+    that has been open for weeks rather than leaving it open indefinitely.</p>
+  </section>
+
+  <!-- 04 -->
+  <section class="sec">
+    <div class="sec-head">
+      <span class="num">04</span>
+      <h2>The cost reframe — read this before estimating O1</h2>
+      <span class="aside">Product-side model</span>
+    </div>
+    <div class="call">
+      <span class="lbl">The correction</span>
+      <p><strong>A cost target is meaningless without the load it is measured at.</strong> The
+      ~₪50k/month figure everyone is reacting to is the projection at <strong>20,000 daily
+      users</strong> — the national target, not the December scope.</p>
+    </div>
+    <div class="scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>Scenario</th>
+            <th class="num-col">Daily users</th>
+            <th class="num-col">Msgs/user/day</th>
+            <th class="num-col">Msgs/month</th>
+            <th class="num-col">@ ~₪0.001/msg</th>
+            <th>Verdict</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Employee release <span class="lbl">Aug</span></td>
+            <td class="num-col">~450</td><td class="num-col">~80</td><td class="num-col">~1.1M</td>
+            <td class="num-col"><strong>~₪1.1k</strong></td>
+            <td>Inside any target</td>
+          </tr>
+          <tr>
+            <td>Netanya pilot <span class="lbl">Dec</span></td>
+            <td class="num-col">~400–800</td><td class="num-col">~80</td><td class="num-col">~1–1.9M</td>
+            <td class="num-col"><strong>~₪1–2k</strong></td>
+            <td>Inside any target</td>
+          </tr>
+          <tr>
+            <td>National <span class="lbl">post-decision</span></td>
+            <td class="num-col">20,000</td><td class="num-col">~80</td><td class="num-col">~48M</td>
+            <td class="num-col"><strong>~₪48k</strong></td>
+            <td>Needs ~85% reduction</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Two conclusions, both going to the room on Sunday:</p>
+    <ol>
+      <li><strong>December is not gated on cost reduction.</strong> At single-branch volumes the agent is already affordable. The ₪50k problem is a <em>national-rollout</em> problem — which is precisely the thing December decides. O1 delivers the model and the measurement, not the reduction.</li>
+      <li><strong>The ~85% national rollout needs is almost exactly what the re-architecture claims (~87%).</strong> Ruling it out of base scope is right for December. But the arithmetic says national is not reachable without something of that magnitude — so it should be sold as the Phase 3 enabler, not shelved.</li>
+    </ol>
+    <p><em>Assumptions above are product-side. Replace them with real numbers where you have them —
+    particularly messages-per-conversation, which the whole model is sensitive to.</em></p>
+  </section>
+
+  <!-- 05 -->
+  <section class="sec">
+    <div class="sec-head">
+      <span class="num">05</span>
+      <h2>Concurrency heuristic — validate, replace, or reject</h2>
+      <span class="aside">Input to O3</span>
+    </div>
+    <p>The instruction from the room was to <strong>state assumptions and proceed</strong> rather than
+    wait for exact numbers. Here is the product-side derivation so you have something to argue with.
+    The difference between 10k and 20k daily users was called a factor of two, not an order of
+    magnitude, and not worth stalling over.</p>
+    <div class="scroll">
+      <table>
+        <thead><tr><th>Step</th><th>Assumption</th><th class="num-col">Result</th></tr></thead>
+        <tbody>
+          <tr><td>Daily users</td><td>Target load — explicitly daily, not concurrent</td><td class="num-col">20,000</td></tr>
+          <tr><td>Peak-hour share</td><td>~15% of daily traffic in the peak hour</td><td class="num-col">~3,000 users</td></tr>
+          <tr><td>Conversation length</td><td>Range is 10–150 messages; working mean</td><td class="num-col">~80 msgs</td></tr>
+          <tr><td>Active duration</td><td>~10 min per conversation</td><td class="num-col"><strong>~500 concurrent sessions</strong></td></tr>
+          <tr><td>Message rate</td><td>3,000 × 80 ÷ 3,600s</td><td class="num-col"><strong>~67 msg/s</strong></td></tr>
+          <tr><td>In-flight invocations</td><td>at a 9s response time</td><td class="num-col"><strong>~600</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="call warn">
+      <span class="lbl">Where this lands</span>
+      <p>Against the known bottleneck — <strong>AWS Lambda's 1000-concurrency limit</strong> — that
+      sits inside the ceiling but <strong>without comfortable headroom</strong>, and it is highly
+      sensitive to the messages-per-conversation assumption. Gemini/AWS reportedly support ~3,000
+      concurrent messages. <strong>No load test has ever run</strong>, and there is currently no
+      load-testing capability on the team — the answer for the employee release was to observe it
+      live, which does not extend to customers.</p>
+    </div>
+  </section>
+
+  <!-- 06 -->
+  <section class="sec">
+    <div class="sec-head">
+      <span class="num">06</span>
+      <h2>Release sequence</h2>
+      <span class="aside">Sequencing frame for your estimates</span>
+    </div>
+    <div class="rail">
+      <div class="rel">
+        <div><span class="rel-id">R0</span><span class="rel-when">→ Sun 08-02</span></div>
+        <div class="rel-body">
+          <h3>Employee release, hardened <span class="pill risk">Cannot slip</span></h3>
+          <p>1,500 employees. The last gate before IKEA starts asking when real customers get this.</p>
+          <p class="ships"><strong>Ships:</strong> J11 fallback routing · J12 named rota + two-tier response policy · AI disclaimer · QR/link · proactive-messaging technical guard · CEO on the user list</p>
+        </div>
+      </div>
+      <div class="rel">
+        <div><span class="rel-id">R1</span><span class="rel-when">August</span></div>
+        <div class="rel-body">
+          <h3>Observability &amp; evidence</h3>
+          <p>Makes every later claim checkable. Without it, R2's cost target and R4's quality bar are
+          both assertions. Every week it's late is a week of pilot traffic we can't learn from — the
+          evidence window is the scarce resource, not the engineering.</p>
+          <p class="ships"><strong>Ships:</strong> O5 instrumentation · J05 feedback capture · J15 daily cost visibility · DynamoDB conversation analytics · eval set v1 · 30-day employee survey</p>
+        </div>
+      </div>
+      <div class="rel">
+        <div><span class="rel-id">R2</span><span class="rel-when">Sep → Oct</span></div>
+        <div class="rel-body">
+          <h3>Capacity &amp; cost to the authored SLA</h3>
+          <p>Turns &quot;the product isn't ready&quot; into &quot;it meets this bar, here is the
+          evidence.&quot; Collides with Niv being out in September.</p>
+          <p class="ships"><strong>Ships:</strong> O1 three-tier cost model · O2 availability, error budget, alerting · O3 <strong>first load test ever run</strong> · O4 continuous p50/p95</p>
+        </div>
+      </div>
+      <div class="rel">
+        <div><span class="rel-id">R3</span><span class="rel-when">Sep → Nov</span></div>
+        <div class="rel-body">
+          <h3>Customer readiness <span class="pill risk">Client-side items start in August</span></h3>
+          <p>What actually breaks when the user is a cold consumer instead of a known employee. The
+          long poles here are <strong>not engineering</strong> — start them in August or they become
+          the December blocker.</p>
+          <p class="ships"><strong>Client-side:</strong> CISO + DPO in one bundled session · Meta template approval &amp; WABA · IKEA order/delivery API access · contact-centre escalation<br>
+          <strong>Engineering:</strong> J06 QR cold start · J07 consent · J08 escalation with context · J09 post-purchase · J10 Hebrew robustness</p>
+        </div>
+      </div>
+      <div class="rel">
+        <div><span class="rel-id">R4</span><span class="rel-when">late Nov → Dec</span></div>
+        <div class="rel-body">
+          <h3>Netanya branch live</h3>
+          <p>One branch, real customers, QR entry at the entrance, self-serve area and checkout.
+          Deliberately narrow — it bounds Meta cost, PII exposure and the concurrency ceiling all at
+          once. Needs the 3-hour site visit well beforehand; currently unscheduled.</p>
+          <p class="ships"><strong>Exit:</strong> two weeks of real customer traffic and a December data pack — adoption, quality against the pass mark, cost at real volume, latency curves, escalation rate, and the failures we didn't fix, stated plainly</p>
+        </div>
+      </div>
+      <div class="rel gate">
+        <div><span class="rel-id">DEC</span><span class="rel-when">Decision gate</span></div>
+        <div class="rel-body">
+          <h3>CEO review — not a release</h3>
+          <p>IKEA's CEO reviews the data pack and decides on national rollout; investment from the
+          American owners rides on it. We bring a working customer pilot at one branch, plus data.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 07 -->
+  <section class="sec">
+    <div class="sec-head">
+      <span class="num">07</span>
+      <h2>What bounds the timeline</h2>
+      <span class="aside">Leave, not scope</span>
+    </div>
+    <div class="scroll">
+      <table>
+        <thead><tr><th>Who</th><th>Out</th><th>What it hits</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Arnon</strong></td><td>shortly</td><td><strong>The plan must close before he leaves</strong> — he holds most of the technical context</td></tr>
+          <tr><td><strong>Tali</strong></td><td>two weeks from Sun 2026-08-02</td><td>R0 launch week and the start of R1</td></tr>
+          <tr><td><strong>Niv</strong></td><td>September</td><td>R2 — capacity and cost, the heaviest engineering in the plan</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="call warn">
+      <span class="lbl">The immovable one</span>
+      <p><strong>Sit with Arnon this week and extract what he holds.</strong> Everything else in this
+      plan can slip by a week. That cannot — if it does, a month is lost.</p>
+    </div>
+    <h3>Headcount — product-side reading, for you to confirm or reject</h3>
+    <p><strong>Two developers, from September.</strong> R0 and R1 are achievable with one, because R0
+    is mostly configuration and policy and R1 is instrumentation. But <strong>R2 and R3 overlap by
+    design</strong> — R3's client-side gates have to run in parallel with R2's engineering or they
+    become the December blocker — and September is exactly when Niv is out. The missing load-testing
+    capability is a <em>skills</em> gap on top of the headcount gap: a second developer who can run a
+    load test solves two problems at once.</p>
+    <p><strong>With one developer:</strong> R3 and R4 slip past December, and the decision gate
+    arrives with employee data instead of customer data — a materially weaker case in front of the CEO.</p>
+  </section>
+
+  <!-- 08 -->
+  <section class="sec">
+    <div class="sec-head">
+      <span class="num">08</span>
+      <h2>What you owe back for Sunday</h2>
+    </div>
+    <ul class="check">
+      <li><span><strong>A dev-day estimate per job (J01–J15) and per objective (O1–O5).</strong> The sheet is structured so each is estimable on its own.</span></li>
+      <li><span><strong>Sequencing and dependencies</strong> within and across R0–R4.</span></li>
+      <li><span><strong>Validate, replace or reject the concurrency heuristic</strong> in section 05. State your assumptions; don't wait for exact numbers.</span></li>
+      <li><span><strong>A one-or-two-developer call</strong>, with the reasoning.</span></li>
+      <li><span><strong>Locate the eval set</strong> — it blocks J11's quality confirmation and all of O5.</span></li>
+      <li><span><strong>Confirm whether the lighter routed model passes quality checks.</strong></span></li>
+      <li><span><strong>Confirm the 5-model-calls-per-message bug</strong> is fixed or already resolved — it helps both latency and cost.</span></li>
+    </ul>
+    <div class="call">
+      <span class="lbl">Format asked for</span>
+      <p>A spreadsheet or Gantt of technical tasks broken to dev-days, with estimates, sequencing,
+      dependencies, and the developer recommendation.</p>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <p><strong>Scope of this sheet:</strong> product and engineering only. Commercial matters —
+    pricing, the retainer boundary, invoicing — are deliberately excluded and handled separately.</p>
+    <p>Sources: internal IKEA sync 2026-07-28 (product half) · Arnon roadmap conversation 2026-07-27 ·
+    PoC handover 2026-07-27 · IKEA status sync 2026-07-22 · onboarding sync 2026-07-21 · internal
+    position paper 2026-07-28.</p>
+    <p>Shai Amir · Moveo AI · drafted 2026-07-28 for review Sun 2026-08-02</p>
+  </footer>
+
+</div>
+</div>
