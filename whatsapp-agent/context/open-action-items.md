@@ -19,7 +19,12 @@ Running list of action items for this project. Cross-project / relationship-leve
 - [ ] Improve search quality for semantically complex queries (e.g. "ארונית קלה" → "כוורת").
 - [ ] Keep driving latency down — the recurring top quality complaint.
 - [ ] Test the delivery/assembly tracking link and report to Avi.
-- [ ] Prepare the roadmap proposal: strategic goals, quick wins (delivery status), data collection strategy (Shai).
+- [ ] Prepare the roadmap proposal: strategic goals, quick wins (delivery status), data collection strategy (Shai). _Data-collection strategy drafted — see `outputs/2026-07-29-customer-intelligence-plan.md`._
+- [ ] Decide whether the reset snapshot (P0-1) ships before the 08-02 release or waits until after — a `שיחה חדשה` reset currently destroys cart/goal/rejected-item history with no archive (Shai, gated on Niv's review).
+- [ ] Get AWS read credentials to whoever runs the customer-data analysis, and establish corpus depth: distinct users, total message rows, earliest reliable date, trace retention including the 05-18→05-29 hole (Shai).
+- [ ] Put the consent question to IKEA in writing: does the ToU users accept cover behavioural analysis and profiling? Blocks persona work (Shai → IKEA).
+- [ ] Decide how to handle Feb 2026 requirements #5 (customer-intent detection) and #8 (demand-and-trends dashboard) — both presented to IKEA as in-bot, neither exists. In-scope work or new priced scope, and whether to raise it before or at the August commercial meeting (Shai, with Hai).
+- [ ] Separate a customer cohort (Netanya, per the December single-branch scope) early enough to build customer personas rather than only employee ones (Shai, with Avi/Shuki).
 - [ ] Schedule the planning session with Avi and Efrat, post-sale (Shai).
 - [ ] Set up a standing Wednesday brief — agree format and cadence with the team (Shai).
 - [ ] Add Hebrew-language tests to Benjamin's PoC before it can be fully validated.
@@ -35,4 +40,4 @@ Running list of action items for this project. Cross-project / relationship-leve
 - [ ] Define concurrency by heuristic — messages per conversation, users per day, concurrent sessions — stating assumptions rather than waiting for exact numbers (Tali & Niv).
 - [ ] Flag new client requests as out of scope when they arrive and price them, rather than letting them land in the retainer by default (Shai).
 
-_Source: ../context/meetings/2026-07-22-ikea-status-sync.md, context/meetings/2026-07-27-arnon-roadmap-conversation.md, context/comms/2026-07-27-benjamin-poc-handover.md, context/meetings/2026-07-28-internal-ikea-sync.md_
+_Source: ../context/meetings/2026-07-22-ikea-status-sync.md, context/meetings/2026-07-27-arnon-roadmap-conversation.md, context/comms/2026-07-27-benjamin-poc-handover.md, context/meetings/2026-07-28-internal-ikea-sync.md, outputs/2026-07-29-customer-intelligence-plan.md_
