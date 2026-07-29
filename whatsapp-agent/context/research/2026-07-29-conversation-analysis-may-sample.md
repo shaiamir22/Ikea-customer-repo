@@ -131,7 +131,7 @@ and self-selected. I would build this before anything else in the persona plan.
 
 ### The image failure is the worst single experience in the sample
 
-One user asked for a photo **eleven consecutive times** over four minutes, escalating:
+One user asked for a photo **eleven consecutive times** over eight minutes, escalating:
 
 > `תראה לי תמונה שלו` → `לא רואה תמונה` → `יש אותו בלבן?` → `תראה לי אותו בלבן` →
 > `תראה לי תמונה` → `עדיין לא הראית לי תמונה` → `עדיין לא קיבלתי תמונה` →

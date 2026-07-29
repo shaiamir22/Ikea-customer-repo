@@ -1,0 +1,470 @@
+<title>IKEA Agent — Conversation Analysis, May Sample</title>
+<style>
+  .viz-root{
+    color-scheme: light;
+    --surface-1:#fcfcfb; --plane:#f9f9f7;
+    --text-primary:#0b0b0b; --text-secondary:#52514e; --muted:#898781;
+    --grid:#e1e0d9; --baseline:#c3c2b7; --border:rgba(11,11,11,0.10);
+    --s1:#2a78d6; --s2:#eb6834; --s3:#1baf7a;
+    --good:#0ca30c; --warning:#fab219; --serious:#ec835a; --critical:#d03b3b;
+    --quote-bg:rgba(208,59,59,0.05);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:where(:not([data-theme="light"])) .viz-root{
+      color-scheme: dark;
+      --surface-1:#1a1a19; --plane:#0d0d0d;
+      --text-primary:#ffffff; --text-secondary:#c3c2b7; --muted:#898781;
+      --grid:#2c2c2a; --baseline:#383835; --border:rgba(255,255,255,0.10);
+      --s1:#3987e5; --s2:#d95926; --s3:#199e70;
+      --quote-bg:rgba(230,103,103,0.10);
+    }
+  }
+  :root[data-theme="dark"] .viz-root{
+    color-scheme: dark;
+    --surface-1:#1a1a19; --plane:#0d0d0d;
+    --text-primary:#ffffff; --text-secondary:#c3c2b7; --muted:#898781;
+    --grid:#2c2c2a; --baseline:#383835; --border:rgba(255,255,255,0.10);
+    --s1:#3987e5; --s2:#d95926; --s3:#199e70;
+    --quote-bg:rgba(230,103,103,0.10);
+  }
+
+  .viz-root{
+    background:var(--plane); color:var(--text-primary);
+    font:15px/1.55 ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+    margin:0; padding:32px 20px 72px;
+  }
+  .wrap{max-width:1060px;margin:0 auto}
+  h1{font-size:1.9rem;line-height:1.2;margin:0 0 6px;letter-spacing:-.02em}
+  h2{font-size:1.22rem;margin:52px 0 4px;letter-spacing:-.01em}
+  h3{font-size:.95rem;margin:26px 0 10px;color:var(--text-secondary);font-weight:650}
+  .sub{color:var(--text-secondary);margin:0 0 4px}
+  .lede{color:var(--text-secondary);max-width:70ch;margin:0 0 6px}
+  .rule{height:1px;background:var(--border);border:0;margin:8px 0 0}
+  code{font:12.5px/1.4 ui-monospace,SFMono-Regular,Menlo,monospace;background:var(--plane);
+       border:1px solid var(--border);border-radius:4px;padding:1px 5px}
+
+  .card{background:var(--surface-1);border:1px solid var(--border);border-radius:12px;padding:20px 22px;margin:18px 0}
+  .banner{background:var(--surface-1);border:1px solid var(--border);border-left:3px solid var(--warning);
+          border-radius:12px;padding:16px 20px;margin:22px 0}
+  .banner > strong{display:block;margin-bottom:6px}
+  .banner p{margin:0;color:var(--text-secondary);font-size:14px}
+
+  .tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(148px,1fr));gap:10px;margin:20px 0 8px}
+  .tile{background:var(--surface-1);border:1px solid var(--border);border-radius:12px;padding:14px 16px}
+  .tile .n{font-size:1.72rem;font-weight:680;letter-spacing:-.02em;line-height:1.1;font-variant-numeric:tabular-nums}
+  .tile .l{font-size:12px;color:var(--text-secondary);margin-top:3px}
+  .tile .h{font-size:11px;color:var(--muted);margin-top:2px}
+
+  table{width:100%;border-collapse:collapse;font-size:13.5px}
+  .scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  th{text-align:left;font-weight:640;color:var(--text-secondary);font-size:12px;
+     text-transform:uppercase;letter-spacing:.04em;padding:0 10px 7px;border-bottom:1px solid var(--border);white-space:nowrap}
+  td{padding:8px 10px;border-bottom:1px solid var(--border);vertical-align:top}
+  tbody tr:last-child td{border-bottom:0}
+  .num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+
+  /* bar chart: horizontal, single series, direct-labelled */
+  .bars{display:grid;gap:9px;margin:4px 0 2px}
+  .bar-row{display:grid;grid-template-columns:minmax(96px,168px) 1fr auto;align-items:center;gap:12px}
+  .bar-lab{font-size:13px;color:var(--text-secondary);text-align:right;line-height:1.25}
+  .track{position:relative;height:20px;background:linear-gradient(to right,var(--grid) 0 1px,transparent 1px) repeat-x;
+         background-size:25% 100%;border-bottom:1px solid var(--baseline)}
+  .fill{height:16px;margin-top:2px;background:var(--s1);
+        border-radius:0 4px 4px 0;min-width:2px}
+  .fill.s2{background:var(--s2)} .fill.s3{background:var(--s3)}
+  .fill.crit{background:var(--critical)} .fill.warn{background:var(--serious)}
+  .bar-val{font-size:13px;font-variant-numeric:tabular-nums;font-weight:620;min-width:62px}
+  .axis-note{font-size:11px;color:var(--muted);margin:6px 0 0;text-align:right}
+
+  .legend{display:flex;flex-wrap:wrap;gap:14px;margin:0 0 12px;font-size:12.5px;color:var(--text-secondary)}
+  .key{display:inline-flex;align-items:center;gap:6px}
+  .sw{width:11px;height:11px;border-radius:3px;display:inline-block}
+
+  .quote{background:var(--surface-1);border:1px solid var(--border);border-left:3px solid var(--critical);
+         border-radius:10px;padding:12px 16px;margin:9px 0}
+  .he{direction:rtl;text-align:right;font-size:15px;font-weight:560;unicode-bidi:isolate}
+  .he-in{direction:rtl;unicode-bidi:isolate;font-weight:560;white-space:nowrap}
+  .en{font-size:13px;color:var(--text-secondary);margin-top:3px}
+  .tag{display:inline-block;font-size:10.5px;letter-spacing:.04em;text-transform:uppercase;
+       color:var(--text-secondary);border:1px solid var(--border);border-radius:20px;padding:2px 9px;margin-top:8px}
+
+  .seq{display:grid;gap:4px;margin:10px 0}
+  .seq-row{display:grid;grid-template-columns:52px 1fr 150px;gap:10px;align-items:center;
+           padding:6px 10px;border-radius:7px;background:var(--surface-1);border:1px solid var(--border);font-size:13px}
+  .seq-row.miss{border-left:3px solid var(--critical)}
+  .seq-row.hit{border-left:3px solid var(--good)}
+  .seq-t{color:var(--muted);font-variant-numeric:tabular-nums;font-size:12px}
+  .seq-a{font-size:11.5px;color:var(--text-secondary);text-align:right;font-family:ui-monospace,monospace}
+
+  .seg{display:grid;grid-template-columns:repeat(auto-fit,minmax(232px,1fr));gap:12px;margin:16px 0}
+  .seg-card{background:var(--surface-1);border:1px solid var(--border);border-radius:12px;padding:16px 18px}
+  .seg-id{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+  .seg-name{font-size:1.02rem;font-weight:660;margin:2px 0 8px;letter-spacing:-.01em}
+  .seg-dl{display:grid;grid-template-columns:1fr auto;gap:2px 10px;font-size:12.5px;margin:0}
+  .seg-dl dt{color:var(--text-secondary)}
+  .seg-dl dd{margin:0;text-align:right;font-variant-numeric:tabular-nums;font-weight:600}
+  .seg-note{font-size:12.5px;color:var(--text-secondary);margin:10px 0 0;padding-top:9px;border-top:1px solid var(--border)}
+
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:720px){.two{grid-template-columns:1fr}.bar-row{grid-template-columns:minmax(78px,120px) 1fr auto}}
+  ul{padding-left:1.15rem} li{margin:5px 0;color:var(--text-secondary)}
+  li strong{color:var(--text-primary)}
+  .foot{font-size:12.5px;color:var(--muted);margin-top:44px;padding-top:14px;border-top:1px solid var(--border)}
+</style>
+
+<div class="viz-root"><div class="wrap">
+
+<h1>What people ask the agent — and how they react</h1>
+<p class="sub">IKEA Israel WhatsApp agent · 258 production turns · 4 users · 2026-05-16 → 05-18</p>
+<p class="lede">Every figure on this page is computed from two corpora extracted from production S3 traces
+(<code>trajectories.jsonl</code>, <code>mined_queries.jsonl</code>). Every quote is verbatim user text.
+Nothing is modelled, estimated, or LLM-summarised.</p>
+<hr class="rule">
+
+<div class="banner">
+  <strong>⚠ These four users are testers running scripted QA, not customers</strong>
+  <p>18% of turns are <code>שיחה חדשה</code> resets, and the kitchen script replays <strong>12 times in one
+  morning</strong> on one phone with near-identical wording. So <strong>topic frequencies and demand rankings
+  on this page are not generalisable.</strong> What <em>is</em> generalisable is the failure mechanics — the
+  pipeline cannot tell a tester from a customer typing the same Hebrew sentence. Read this as a
+  behaviour-and-defect study, not market research.</p>
+</div>
+
+<div class="tiles">
+  <div class="tile"><div class="n">258</div><div class="l">turns analysed</div><div class="h">4 phones · 3 days</div></div>
+  <div class="tile"><div class="n">270</div><div class="l">search calls issued</div><div class="h">2.2 per searching turn</div></div>
+  <div class="tile"><div class="n">61%</div><div class="l">search calls returning zero</div><div class="h">166 of 270 · see caveat</div></div>
+  <div class="tile"><div class="n">20%</div><div class="l">turns where <em>every</em> search failed</div><div class="h">25 of 123 searching turns</div></div>
+  <div class="tile"><div class="n">1.9%</div><div class="l">turns that grew the cart</div><div class="h">5 of 258, all one user</div></div>
+  <div class="tile"><div class="n">8.2s</div><div class="l">turn latency, p50</div><div class="h">p90 21.0s · max 41.3s</div></div>
+</div>
+
+<h2>1 · Quantitative — what the counters say</h2>
+<p class="lede">Deterministic signals from the trace records: no interpretation, no sampling.</p>
+
+<h3>The search funnel is where the product loses people</h3>
+<div class="card">
+  <div class="bars">
+    <div class="bar-row"><div class="bar-lab">Turns analysed</div>
+      <div class="track"><div class="fill" style="width:100%"></div></div><div class="bar-val">258</div></div>
+    <div class="bar-row"><div class="bar-lab">Ran ≥1 search</div>
+      <div class="track"><div class="fill" style="width:47.7%"></div></div><div class="bar-val">123 · 48%</div></div>
+    <div class="bar-row"><div class="bar-lab">Every search returned zero</div>
+      <div class="track"><div class="fill crit" style="width:9.7%"></div></div><div class="bar-val">25 · 10%</div></div>
+    <div class="bar-row"><div class="bar-lab">Grew the cart</div>
+      <div class="track"><div class="fill" style="width:1.9%"></div></div><div class="bar-val">5 · 1.9%</div></div>
+  </div>
+  <p class="axis-note">share of all 258 turns</p>
+</div>
+
+<h3>The narrowing trap — the bot blocks its own retries</h3>
+<div class="card">
+  <div class="bars">
+    <div class="bar-row"><div class="bar-lab">Clarifying question asked</div>
+      <div class="track"><div class="fill" style="width:34.5%"></div></div><div class="bar-val">89 · 34%</div></div>
+    <div class="bar-row"><div class="bar-lab">…of which validator-<em>forced</em></div>
+      <div class="track"><div class="fill s2" style="width:20.9%"></div></div><div class="bar-val">54 · 21%</div></div>
+    <div class="bar-row"><div class="bar-lab"><code>search_cap</code> blocked a search</div>
+      <div class="track"><div class="fill warn" style="width:27.5%"></div></div><div class="bar-val">71 · 28%</div></div>
+    <div class="bar-row"><div class="bar-lab"><code>blocked_repeat_query</code></div>
+      <div class="track"><div class="fill warn" style="width:22.1%"></div></div><div class="bar-val">57 · 22%</div></div>
+    <div class="bar-row"><div class="bar-lab">Validator rewrote action (M5)</div>
+      <div class="track"><div class="fill s2" style="width:25.6%"></div></div><div class="bar-val">66 · 26%</div></div>
+    <div class="bar-row"><div class="bar-lab">Retry storm (M7)</div>
+      <div class="track"><div class="fill crit" style="width:12.8%"></div></div><div class="bar-val">33 · 13%</div></div>
+  </div>
+  <p class="axis-note">share of all 258 turns</p>
+</div>
+<p class="lede"><strong>The loop:</strong> the bot narrows instead of answering (34%, half of it forced by a
+validator). The user replies tersely — <code>5</code>, <code>לבן</code>, <code>מתכת</code> — and the original
+constraint does not travel with the reply: <strong>16% of the 74 terse agent turns returned zero results.</strong>
+The user rephrases; <code>search_cap</code> and <code>blocked_repeat_query</code> now block the retry. The turn
+ends in a text-only apology, and the user resets.</p>
+
+<h3>The deterministic path is 2.2× faster than the agent path</h3>
+<div class="card">
+  <div class="bars">
+    <div class="bar-row"><div class="bar-lab">KB / <code>data_source</code></div>
+      <div class="track"><div class="fill s3" style="width:45%"></div></div><div class="bar-val">6.4s</div></div>
+    <div class="bar-row"><div class="bar-lab">Text-only reply</div>
+      <div class="track"><div class="fill" style="width:86%"></div></div><div class="bar-val">12.2s</div></div>
+    <div class="bar-row"><div class="bar-lab">Search + render</div>
+      <div class="track"><div class="fill" style="width:100%"></div></div><div class="bar-val">14.2s</div></div>
+  </div>
+  <p class="axis-note">p50 seconds per turn · n = 35 / 51 / 87</p>
+</div>
+<p class="lede">Overall p50 of <strong>8.2s</strong> independently corroborates the "8–9s average" in
+<code>PROJECT-STATUS.md</code>. It also shows <em>where</em> the time is: every turn moved off the agent and onto
+the KB/FAQ path is roughly 8 seconds cheaper in latency and $0 in LLM cost.</p>
+
+<div class="two">
+<div>
+<h3>What was asked about</h3>
+<div class="card">
+  <div class="bars">
+    <div class="bar-row"><div class="bar-lab">Kitchens</div><div class="track"><div class="fill" style="width:100%"></div></div><div class="bar-val">30</div></div>
+    <div class="bar-row"><div class="bar-lab">Kids &amp; baby</div><div class="track"><div class="fill" style="width:77%"></div></div><div class="bar-val">23</div></div>
+    <div class="bar-row"><div class="bar-lab">Warranty / service</div><div class="track"><div class="fill" style="width:63%"></div></div><div class="bar-val">19</div></div>
+    <div class="bar-row"><div class="bar-lab">Tables</div><div class="track"><div class="fill" style="width:60%"></div></div><div class="bar-val">18</div></div>
+    <div class="bar-row"><div class="bar-lab">Beds</div><div class="track"><div class="fill" style="width:50%"></div></div><div class="bar-val">15</div></div>
+    <div class="bar-row"><div class="bar-lab">Wardrobes / storage</div><div class="track"><div class="fill" style="width:37%"></div></div><div class="bar-val">11</div></div>
+    <div class="bar-row"><div class="bar-lab">Small goods</div><div class="track"><div class="fill" style="width:27%"></div></div><div class="bar-val">8</div></div>
+    <div class="bar-row"><div class="bar-lab">Bathroom</div><div class="track"><div class="fill" style="width:13%"></div></div><div class="bar-val">4</div></div>
+    <div class="bar-row"><div class="bar-lab">Sofas</div><div class="track"><div class="fill" style="width:7%"></div></div><div class="bar-val">2</div></div>
+  </div>
+  <p class="axis-note">turns · keyword-coded · scripted mix, not real demand</p>
+</div>
+</div>
+<div>
+<h3>How turns ended</h3>
+<div class="card">
+  <div class="bars">
+    <div class="bar-row"><div class="bar-lab">Search results shown</div><div class="track"><div class="fill" style="width:100%"></div></div><div class="bar-val">87</div></div>
+    <div class="bar-row"><div class="bar-lab">Text only</div><div class="track"><div class="fill" style="width:59%"></div></div><div class="bar-val">51</div></div>
+    <div class="bar-row"><div class="bar-lab">Reset</div><div class="track"><div class="fill" style="width:53%"></div></div><div class="bar-val">46</div></div>
+    <div class="bar-row"><div class="bar-lab">Knowledge answer</div><div class="track"><div class="fill s3" style="width:40%"></div></div><div class="bar-val">35</div></div>
+    <div class="bar-row"><div class="bar-lab">Product detail</div><div class="track"><div class="fill" style="width:7%"></div></div><div class="bar-val">6</div></div>
+    <div class="bar-row"><div class="bar-lab">SKU lookup</div><div class="track"><div class="fill s3" style="width:6%"></div></div><div class="bar-val">5</div></div>
+    <div class="bar-row"><div class="bar-lab">Images sent</div><div class="track"><div class="fill" style="width:5%"></div></div><div class="bar-val">4</div></div>
+    <div class="bar-row"><div class="bar-lab">Added to cart</div><div class="track"><div class="fill" style="width:3%"></div></div><div class="bar-val">3</div></div>
+    <div class="bar-row"><div class="bar-lab">Comparison</div><div class="track"><div class="fill" style="width:2%"></div></div><div class="bar-val">2</div></div>
+  </div>
+  <p class="axis-note">turns · green = deterministic, $0 LLM</p>
+</div>
+</div>
+</div>
+
+<h2>2 · Qualitative — what people actually said</h2>
+<p class="lede">12 turns (4.7%) are the user telling us, unprompted, that we failed. These are
+<strong>self-labelled defects</strong>, and they are worth more than any satisfaction score because they name
+<em>what</em> broke. A regex over ~15 Hebrew pushback patterns recovered all 12 with no false positives.</p>
+
+<div class="quote"><div class="he">אתה לא מציג לי שום דבר</div>
+  <div class="en">"You're not showing me anything."</div><span class="tag">total recall failure</span></div>
+<div class="quote"><div class="he">ביקשתי ממתכת, למה אתה מציג גם את העץ?</div>
+  <div class="en">"I asked for metal — why are you showing wood too?"</div><span class="tag">M4 · constraint dropped</span></div>
+<div class="quote"><div class="he">מ ההסגנון שביקשתי קודם ?</div>
+  <div class="en">"What about the style I asked for earlier?"</div><span class="tag">M3 · cross-turn context lost</span></div>
+<div class="quote"><div class="he">מה למה נתת לי את האחריות של הכל, שאלתי על מטבחים</div>
+  <div class="en">"Why did you give me the warranty for everything? I asked about kitchens."</div><span class="tag">over-broad KB answer</span></div>
+<div class="quote"><div class="he">אלו לא קופסאות אחסון לבגדים לילדים.</div>
+  <div class="en">"Those aren't kids' clothes storage boxes."</div><span class="tag">wrong results</span></div>
+<div class="quote"><div class="he">למה לא הצגת אותו בפעם הראשונה?</div>
+  <div class="en">"Why didn't you show it the first time?"</div><span class="tag">recall gap, user-detected</span></div>
+<div class="quote"><div class="he">לא שלחת תמונות</div>
+  <div class="en">"You didn't send photos."</div><span class="tag">image delivery</span></div>
+
+<p class="lede">Three of those — metal/wood, "the style I asked for earlier", and the kitchen warranty — are
+users noticing that <strong>the bot dropped a constraint they had already given</strong>. That is mechanisms M3
+and M4 being observed from the outside, by the customer, in plain Hebrew.</p>
+
+<h3>The worst single experience in the sample</h3>
+<p class="lede">One user asked for a product photo <strong>eleven consecutive times over eight minutes</strong>.
+Only 3 of 11 turns routed to <code>show_images</code>. This defect does not appear on the open-issues list in
+<code>PROJECT-STATUS.md</code>.</p>
+<div class="seq">
+  <div class="seq-row miss"><span class="seq-t">14:18</span><span class="he">תראה לי תמונה שלו</span><span class="seq-a">show_search_results</span></div>
+  <div class="seq-row miss"><span class="seq-t">14:18</span><span class="he">לא רואה תמונה</span><span class="seq-a">show_search_results</span></div>
+  <div class="seq-row miss"><span class="seq-t">14:19</span><span class="he">תראה ליתמונה</span><span class="seq-a">show_search_results</span></div>
+  <div class="seq-row miss"><span class="seq-t">14:19</span><span class="he">עדיין לא הראית לי תמונה</span><span class="seq-a">show_search_results</span></div>
+  <div class="seq-row miss"><span class="seq-t">14:20</span><span class="he">עדיין לא קיבלתי תמונה</span><span class="seq-a">show_search_results</span></div>
+  <div class="seq-row miss"><span class="seq-t">14:21</span><span class="he">לא קיבלתי תמונה</span><span class="seq-a">show_search_results</span></div>
+  <div class="seq-row hit"><span class="seq-t">14:22</span><span class="he">תשלח לי תמונה</span><span class="seq-a">show_images ✓</span></div>
+  <div class="seq-row miss"><span class="seq-t">14:22</span><span class="he">אני רוצה תמונה שלו בלבן</span><span class="seq-a">show_search_results</span></div>
+  <div class="seq-row hit"><span class="seq-t">14:23</span><span class="he">תמונות!</span><span class="seq-a">show_images ✓</span></div>
+  <div class="seq-row miss"><span class="seq-t">14:25</span><span class="he">תראה לי תמונה של השולחן בלבן</span><span class="seq-a">show_search_results</span></div>
+  <div class="seq-row hit"><span class="seq-t">14:26</span><span class="he">תמונה</span><span class="seq-a">show_images ✓</span></div>
+</div>
+<p class="lede">For a furniture product on WhatsApp, "I cannot get you a picture" is close to a total failure —
+and the escalation to a one-word shout (<code>תמונות!</code>) is exactly what produces bad internal word-of-mouth
+at 1,500 users.</p>
+
+<h3>Unserved demand, stated in the user's own words</h3>
+<div class="two">
+  <div class="card"><h3 style="margin-top:0">Customisation &amp; personal fit — 5 asks</h3>
+    <div class="he">ואם אני רוצה לבחור צבע מסוים לרגליים וצבע אחר למשטח אפשר?</div>
+    <div class="en">"Can I pick one colour for the legs and another for the top?"</div>
+    <div class="he" style="margin-top:10px">יש לי אפשרות לשחק עם הצבעים ולעשות עיצוב אישי?</div>
+    <div class="en">"Can I play with the colours and do a personal design?"</div>
+    <div class="he" style="margin-top:10px">ספה מותאמת אישית</div>
+    <div class="en">"A custom-fitted sofa."</div>
+  </div>
+  <div class="card"><h3 style="margin-top:0">"What goes with what" — set completion</h3>
+    <div class="he">זה מגיע רק שולחן או יחד עם הכסאות במחיר הזה?</div>
+    <div class="en">"Is that the table alone, or with the chairs at that price?"</div>
+    <div class="he" style="margin-top:10px">איפה הכסאות?</div>
+    <div class="en">"Where are the chairs?"</div>
+    <div class="he" style="margin-top:10px">איפה הקופסאות?</div>
+    <div class="en">"Where are the boxes?"</div>
+    <p class="seg-note">Users assume the agent understands a <em>set</em>, not an item. The goal engine exists for
+    this; it is not reaching them.</p>
+  </div>
+</div>
+
+<h2>3 · Qualitative vs quantitative — what each method is good for</h2>
+<div class="card scroll"><table>
+  <thead><tr><th>Dimension</th><th>Quantitative (counters)</th><th>Qualitative (verbatim text)</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Coverage</strong></td><td>100% of turns, automatic</td><td>4.7% of turns volunteered pushback; 0 survey responses in this window</td></tr>
+    <tr><td><strong>What it tells you</strong></td><td><em>How much</em> and <em>how often</em> — 61% of search calls returned zero</td><td><em>What</em> broke and <em>why it mattered</em> — "I asked for metal, why are you showing wood?"</td></tr>
+    <tr><td><strong>What it misses</strong></td><td>Severity. A zero-result turn and an 11-turn image failure count the same</td><td>Frequency and trend. One vivid complaint reads like a crisis or a one-off — you cannot tell which</td></tr>
+    <tr><td><strong>Bias</strong></td><td>None in collection; blind to intent</td><td>Strongly self-selected — only people who bother to complain, in sessions long enough to hit the feedback threshold (≥3 bot messages)</td></tr>
+    <tr><td><strong>Cost to run</strong></td><td>$0 — already in the trajectory records</td><td>$0 if regex-detected; LLM cost only if you summarise at volume</td></tr>
+    <tr><td><strong>Diagnostic precision</strong></td><td>Names the mechanism (M1–M7) but not the user impact</td><td>Names the user impact but not the mechanism</td></tr>
+    <tr><td><strong>Currently instrumented?</strong></td><td>Yes — <code>cluster_by_mechanism.py</code>, live</td><td><strong>No.</strong> Nothing reads user pushback today</td></tr>
+  </tbody>
+</table></div>
+<p class="lede"><strong>They are complements, and one half is missing.</strong> The quantitative side is fully
+built and running on a live pipeline. The qualitative side — the only signal that carries severity and
+customer impact — is not instrumented at all. The pushback regex closes that gap for about half a day of work,
+with no LLM and no table scan.</p>
+
+<h2>4 · User segmentation</h2>
+<div class="banner">
+  <strong>Identifiers available in this sample: almost none</strong>
+  <p>The <em>only</em> identifiers present are the <strong>phone number</strong> (pseudonymised U1–U4 below) and
+  <code>user_preferences.preferred_store = נתניה</code> on 31 turns — one user, Netanya, which happens to be the
+  branch named in the December single-branch scope. There is <strong>no</strong> <code>user_profile</code>, no
+  name, no language, no store for the other three, and no demographics anywhere: durable profiles and
+  onboarding landed after this window. Segmentation below is therefore <strong>purely behavioural</strong>.</p>
+</div>
+
+<div class="seg">
+  <div class="seg-card">
+    <div class="seg-id">U1 · …1983</div>
+    <div class="seg-name">The knowledge prober</div>
+    <dl class="seg-dl">
+      <dt>Turns</dt><dd>166</dd>
+      <dt>Resets</dt><dd>36 (22%)</dd>
+      <dt>Knowledge turns</dt><dd>44</dd>
+      <dt>Clarifying asked</dt><dd>59 (36%)</dd>
+      <dt>All-zero turns</dt><dd>12</dd>
+      <dt>Cart adds</dt><dd>0</dd>
+      <dt>Latency p50</dt><dd>7.0s</dd>
+      <dt>Pushback</dt><dd>6</dd>
+    </dl>
+    <p class="seg-note">Scripted regression testing: kitchen and dining-table scenarios replayed 12+ times.
+    Fastest of the four <em>because</em> most turns hit the KB path. Never bought anything. Owns the
+    11-turn image failure.</p>
+  </div>
+  <div class="seg-card">
+    <div class="seg-id">U2 · …9278</div>
+    <div class="seg-name">The only one who shopped</div>
+    <dl class="seg-dl">
+      <dt>Turns</dt><dd>56</dd>
+      <dt>Days active</dt><dd>3 (all)</dd>
+      <dt>Searching turns</dt><dd>37</dd>
+      <dt>All-zero turns</dt><dd>7</dd>
+      <dt>Cart adds</dt><dd><strong>5</strong></dd>
+      <dt>Peak cart</dt><dd>4 items</dd>
+      <dt>Latency p50</dt><dd>12.4s</dd>
+      <dt>Pushback</dt><dd>3</dd>
+    </dl>
+    <p class="seg-note">The <strong>only</strong> user to complete a shopping flow: kids' table → MAMMUT →
+    chairs → cart, then LOCKIG, then BUSUNGE. It worked because products were findable <em>by series name</em>.
+    Also the only user to run a comparison.</p>
+  </div>
+  <div class="seg-card">
+    <div class="seg-id">U3 · …4693</div>
+    <div class="seg-name">The frustrated explorer</div>
+    <dl class="seg-dl">
+      <dt>Turns</dt><dd>18</dd>
+      <dt>Searching turns</dt><dd>12</dd>
+      <dt>All-zero turns</dt><dd>3</dd>
+      <dt>Retry storms</dt><dd>4</dd>
+      <dt>👎 sent</dt><dd><strong>2</strong></dd>
+      <dt>Cart adds</dt><dd>0</dd>
+      <dt>Latency p50</dt><dd><strong>15.1s</strong></dd>
+      <dt>Pushback</dt><dd>1</dd>
+    </dl>
+    <p class="seg-note">Open-ended discovery — Montessori furniture, developmental toys, potty training. Asked
+    concept questions the catalogue cannot answer. The <strong>only</strong> user to send negative feedback, and
+    the slowest served. Highest-intent, worst-served.</p>
+  </div>
+  <div class="seg-card">
+    <div class="seg-id">U4 · …3298</div>
+    <div class="seg-name">The returning curator</div>
+    <dl class="seg-dl">
+      <dt>Turns</dt><dd>18</dd>
+      <dt>Resets</dt><dd>0</dd>
+      <dt>Peak cart</dt><dd><strong>11 items</strong></dd>
+      <dt>All-zero turns</dt><dd>3</dd>
+      <dt>Images sent in</dt><dd>2</dd>
+      <dt>Button taps</dt><dd>2</dd>
+      <dt>Latency p50</dt><dd>13.0s</dd>
+      <dt>Pushback</dt><dd>2</dd>
+    </dl>
+    <p class="seg-note">Arrived with an 11-item basket already built and <em>curated</em> it —
+    <span class="he-in">תוריד את האדנית ואת הצמחים</span>, "remove the planter and the plants". Sent photos to
+    identify products. Never reset. The most product-literate behaviour in the sample.</p>
+  </div>
+</div>
+
+<h3>Segment comparison — table view</h3>
+<div class="card scroll"><table>
+  <thead><tr><th>Metric</th><th class="num">U1 prober</th><th class="num">U2 shopper</th><th class="num">U3 explorer</th><th class="num">U4 curator</th></tr></thead>
+  <tbody>
+    <tr><td>Turns</td><td class="num">166</td><td class="num">56</td><td class="num">18</td><td class="num">18</td></tr>
+    <tr><td>Days active</td><td class="num">2</td><td class="num">3</td><td class="num">1</td><td class="num">1</td></tr>
+    <tr><td>Resets</td><td class="num">36</td><td class="num">7</td><td class="num">3</td><td class="num">0</td></tr>
+    <tr><td>Turns that searched</td><td class="num">64</td><td class="num">37</td><td class="num">12</td><td class="num">10</td></tr>
+    <tr><td>All-search-zero turns</td><td class="num">12</td><td class="num">7</td><td class="num">3</td><td class="num">3</td></tr>
+    <tr><td>Zero rate of searching turns</td><td class="num">19%</td><td class="num">19%</td><td class="num">25%</td><td class="num">30%</td></tr>
+    <tr><td>Retry storms (M7)</td><td class="num">16</td><td class="num">9</td><td class="num">4</td><td class="num">4</td></tr>
+    <tr><td>Clarifying questions</td><td class="num">59</td><td class="num">20</td><td class="num">2</td><td class="num">8</td></tr>
+    <tr><td>Cart adds</td><td class="num">0</td><td class="num">5</td><td class="num">0</td><td class="num">0</td></tr>
+    <tr><td>Peak cart size</td><td class="num">1</td><td class="num">4</td><td class="num">0</td><td class="num">11</td></tr>
+    <tr><td>Explicit pushback turns</td><td class="num">6</td><td class="num">3</td><td class="num">1</td><td class="num">2</td></tr>
+    <tr><td>👎 reactions</td><td class="num">0</td><td class="num">0</td><td class="num">2</td><td class="num">0</td></tr>
+    <tr><td>Mean words per message</td><td class="num">3.7</td><td class="num">4.5</td><td class="num">3.6</td><td class="num">4.2</td></tr>
+    <tr><td>Latency p50</td><td class="num">7.0s</td><td class="num">12.4s</td><td class="num">15.1s</td><td class="num">13.0s</td></tr>
+  </tbody>
+</table></div>
+<p class="lede"><strong>The cross-segment pattern is the finding:</strong> the zero-result rate <em>rises</em>
+as behaviour gets more exploratory — 19% for the scripted and series-name-driven users, 25–30% for the two who
+described what they wanted in their own words. And the user who was served slowest (15.1s) is the one who sent
+the only negative feedback. <strong>The product rewards knowing IKEA's vocabulary and punishes describing your
+need.</strong></p>
+
+<h2>5 · Caveats — read before quoting anything</h2>
+<ul>
+  <li><strong>The 61% zero-search figure is partly cap-contaminated.</strong> <code>search_cap</code> and
+  <code>search_cat_cap</code> fired 3–5× on each failing turn, and a blocked search reports zero rows without
+  proving the query would have failed. <strong>Only the first two searches per turn are clean evidence.</strong>
+  The defensible turn-level figure is 25 of 123 searching turns (20%).</li>
+  <li><strong>Dedup was ruled out</strong> on the failing turns — <code>session_before.shown_item_nos</code> was
+  empty and the cart was empty, so these are not dedup-blocks.</li>
+  <li><strong>A possible regression, not asserted.</strong> <code>search(query="סיר לילה")</code> returned 2 real
+  SKUs (LILLA, LOCKIG) on 05-16, then <strong>zero</strong> on 05-18 for the identical string on a freshly reset
+  session. Both were first-or-second searches, so neither is cap-contaminated. Two data points is not a trend —
+  replay it (<code>scripts/debug_trace.py --text "סיר לילה"</code>) to settle it.</li>
+  <li><strong>May data, v4.x era.</strong> <code>prompt_version</code> is <code>None</code> throughout this
+  sample — an instrumentation gap that means no finding here can be tied to a prompt version. The product is now
+  on v4.9.11. <strong>Every defect needs re-verification against today's index before it is acted on.</strong></li>
+  <li><strong>n = 4 users.</strong> Segments are descriptive of these four people. They are a hypothesis about
+  behaviour types worth testing at 1,500 users — not a validated persona set.</li>
+</ul>
+
+<h2>6 · What to do with this</h2>
+<ul>
+  <li><strong>Ship the Hebrew pushback detector</strong> — half a day, no LLM, no scan, backfillable over all
+  history. It is the only continuous quality metric grounded in what customers actually complain about.</li>
+  <li><strong>Re-verify the image failure before the release.</strong> Highest-severity user-visible defect here
+  and absent from the open-issues list.</li>
+  <li><strong>Replay the zero-result clusters</strong> — kids' towels, potty training, style search, numeric
+  dimensions, bathroom vanities, Hebrew-transliterated series. ~2 hours, and it settles the regression question.</li>
+  <li><strong>Fix the typo'd reset.</strong> <code>יחה חדשה</code> (dropped letter) and <code>שיחה חדשהֿ</code>
+  (stray diacritic) both missed the reset pattern and burned a full LLM turn. 18% of turns are resets.</li>
+  <li><strong>Stamp <code>prompt_version</code> into the trajectory record</strong> so the next analysis can
+  attribute findings to a version.</li>
+  <li><strong>Re-run this on the first week of 1,500-employee traffic</strong>, where the topic mix will finally
+  mean something.</li>
+</ul>
+
+<p class="foot">Sources: <code>ikea-agent/evals/results/trajectories.jsonl</code> (258 turns) +
+<code>mined_queries.jsonl</code> (123 turns), merged and deduped on <code>message_id</code>. Both were extracted
+from <code>s3://ikea-debug-traces-meta</code>. Phone numbers pseudonymised to U1–U4. Aggregates are plain counts
+over <code>mechanism_signals</code>, <code>validator_tags</code>, <code>tool_calls[].result_count</code> and
+<code>session_before/after</code>. Generated 2026-07-29 for the IKEA WhatsApp Shopping Agent workstream.</p>
+
+</div></div>
