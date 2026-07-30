@@ -1,0 +1,307 @@
+<title>IKEA Agent — Conversation Analysis</title>
+<style>
+  .viz-root{
+    color-scheme: light;
+    --surface-1:#fcfcfb; --plane:#f9f9f7;
+    --text-primary:#0b0b0b; --text-secondary:#52514e; --muted:#898781;
+    --grid:#e1e0d9; --baseline:#c3c2b7; --border:rgba(11,11,11,0.10);
+    --s1:#2a78d6; --s2:#eb6834; --s3:#1baf7a;
+    --good:#0ca30c; --warning:#fab219; --serious:#ec835a; --critical:#d03b3b;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:where(:not([data-theme="light"])) .viz-root{
+      color-scheme: dark;
+      --surface-1:#1a1a19; --plane:#0d0d0d;
+      --text-primary:#ffffff; --text-secondary:#c3c2b7; --muted:#898781;
+      --grid:#2c2c2a; --baseline:#383835; --border:rgba(255,255,255,0.10);
+      --s1:#3987e5; --s2:#d95926; --s3:#199e70;
+    }
+  }
+  :root[data-theme="dark"] .viz-root{
+    color-scheme: dark;
+    --surface-1:#1a1a19; --plane:#0d0d0d;
+    --text-primary:#ffffff; --text-secondary:#c3c2b7; --muted:#898781;
+    --grid:#2c2c2a; --baseline:#383835; --border:rgba(255,255,255,0.10);
+    --s1:#3987e5; --s2:#d95926; --s3:#199e70;
+  }
+
+  .viz-root{background:var(--plane);color:var(--text-primary);
+    font:15px/1.55 ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+    margin:0;padding:32px 20px 72px}
+  .wrap{max-width:1060px;margin:0 auto}
+  h1{font-size:1.9rem;line-height:1.2;margin:0 0 6px;letter-spacing:-.02em;text-wrap:balance}
+  h2{font-size:1.22rem;margin:52px 0 4px;letter-spacing:-.01em}
+  h3{font-size:.95rem;margin:26px 0 10px;color:var(--text-secondary);font-weight:650}
+  .sub{color:var(--text-secondary);margin:0 0 4px}
+  .lede{color:var(--text-secondary);max-width:70ch;margin:0 0 6px}
+  .rule{height:1px;background:var(--border);border:0;margin:8px 0 0}
+  code{font:12.5px/1.4 ui-monospace,SFMono-Regular,Menlo,monospace;background:var(--plane);
+       border:1px solid var(--border);border-radius:4px;padding:1px 5px}
+  .card{background:var(--surface-1);border:1px solid var(--border);border-radius:12px;padding:20px 22px;margin:18px 0}
+  .banner{background:var(--surface-1);border:1px solid var(--border);border-left:3px solid var(--warning);
+          border-radius:12px;padding:16px 20px;margin:22px 0}
+  .banner.info{border-left-color:var(--s1)}
+  .banner > strong{display:block;margin-bottom:6px}
+  .banner p{margin:0 0 8px;color:var(--text-secondary);font-size:14px}
+  .banner p:last-child{margin-bottom:0}
+
+  .tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(148px,1fr));gap:10px;margin:20px 0 8px}
+  .tile{background:var(--surface-1);border:1px solid var(--border);border-radius:12px;padding:14px 16px}
+  .tile .n{font-size:1.72rem;font-weight:680;letter-spacing:-.02em;line-height:1.1;font-variant-numeric:tabular-nums}
+  .tile .l{font-size:12px;color:var(--text-secondary);margin-top:3px}
+  .tile .h{font-size:11px;color:var(--muted);margin-top:2px}
+  .delta{font-size:11.5px;font-weight:640;margin-top:3px;font-variant-numeric:tabular-nums}
+  .delta.up{color:var(--critical)} .delta.down{color:var(--good)} .delta.flat{color:var(--muted)}
+
+  table{width:100%;border-collapse:collapse;font-size:13.5px}
+  .scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  th{text-align:left;font-weight:640;color:var(--text-secondary);font-size:12px;text-transform:uppercase;
+     letter-spacing:.04em;padding:0 10px 7px;border-bottom:1px solid var(--border);white-space:nowrap}
+  td{padding:8px 10px;border-bottom:1px solid var(--border);vertical-align:top}
+  tbody tr:last-child td{border-bottom:0}
+  .num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+
+  .bars{display:grid;gap:9px;margin:4px 0 2px}
+  .bar-row{display:grid;grid-template-columns:minmax(96px,190px) 1fr auto;align-items:center;gap:12px}
+  .bar-lab{font-size:13px;color:var(--text-secondary);text-align:right;line-height:1.25}
+  .track{position:relative;height:20px;background:linear-gradient(to right,var(--grid) 0 1px,transparent 1px) repeat-x;
+         background-size:25% 100%;border-bottom:1px solid var(--baseline)}
+  .fill{height:16px;margin-top:2px;background:var(--s1);border-radius:0 4px 4px 0;min-width:2px}
+  .fill.s2{background:var(--s2)} .fill.s3{background:var(--s3)}
+  .fill.crit{background:var(--critical)} .fill.warn{background:var(--serious)}
+  .bar-val{font-size:13px;font-variant-numeric:tabular-nums;font-weight:620;min-width:74px}
+  .axis-note{font-size:11px;color:var(--muted);margin:6px 0 0;text-align:right}
+
+  .quote{background:var(--surface-1);border:1px solid var(--border);border-left:3px solid var(--critical);
+         border-radius:10px;padding:12px 16px;margin:9px 0}
+  .he{direction:rtl;text-align:right;font-size:15px;font-weight:560;unicode-bidi:isolate}
+  .qmeta{font-size:11.5px;color:var(--muted);margin-top:6px;display:flex;gap:12px;flex-wrap:wrap}
+
+  .seg{display:grid;grid-template-columns:repeat(auto-fit,minmax(238px,1fr));gap:12px;margin:16px 0}
+  .seg-card{background:var(--surface-1);border:1px solid var(--border);border-radius:12px;padding:16px 18px}
+  .seg-name{font-size:1.02rem;font-weight:660;margin:0 0 2px;letter-spacing:-.01em}
+  .seg-desc{font-size:12px;color:var(--muted);margin:0 0 10px;line-height:1.4}
+  .seg-dl{display:grid;grid-template-columns:1fr auto;gap:2px 10px;font-size:12.5px;margin:0}
+  .seg-dl dt{color:var(--text-secondary)}
+  .seg-dl dd{margin:0;text-align:right;font-variant-numeric:tabular-nums;font-weight:600}
+  .pill{display:inline-block;font-size:10.5px;letter-spacing:.03em;text-transform:uppercase;
+        border-radius:20px;padding:2px 9px;margin:8px 6px 0 0;border:1px solid var(--border);color:var(--text-secondary)}
+  .pill.bad{border-color:var(--critical);color:var(--critical)}
+
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:720px){.two{grid-template-columns:1fr}.bar-row{grid-template-columns:minmax(78px,130px) 1fr auto}}
+  ul{padding-left:1.15rem} li{margin:5px 0;color:var(--text-secondary)} li strong{color:var(--text-primary)}
+  .foot{font-size:12.5px;color:var(--muted);margin-top:44px;padding-top:14px;border-top:1px solid var(--border)}
+  .empty{color:var(--muted);font-size:13.5px;font-style:italic}
+</style>
+
+<div class="viz-root"><div class="wrap" id="app"></div></div>
+
+<script>
+const PAYLOAD = "__METRICS_JSON__";
+
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const num = n => (n === null || n === undefined) ? "—" : n.toLocaleString("en-US");
+
+/* Bars are normalised to the largest value in their own group, so a chart is
+   readable whether the biggest bar is 12 or 120,000. */
+function bars(rows, {valueKey = "n", labelFn = null, note = ""} = {}) {
+  if (!rows || !rows.length) return `<div class="card"><p class="empty">No data in this window.</p></div>`;
+  const max = Math.max(...rows.map(r => r[valueKey] || 0)) || 1;
+  const body = rows.map(r => {
+    const v = r[valueKey] || 0;
+    // A genuine zero must render as nothing — a min-width sliver on a 0 bar
+    // reads as "a little bit" and is a lie.
+    const w = v === 0 ? 0 : Math.max(0.6, 100 * v / max);
+    const val = labelFn ? labelFn(r) : num(r[valueKey]) + (r.pct !== undefined ? ` · ${r.pct}%` : "");
+    return `<div class="bar-row"><div class="bar-lab">${esc(r.label)}</div>
+      <div class="track">${w ? `<div class="fill ${r.tone || ""}" style="width:${w.toFixed(1)}%"></div>` : ""}</div>
+      <div class="bar-val">${esc(val)}</div></div>`;
+  }).join("");
+  return `<div class="card"><div class="bars">${body}</div>${note ? `<p class="axis-note">${esc(note)}</p>` : ""}</div>`;
+}
+
+/* A delta is only shown when the baseline actually carries the field, and
+   `goodDown` says which direction is an improvement — so a falling zero-rate
+   reads green and a falling buyer-rate reads red. */
+function delta(cur, base, {suffix = "", goodDown = true} = {}) {
+  if (base === null || base === undefined || cur === null || cur === undefined) return "";
+  const d = +(cur - base).toFixed(1);
+  if (Math.abs(d) < 0.05) return `<div class="delta flat">= vs baseline</div>`;
+  const worse = goodDown ? d > 0 : d < 0;
+  const arrow = d > 0 ? "▲" : "▼";
+  return `<div class="delta ${worse ? "up" : "down"}">${arrow} ${Math.abs(d)}${suffix} vs baseline</div>`;
+}
+
+function tile(n, label, hint, deltaHtml = "") {
+  return `<div class="tile"><div class="n">${esc(n)}</div><div class="l">${label}</div>
+    ${hint ? `<div class="h">${hint}</div>` : ""}${deltaHtml}</div>`;
+}
+
+function render(payload) {
+  const m = payload.metrics, b = payload.baseline && payload.baseline.headline ? payload.baseline.headline : null;
+  const h = m.headline, p = m.provenance;
+  const bl = payload.baseline ? (payload.baseline.window?.label || "baseline") : null;
+  const parts = [];
+
+  parts.push(`<h1>What people ask the agent — and how they react</h1>
+    <p class="sub">IKEA Israel WhatsApp agent · ${num(p.turns)} turns · ${num(p.users)} users ·
+      ${esc(p.first)} → ${esc(p.last)}${m.window.label ? ` · ${esc(m.window.label)}` : ""}</p>
+    <p class="lede">Every figure is computed deterministically from per-turn production records —
+      no LLM, no sampling, no estimation. Quotes are verbatim user text. Regenerate with
+      <code>conversation_report.py</code>.</p>
+    <hr class="rule">`);
+
+  /* Provenance banner. The tester-exclusion state is the single most important
+     thing a reader needs, so it is stated before any number. */
+  const testerLine = p.excluded_tester_turns > 0
+    ? `<strong>${num(p.excluded_tester_turns)} tester turns were excluded</strong> from every figure below.`
+    : `<strong>No tester turns were excluded</strong> — run with <code>--exclude-testers</code> if internal
+       QA traffic is in this window, or these numbers blend testers with real users.`;
+  parts.push(`<div class="banner info"><strong>How to read this run</strong>
+    <p>${testerLine}</p>
+    <p>Window <code>${esc(m.window.since?.slice(0,16) || "")}</code> → <code>${esc(m.window.until?.slice(0,16) || "now")}</code>,
+      ${num(p.days)} day(s), ${num(p.turns)} turns from ${num(p.users)} users
+      (${h.turns_per_user} turns per user). Generated ${esc(m.generated_at.slice(0,16))}.
+      ${bl ? `Deltas compare against <strong>${esc(bl)}</strong>.` : ""}</p>
+    <p><strong>The zero-search figure is partly cap-contaminated.</strong> <code>search_cap</code> blocks the
+      3rd+ search in a turn, and a blocked search reports zero rows without proving the query would have failed.
+      The defensible turn-level number is <strong>${h.all_zero_rate_of_searching}% of searching turns where
+      every search returned zero</strong>; treat the ${h.zero_call_rate}% call-level rate as an upper bound.</p></div>`);
+
+  parts.push(`<div class="tiles">
+    ${tile(num(h.turns), "turns", `${num(h.users)} users · ${num(p.days)} day(s)`)}
+    ${tile(num(h.search_calls), "search calls", `${(h.search_calls/Math.max(1,h.searching_turns)).toFixed(1)} per searching turn`)}
+    ${tile(h.all_zero_rate_of_searching + "%", "searching turns, all searches failed",
+        `${num(h.all_zero_turns)} of ${num(h.searching_turns)}`,
+        delta(h.all_zero_rate_of_searching, b?.all_zero_rate_of_searching, {suffix:"pp"}))}
+    ${tile(h.buyer_rate + "%", "users who added to cart", `${num(h.buyers)} of ${num(h.users)}`,
+        delta(h.buyer_rate, b?.buyer_rate, {suffix:"pp", goodDown:false}))}
+    ${tile(h.pushback_rate + "%", "turns where the user said we failed",
+        `${num(h.pushback_turns)} turns · ${num(h.pushback_users)} users`,
+        delta(h.pushback_rate, b?.pushback_rate, {suffix:"pp"}))}
+    ${tile((h.latency_p50_s ?? "—") + "s", "turn latency, p50",
+        `p90 ${h.latency_p90_s ?? "—"}s · max ${h.latency_max_s ?? "—"}s`,
+        delta(h.latency_p50_s, b?.latency_p50_s, {suffix:"s"}))}
+  </div>`);
+
+  parts.push(`<h2>1 · Quantitative</h2>
+    <h3>The search funnel</h3>${bars(m.funnel, {note: `share of all ${num(h.turns)} turns`})}`);
+
+  parts.push(`<h3>The narrowing trap — the bot blocking its own retries</h3>
+    ${bars(m.narrowing, {note: `share of all ${num(h.turns)} turns`})}
+    <p class="lede">The bot narrows instead of answering, the user replies tersely, and the constraint does not
+      travel with the reply: <strong>${m.terse.rate}% of the ${num(m.terse.n)} terse agent turns
+      (≤3 words) returned zero results</strong>. The retry is then blocked by <code>search_cap</code> or
+      <code>blocked_repeat_query</code>, and the turn ends in text. Resets:
+      ${num(h.reset_turns)} (${h.reset_rate}% of turns).</p>`);
+
+  if (m.latency_by_action.length) {
+    parts.push(`<h3>Latency by turn outcome</h3>
+      ${bars(m.latency_by_action, {valueKey: "p50_s",
+        labelFn: r => `${r.p50_s}s · n=${num(r.n)}`, note: "p50 seconds per turn, fastest first"})}
+      <p class="lede">Deterministic and knowledge routes sit at the top of this list and cost $0 in LLM.
+        Every turn moved onto them is cheaper in both latency and spend.</p>`);
+  }
+
+  parts.push(`<div class="two"><div><h3>What was asked about</h3>
+    ${bars(m.topics, {note: "turns · keyword-coded · a turn can match two topics"})}</div>
+    <div><h3>How turns ended</h3>${bars(m.actions, {note: "turns"})}</div></div>`);
+
+  /* Qualitative */
+  parts.push(`<h2>2 · Qualitative — what people said</h2>
+    <p class="lede">${num(h.pushback_turns)} turns (${h.pushback_rate}%) from ${num(h.pushback_users)} users are
+      the customer telling us, unprompted, that we failed. These are <strong>self-labelled defects</strong> —
+      the only signal in the system that carries severity rather than just frequency. Detected by regex over
+      Hebrew pushback patterns: no LLM, no sampling. Users are pseudonymised.</p>`);
+  if (!m.quotes.length) {
+    parts.push(`<div class="card"><p class="empty">No pushback detected in this window.</p></div>`);
+  } else {
+    parts.push(m.quotes.map(q => `<div class="quote"><div class="he">${esc(q.text)}</div>
+      <div class="qmeta"><span>${esc(q.user)}</span><span>${esc(q.at)}</span>
+      <span>${esc(q.action || "—")}</span>${q.all_zero ? `<span>all searches returned zero</span>` : ""}</div>
+    </div>`).join(""));
+    if (h.pushback_turns > m.quotes.length)
+      parts.push(`<p class="axis-note">showing ${m.quotes.length} of ${num(h.pushback_turns)}, deduped by text</p>`);
+  }
+
+  if (m.zero_queries.length) {
+    parts.push(`<h3>What people asked for and could not get</h3>
+      <p class="lede">Verbatim queries where <em>every</em> search returned zero. This is the demand-gap list —
+        ranked by how often it happened, so the top rows are what to fix or stock first.</p>
+      <div class="card scroll"><table><thead><tr><th>Query</th><th class="num">Turns</th></tr></thead><tbody>
+      ${m.zero_queries.map(z => `<tr><td class="he">${esc(z.text)}</td><td class="num">${num(z.n)}</td></tr>`).join("")}
+      </tbody></table></div>`);
+  }
+
+  /* Method comparison — fixed content, but the coverage figures are live. */
+  parts.push(`<h2>3 · Qualitative vs quantitative</h2>
+    <div class="card scroll"><table>
+      <thead><tr><th>Dimension</th><th>Quantitative</th><th>Qualitative</th></tr></thead><tbody>
+      <tr><td><strong>Coverage</strong></td><td>100% of ${num(h.turns)} turns, automatic</td>
+        <td>${h.pushback_rate}% volunteered pushback (${num(h.pushback_turns)} turns)</td></tr>
+      <tr><td><strong>Tells you</strong></td><td><em>How much</em> and <em>how often</em></td>
+        <td><em>What</em> broke and <em>why it mattered</em></td></tr>
+      <tr><td><strong>Misses</strong></td><td>Severity — a zero-result turn and an 11-turn image failure count the same</td>
+        <td>Frequency and trend — one vivid complaint reads like a crisis or a one-off</td></tr>
+      <tr><td><strong>Bias</strong></td><td>None in collection; blind to intent</td>
+        <td>Self-selected — only people who bother to complain</td></tr>
+      <tr><td><strong>Cost</strong></td><td>$0 — already in the trajectory records</td>
+        <td>$0 — regex, no LLM</td></tr>
+      </tbody></table></div>`);
+
+  /* Segmentation */
+  parts.push(`<h2>4 · User segmentation</h2>
+    <p class="lede">Segments are assigned per user by <strong>behaviour</strong>, in a fixed precedence order so
+      every user lands in exactly one — the same disambiguation convention the mechanism clusterer uses.
+      <em>Frustrated</em> (said we failed, or sent 👎) and <em>blocked</em> (half or more of their searches
+      returned nothing) are orthogonal flags and can co-occur with any segment.</p>
+    <div class="banner"><strong>Identifiers are behavioural, not demographic</strong>
+      <p>The agent stores no age, gender, household or home type. The available identifiers are the phone
+      number (pseudonymised here), the preferred store, and the language. Nothing below is a demographic
+      persona — these are behaviour types, and they should be validated against real customers before being
+      presented as personas.</p></div>`);
+
+  parts.push(`<div class="seg">${m.segments.map(s => `<div class="seg-card">
+    <p class="seg-name">${esc(s.name)}</p><p class="seg-desc">${esc(s.desc)}</p>
+    <dl class="seg-dl">
+      <dt>Users</dt><dd>${num(s.users)} · ${s.user_pct}%</dd>
+      <dt>Turns</dt><dd>${num(s.turns)} · ${s.turn_pct}%</dd>
+      <dt>Median turns/user</dt><dd>${s.median_turns}</dd>
+      <dt>Cart adds</dt><dd>${num(s.cart_adds)}</dd>
+      <dt>Zero-result rate</dt><dd>${s.zero_rate}%</dd>
+      <dt>Resets/user</dt><dd>${s.resets_per_user}</dd>
+      <dt>Latency p50</dt><dd>${s.median_p50_s ?? "—"}s</dd>
+    </dl>
+    ${s.frustrated_pct > 0 ? `<span class="pill bad">${s.frustrated_pct}% frustrated</span>` : ""}
+    ${s.blocked_pct > 0 ? `<span class="pill bad">${s.blocked_pct}% blocked</span>` : ""}
+  </div>`).join("")}</div>`);
+
+  parts.push(`<h3>Segment comparison — table view</h3>
+    <div class="card scroll"><table><thead><tr><th>Segment</th><th class="num">Users</th>
+      <th class="num">% users</th><th class="num">Turns</th><th class="num">Median turns</th>
+      <th class="num">Cart adds</th><th class="num">Zero rate</th><th class="num">Frustrated</th>
+      <th class="num">Blocked</th><th class="num">p50</th></tr></thead><tbody>
+      ${m.segments.map(s => `<tr><td>${esc(s.name)}</td><td class="num">${num(s.users)}</td>
+        <td class="num">${s.user_pct}%</td><td class="num">${num(s.turns)}</td>
+        <td class="num">${s.median_turns}</td><td class="num">${num(s.cart_adds)}</td>
+        <td class="num">${s.zero_rate}%</td><td class="num">${s.frustrated_pct}%</td>
+        <td class="num">${s.blocked_pct}%</td><td class="num">${s.median_p50_s ?? "—"}s</td></tr>`).join("")}
+      </tbody></table></div>
+    <p class="lede">Read the <strong>zero-result rate across segments</strong>: if it rises for the
+      exploratory segments and stays low for buyers, the product is rewarding people who already know IKEA's
+      vocabulary and punishing people describing a need in their own words.</p>`);
+
+  parts.push(`<p class="foot">Source: per-turn trajectory records
+    (<code>IkeaTrajectories</code> / <code>extract_trajectories.py</code> JSONL), extracted from
+    <code>s3://ikea-debug-traces-meta</code>. Both carry a 30-day TTL — snapshot
+    <code>metrics.json</code> for any window worth keeping. Phone numbers are salted-hash pseudonymised.
+    Aggregates are plain counts over <code>mechanism_signals</code>, <code>validator_tags</code>,
+    <code>tool_calls[].result_count</code> and <code>session_before/after</code>.
+    Regenerate: <code>python3 conversation_report.py --days 7 --exclude-testers</code>.</p>`);
+
+  document.getElementById("app").innerHTML = parts.join("\n");
+}
+
+render(PAYLOAD);
+</script>

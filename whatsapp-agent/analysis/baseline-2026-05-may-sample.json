@@ -1,0 +1,420 @@
+{
+  "schema": 2,
+  "generated_at": "2026-07-30T09:15:58+00:00",
+  "window": {
+    "since": "2026-05-01",
+    "until": null,
+    "label": "May 2026 tester sample (baseline)"
+  },
+  "provenance": {
+    "turns": 258,
+    "users": 4,
+    "days": 3,
+    "first": "2026-05-16T12:38",
+    "last": "2026-05-18T12:32",
+    "excluded_tester_turns": 0
+  },
+  "headline": {
+    "turns": 258,
+    "users": 4,
+    "turns_per_user": 64.5,
+    "search_calls": 270,
+    "zero_calls": 166,
+    "zero_call_rate": 61.5,
+    "searching_turns": 123,
+    "all_zero_turns": 25,
+    "all_zero_rate_of_searching": 20.3,
+    "cart_growth_turns": 5,
+    "cart_growth_rate": 1.9,
+    "buyers": 1,
+    "buyer_rate": 25.0,
+    "latency_p50_s": 8.2,
+    "latency_p90_s": 21.0,
+    "latency_max_s": 41.3,
+    "pushback_turns": 12,
+    "pushback_rate": 4.7,
+    "pushback_users": 4,
+    "reset_turns": 46,
+    "reset_rate": 17.8
+  },
+  "funnel": [
+    {
+      "label": "Turns",
+      "n": 258,
+      "pct": 100.0
+    },
+    {
+      "label": "Ran ≥1 search",
+      "n": 123,
+      "pct": 47.7
+    },
+    {
+      "label": "Every search returned zero",
+      "n": 25,
+      "pct": 9.7,
+      "tone": "crit"
+    },
+    {
+      "label": "Grew the cart",
+      "n": 5,
+      "pct": 1.9
+    }
+  ],
+  "narrowing": [
+    {
+      "label": "Clarifying question asked",
+      "n": 89,
+      "pct": 34.5
+    },
+    {
+      "label": "…validator-forced",
+      "n": 54,
+      "pct": 20.9,
+      "tone": "s2"
+    },
+    {
+      "label": "search_cap blocked a search",
+      "n": 28,
+      "pct": 10.9,
+      "tone": "warn"
+    },
+    {
+      "label": "blocked_repeat_query",
+      "n": 33,
+      "pct": 12.8,
+      "tone": "warn"
+    },
+    {
+      "label": "Validator rewrote action (M5)",
+      "n": 66,
+      "pct": 25.6,
+      "tone": "s2"
+    },
+    {
+      "label": "Retry storm (M7)",
+      "n": 33,
+      "pct": 12.8,
+      "tone": "crit"
+    }
+  ],
+  "terse": {
+    "n": 74,
+    "all_zero": 12,
+    "rate": 16.2
+  },
+  "latency_by_action": [
+    {
+      "label": "data_source",
+      "n": 35,
+      "p50_s": 6.4,
+      "p90_s": 10.5
+    },
+    {
+      "label": "text_only",
+      "n": 51,
+      "p50_s": 12.2,
+      "p90_s": 25.2
+    },
+    {
+      "label": "show_search_results",
+      "n": 87,
+      "p50_s": 14.2,
+      "p90_s": 23.3
+    },
+    {
+      "label": "show_product_detail",
+      "n": 6,
+      "p50_s": 14.5,
+      "p90_s": 21.1
+    }
+  ],
+  "topics": [
+    {
+      "label": "Kitchens",
+      "n": 30
+    },
+    {
+      "label": "Kids & baby",
+      "n": 23
+    },
+    {
+      "label": "Tables",
+      "n": 18
+    },
+    {
+      "label": "Warranty & service",
+      "n": 18
+    },
+    {
+      "label": "Beds",
+      "n": 15
+    },
+    {
+      "label": "Wardrobes & storage",
+      "n": 11
+    },
+    {
+      "label": "Kitchenware & small goods",
+      "n": 8
+    },
+    {
+      "label": "Sofas & seating",
+      "n": 5
+    },
+    {
+      "label": "Bathroom",
+      "n": 4
+    }
+  ],
+  "actions": [
+    {
+      "label": "show_search_results",
+      "n": 87
+    },
+    {
+      "label": "text_only",
+      "n": 51
+    },
+    {
+      "label": "reset",
+      "n": 46
+    },
+    {
+      "label": "data_source",
+      "n": 35
+    },
+    {
+      "label": "kb_lookup",
+      "n": 9
+    },
+    {
+      "label": "show_product_detail",
+      "n": 6
+    },
+    {
+      "label": "tap",
+      "n": 5
+    },
+    {
+      "label": "show_images",
+      "n": 4
+    },
+    {
+      "label": "sku",
+      "n": 4
+    },
+    {
+      "label": "agent",
+      "n": 3
+    },
+    {
+      "label": "add_to_cart",
+      "n": 3
+    },
+    {
+      "label": "show_comparison",
+      "n": 2
+    }
+  ],
+  "segments": [
+    {
+      "key": "buyer",
+      "name": "Buyer",
+      "desc": "Added at least one item to the cart.",
+      "users": 1,
+      "user_pct": 25.0,
+      "turns": 56,
+      "turn_pct": 21.7,
+      "median_turns": 56,
+      "cart_adds": 5,
+      "zero_rate": 18.9,
+      "pushback_users": 1,
+      "frustrated_pct": 100.0,
+      "blocked_pct": 0.0,
+      "resets_per_user": 7.0,
+      "median_p50_s": 12.4
+    },
+    {
+      "key": "curator",
+      "name": "Curator",
+      "desc": "Arrived with a basket of 3+ and managed it rather than building it.",
+      "users": 1,
+      "user_pct": 25.0,
+      "turns": 18,
+      "turn_pct": 7.0,
+      "median_turns": 18,
+      "cart_adds": 0,
+      "zero_rate": 30.0,
+      "pushback_users": 1,
+      "frustrated_pct": 100.0,
+      "blocked_pct": 0.0,
+      "resets_per_user": 0.0,
+      "median_p50_s": 13.0
+    },
+    {
+      "key": "explorer",
+      "name": "Explorer",
+      "desc": "Searched repeatedly, never added to cart.",
+      "users": 2,
+      "user_pct": 50.0,
+      "turns": 184,
+      "turn_pct": 71.3,
+      "median_turns": 92.0,
+      "cart_adds": 0,
+      "zero_rate": 19.7,
+      "pushback_users": 2,
+      "frustrated_pct": 100.0,
+      "blocked_pct": 0.0,
+      "resets_per_user": 19.5,
+      "median_p50_s": 11.1
+    }
+  ],
+  "quotes": [
+    {
+      "text": "מ ההסגנון שביקשתי קודם ?",
+      "user": "U-6128df",
+      "at": "2026-05-18T07:55",
+      "action": "show_search_results",
+      "all_zero": false
+    },
+    {
+      "text": "למה לא הצגת אותו בפעם הראשונה?",
+      "user": "U-6231a1",
+      "at": "2026-05-18T05:24",
+      "action": "show_product_detail",
+      "all_zero": true
+    },
+    {
+      "text": "ביקשתי ממתכת,למה אתה מציג גם את העץ?",
+      "user": "U-6231a1",
+      "at": "2026-05-18T04:57",
+      "action": "show_search_results",
+      "all_zero": false
+    },
+    {
+      "text": "לא קיבלתי תמונה",
+      "user": "U-6128df",
+      "at": "2026-05-17T14:21",
+      "action": "show_search_results",
+      "all_zero": false
+    },
+    {
+      "text": "עדיין לא קיבלתי תמונה",
+      "user": "U-6128df",
+      "at": "2026-05-17T14:20",
+      "action": "show_search_results",
+      "all_zero": false
+    },
+    {
+      "text": "עדיין לא הראית לי תמונה",
+      "user": "U-6128df",
+      "at": "2026-05-17T14:19",
+      "action": "show_search_results",
+      "all_zero": false
+    },
+    {
+      "text": "לא רואה תמונה",
+      "user": "U-6128df",
+      "at": "2026-05-17T14:18",
+      "action": "show_search_results",
+      "all_zero": false
+    },
+    {
+      "text": "התכוונתי למק\"ט 10582267",
+      "user": "U-b7d9c3",
+      "at": "2026-05-17T12:08",
+      "action": "show_product_detail",
+      "all_zero": false
+    },
+    {
+      "text": "לא שלחת תמונות",
+      "user": "U-7f8145",
+      "at": "2026-05-17T07:37",
+      "action": "show_search_results",
+      "all_zero": false
+    },
+    {
+      "text": "מה למה נתת לי את האחריות של הכל, שאלתי על מטבחים",
+      "user": "U-6128df",
+      "at": "2026-05-17T07:30",
+      "action": "data_source",
+      "all_zero": false
+    },
+    {
+      "text": "אלו לא קופסאות אחסון לבגדים לילדים.",
+      "user": "U-7f8145",
+      "at": "2026-05-16T15:10",
+      "action": "text_only",
+      "all_zero": true
+    },
+    {
+      "text": "אתה לא מציג לי שום דבר",
+      "user": "U-7f8145",
+      "at": "2026-05-16T15:08",
+      "action": "show_search_results",
+      "all_zero": false
+    }
+  ],
+  "zero_queries": [
+    {
+      "text": "מגבת לילדים",
+      "n": 3
+    },
+    {
+      "text": "שולחן אוכל לסלון",
+      "n": 2
+    },
+    {
+      "text": "אני מחפש ארון עם כיור לחדר אמבטיה",
+      "n": 1
+    },
+    {
+      "text": "יחידה מוכנה",
+      "n": 1
+    },
+    {
+      "text": "תציג לי ארונות ברוחב 80 מסדרת אנגסון",
+      "n": 1
+    },
+    {
+      "text": "כן",
+      "n": 1
+    },
+    {
+      "text": "תראה לי תמונות, אני לא מכיר את המוצרים האלה",
+      "n": 1
+    },
+    {
+      "text": "אלו לא קופסאות אחסון לבגדים לילדים.",
+      "n": 1
+    },
+    {
+      "text": "אז תראה לי קופסאות מסדרת סקוב וסטוק",
+      "n": 1
+    },
+    {
+      "text": "האם יש מגבות אמבטיה לילדים?",
+      "n": 1
+    },
+    {
+      "text": "אני מחפש מגבות אמבטיה לילדים",
+      "n": 1
+    },
+    {
+      "text": "מגבות לתינוקות?",
+      "n": 1
+    },
+    {
+      "text": "אני צריכה שולחן שכשהוא סגור הוא קוטר 130",
+      "n": 1
+    },
+    {
+      "text": "מחפשת שולחן לסלון - משהו בסגנון כפרי",
+      "n": 1
+    },
+    {
+      "text": "מחפשת שולחן למטבח בסגנון כפרי",
+      "n": 1
+    }
+  ]
+}
