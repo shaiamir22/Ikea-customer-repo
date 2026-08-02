@@ -9,6 +9,7 @@ Running list of action items for this project. Cross-project / relationship-leve
 - [ ] Decide whether +4-7s latency is acceptable in exchange for the ~87% per-message cost saving.
 - [ ] Coordinate a conversation with the CISO before the fraud-detection workstream can start.
 - [ ] Schedule the Netanya branch visit (3+ hours on-site).
+- [ ] **Provide Meta's Israel utility/authentication per-message rate from the WABA invoice** — the dominant cost variable once service replies become billable on 2026-10-01. IKEA already holds this; escalate via David (OQ-12).
 
 ## Internal / Moveo
 
@@ -34,5 +35,12 @@ Running list of action items for this project. Cross-project / relationship-leve
 - [ ] Locate the eval set and confirm whether the lighter routed model passes quality checks (Niv / Arnon's team).
 - [ ] Define concurrency by heuristic — messages per conversation, users per day, concurrent sessions — stating assumptions rather than waiting for exact numbers (Tali & Niv).
 - [ ] Flag new client requests as out of scope when they arrive and price them, rather than letting them land in the retainer by default (Shai).
+- [ ] Confirm which Gemini model the agent runs today and its token mix — blocks converting the price ladder into a per-message delta (Niv, OQ-13).
+- [ ] Measure actual messages/user/day and the peak-hour curve from the live 1,500-employee release; replace the unmeasured ~80 msgs/user/day assumption under every volume tier (OQ-14).
+- [ ] Add the Meta service-fee layer to the three-tier cost model — it is the larger of the two layers from 2026-10-01, and the model is now externally deadlined rather than internally scheduled (Tali & Niv).
+- [ ] Scope reply-count consolidation and WhatsApp Flows as a cost lever — from 2026-10-01 the fee is per business-sent message, so message count matters more than token count. Cheap relative to a re-architecture.
+- [ ] Re-open the decision on Benjamin's vendor-agnostic PoC against the Gemini retirement and price-rise evidence (Shai, with Hai/Arnon — OQ-11).
+- [ ] Confirm with the BSP that Meta Business Agent token pricing (~$2/1M tokens, live since 2026-08-01) does not apply to a self-hosted Cloud API agent.
+- [ ] Verify the Israel rate card and the Gemini price ladder against vendor primary sources before either reaches a slide — this session's egress policy blocked direct page fetches, so both are search-corroborated only (Shai).
 
 _Source: ../context/meetings/2026-07-22-ikea-status-sync.md, context/meetings/2026-07-27-arnon-roadmap-conversation.md, context/comms/2026-07-27-benjamin-poc-handover.md, context/meetings/2026-07-28-internal-ikea-sync.md_
