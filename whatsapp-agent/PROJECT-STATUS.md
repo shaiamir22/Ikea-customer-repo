@@ -2,7 +2,7 @@
 
 _This file is the PM's single source of truth for what's happening right now. `brief` reads it at the start of every session. Use `refresh-status` to keep it in sync with recent context._
 
-_Last updated: 2026-07-28_
+_Last updated: 2026-09-03 (Drive archive ingested; execution state still as of 2026-07-28 — run `refresh-status` after the August catch-up)_
 
 ---
 
@@ -65,6 +65,10 @@ _Full register of open questions and risks. Each item tagged with owner and phas
 | OQ-12 | What is Meta's Israel utility/authentication per-message rate? The dominant cost variable from 2026-10-01 and the input that turns the sensitivity grid into one number. **IKEA already holds this** on their WABA invoice — needs escalating, not researching. | Client | 1 |
 | OQ-13 | Which Gemini model does the agent run today, and what is its token mix? Not recorded anywhere in the repo; without it the price ladder cannot be turned into a per-message delta. | Us (Niv) | 1 |
 | OQ-14 | What is the measured messages-per-user-per-day and peak-hour curve? Every volume tier assumes ~80 msgs/user/day, which is unmeasured and high. The 1,500-employee release went live 2026-08-02 — two weeks of traffic replaces the assumption. | Us | 1 |
+| OQ-15 | Was any of the pre-handover paper formally given to IKEA — the March spec (≤3 s latency, 99.5% uptime), the April kickoff pack (24 h critical-fix SLA, 7-day feature assessment), the 3 Jun DoD deck? If yes, "nothing is committed in writing" is wrong in the direction that hurts us. Sources in `context/research/2026-03-31-original-work-plan-and-product-spec.md` and `context/comms/2026-04-15-kickoff-pack-and-progress-decks.md`. | Us (Arnon/Tali) | 1 |
+| OQ-16 | Where is the approved customer-journey list? The 3 Jun deck told IKEA the project ends with an agreed list of journeys plus a critical-error DoD. The list was never produced. It is the shortest route to a DoD IKEA has already seen the frame for. | Us | 1 |
+| OQ-17 | Do we state the latency bar change? Our own March spec said ≤3 s and the Feb client email said 1–2 s; the 29 Jul retainer deck commits p50 ≤ 9 s / p95 ≤ 15 s. Right call, but a 3× relaxation of our own number that no document acknowledges. | Us | 1 |
+| OQ-18 | Did the retainer deck's Aug W1–W4 backlog close (alarms to IaC, failover fault-injection + 07-21 RCA, on-call rota, SFTP→S3 cutover, latency alarm, three-tier cost model)? Not recorded here. | Us (Niv/Tali) | 1 |
 | OQ-10 | How is the ~₪140k (worse case ~₪200k) cost of finishing this fixed-price project funded? Intent is new paid scope sold in August, not an overrun invoice. | Us | 1 |
 | R1 | Niv is the sole developer today. Tali is staying and ramping onto technical work, which is the redundancy answer, but it is a ramp not a switch. Compounded by leave: Tali out two weeks from 2026-08-02, Niv out in September, Arnon out shortly — the plan must close before Arnon leaves, since he holds most of the technical context. | Us | 1 |
 | R2 | Cost at **~0.1 agorot (₪0.001)/message** projects to ~₪48-50k/mo **at national volume** against a ~₪2k/mo target; unresolved, this makes the product unsellable at national scale. _Corrected 2026-08-02: previously written as "₪0.10/message", a 100× unit slip — ₪0.10 × 48M msgs would be ₪4.8M/mo. Source figure is Arnon's "~0.1 agorot per message" (2026-07-27); the PRD volume table was already correct. Note per O1 that pilot volumes sit inside target on this layer._ | Us | 1 |
@@ -88,6 +92,9 @@ _Full register of open questions and risks. Each item tagged with owner and phas
 | Tali | Product, ramping onto technical | Moveo | 2026-07-27 | Active — staying, taking technical tasks; out two weeks from 2026-08-02 |
 | Benjamin | Engineer (PoC) | Moveo | 2026-07-27 | Handed over PoC |
 | Hai Morgenstern | Leadership | Moveo | 2026-07-27 | Active |
+| Avi Bar | VP Range | IKEA | 2026-02-17 (discovery) | Dormant since discovery — owns PIA/SORM knowledge; concern about the agent shortcutting the store path is unresolved |
+| Michal | VP Marketing | IKEA | 2026-06-16 | Active in June (cart-visualisation ask); tone & style owner |
+| Moni Greentuch | Range / website | IKEA | 2026-02-26 | Author of the stock-indicator rules; survey respondent |
 
 ---
 
@@ -103,6 +110,7 @@ _Verify this reflects the current stage before any C-level or PM sync._
 
 _Decisions made in the last 30 days that are not yet obvious from the spec._
 
+- 2026-09-03 (recorded, not new): the Drive archive shows three pre-handover decisions this file did not know about — (a) the Feb 2026 plan targeted **full public launch by 13 Apr 2026**, the baseline for the ~4-month slip; (b) the March spec set **≤3 s latency and 99.5% uptime** internally, and the 29 Jul retainer deck reset latency to p50 ≤ 9 s without acknowledging the change; (c) on 3 Jun IKEA was shown a DoD frame of **approved customer journeys + critical-error taxonomy**, and the June marketing asks (#29 receipts, #30 cart visualisation, #31 handoff context) were all parked. The e-commerce API was **declined once in June**. Details in `context/` (files dated 2026-02-17 through 2026-07-29).
 - 2026-07-28: December is a **decision gate, not a launch date**. The target is one branch (Netanya) live with real customers plus data, so the December review decides national rollout. Scope deliberately narrowed to be achievable with the team we have.
 - 2026-07-28: **No SLA is committed in writing** — none appears in the SOW or the quote. We author the bar ourselves rather than let IKEA define it in December. This supersedes the 07-27 guidance below, which assumed a committed level existed.
 - 2026-07-28: **Latency deprioritised as a standalone workstream.** At 8-9s it is near the floor of the current implementation; it improves as a by-product of the cost work, and going materially lower means a rewrite.

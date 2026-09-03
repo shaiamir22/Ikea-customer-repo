@@ -4,7 +4,7 @@ _Customer-level dashboard for the Moveo ↔ IKEA relationship. This is the accou
 
 _This file is also the **canonical marker that this folder is a customer root** — `pm-brief` keys off it to descend into the customer's projects. Don't rename it._
 
-_Last updated: 2026-07-28_
+_Last updated: 2026-09-03_
 
 ---
 
@@ -12,6 +12,7 @@ _Last updated: 2026-07-28_
 
 **Status:** active — live engagement, 1,500-employee release on Sun 2026-08-02, and a December review reframed internally as a **decision gate rather than a launch date** (one branch live with real customers plus data, not national coverage).
 **Commercial:** fixed-price project running at a loss and ~5 months unpaid. Finishing is estimated at ~₪140k of further cost (worse case ~₪200k); the intent is to recover it by selling new scope at a second-half-of-August meeting, not by invoicing the overrun. No SLA, latency, or concurrency figure exists in the SOW or quote — the bar has to be authored before it can be claimed as met.
+**Contract baseline (from the Drive archive, ingested 2026-09-03):** fixed project **₪109,546 + VAT** (quote dated 29.01.26) plus a **₪10,000/month support retainer** with no definition attached. The quote already says requests outside the listed scope are priced separately, carries late-payment interest and a right to suspend services, and promised a shared Monday board and a weekly Thursday sprint meeting — both lapsed. Internal paper from Mar–Jun 2026 did set numbers (3 s latency, 99.5% uptime in the March spec; 24 h critical-fix SLA and a 7-day feature-assessment promise in the April kickoff pack) and a DoD frame was shown to IKEA on 3 Jun — whether any of it was formally handed over is unconfirmed. See `./context/comms/2026-01-29-sow-and-price-quote.md` and `./context/research/2026-09-03-drive-ikea-folder-index.md`.
 **Relationship owners:** Shai Amir owns execution and the client relationship (took over 2026-07-21). Arnon Meltser was the prior de facto client-facing lead (near-zero bandwidth, handed off to Shai). Exec sponsor on IKEA's side not yet named — the CEO is expected to do a passive review ahead of the December decision.
 
 ---
@@ -38,13 +39,14 @@ _Things that belong to the relationship, not to a single project (project-specif
 6. Explore the fraud-detection workstream as a potential second project. The base is ready and it needs a coordinated CISO conversation; note a ~$250/month environment has been billing unused for ~3 months.
 7. Join the daily 08:30 IKEA status sync (Shai, started 2026-07-22).
 8. Grow the account toward the team's ambition of ~₪150k/month across ~3 people, which means more IKEA projects, not just more scope on this one.
+9. Before the August meeting, confirm what was actually handed to IKEA in writing (March spec, April kickoff pack, June DoD deck) so the "nothing committed" line is safe — and open with the quote's own out-of-scope clause rather than a new ask.
 
 ---
 
 ## Customer state pointers
 
 - **monday_item_url:** not configured
-- **gdrive_folder_id:** not configured
+- **gdrive_folder_id:** 1CY2UskhBZyxC7w3y-5ieNIj2GQj0z75Y (`M.ai shared › Clients › IKEA`; index in `./context/research/2026-09-03-drive-ikea-folder-index.md`)
 - **shared Monday board:** not configured
 - **github_repo:** https://github.com/shaiamir22/ikea-customer-repo
 
@@ -52,6 +54,7 @@ _Things that belong to the relationship, not to a single project (project-specif
 
 ## Recent customer-level events
 
+- 2026-09-03: Drive archive ingested — the Arnon-era `Clients › IKEA` folder (SOW, quote, Feb work plan, discovery round, requirements map, March spec, April kickoff pack, June progress deck, July strategy/roadmap deck, employee survey, retainer deck). Contract value, the original mid-April launch date, the internal 3 s latency bar, and a June DoD framing were all previously unknown to this repo. Index: `./context/research/2026-09-03-drive-ikea-folder-index.md`.
 - 2026-07-21: Onboarding sync — Arnon handed the account to Shai. Cost crisis (~₪50k/mo → ~₪2k/mo target), quality/latency status, team risk, and unpaid invoices covered. See `./context/meetings/2026-07-21-ikea-sync-onboarding.md`.
 - 2026-07-27: Arnon laid out how he sees the engagement continuing — retainer improvements, possible paid scope, the ~₪150k/mo ambition, and fraud detection as a client-gated second workstream. Separately, Benjamin handed over a PoC (~87% cheaper per message, any-language, vendor-agnostic) and Hai directed that it wait for the next stage rather than ship into the pilot. See `whatsapp-agent/context/`.
 - 2026-07-22: IKEA daily status sync — fallback-model fix needed for Gemini-outage crashes, Aug 1 employee rollout confirmed, Dec CEO review gates public launch, delivery/assembly integration flagged as top feature priority. See `./context/meetings/2026-07-22-ikea-status-sync.md`.

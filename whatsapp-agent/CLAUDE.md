@@ -16,7 +16,7 @@ _This file is the project's identity card and the contract between the project f
 - **deployed_url:** https://d3dhoisfjbdi8v.cloudfront.net (business dashboard) · https://d3dhoisfjbdi8v.cloudfront.net/agent-management.html (agent dashboard)
 - **github_repo_url:** agent code lives in IKEA's own GitHub workspace, not here. This repo is for customer management and product work.
 - **monday_item_url:** not configured
-- **gdrive_folder_id:** not configured
+- **gdrive_folder_id:** 1CY2UskhBZyxC7w3y-5ieNIj2GQj0z75Y (shared `Clients › IKEA` folder; the customer-level index at `../context/research/2026-09-03-drive-ikea-folder-index.md` lists what is in it)
 - **spec_file:** IKEA_WhatsApp_Shopping_Agent_PRD.md
 
 ## Project-specific overrides (optional)

@@ -6,6 +6,7 @@ Customer-level running list of **cross-cutting** action items — things that sp
 
 - [ ] Secure payment for ~5 months of outstanding work — follow up with Elad/Eldar. Attach this to the scope reset rather than running it as a separate conversation: scope first, arrears as the consequence.
 - [ ] Book the commercial meeting with IKEA for the second half of August (Efrat abroad, Avi after her) — current state, new scope, and price, not a status review.
+- [ ] Ask Efrat who owns the e-commerce/CRM API decision after the June decline — two of the four upsell tracks are blocked on it.
 
 ## Internal / Moveo
 
@@ -18,5 +19,9 @@ Customer-level running list of **cross-cutting** action items — things that sp
 - [ ] Run the post-mortem on why the fixed-price project ran ~4 months past plan and is still unfinished.
 - [ ] Revive fraud detection in the business conversation, and stop or start using the ~$250/month environment that has been billing unused for ~3 months.
 - [ ] Grow the account toward the team's ~₪150k/month ambition through more IKEA projects — a team goal, not scope on this project.
+- [ ] Confirm which written material actually reached IKEA — the March product spec (3 s / 99.5%), the April kickoff pack (24 h critical-fix SLA, 7-day feature assessment), the 3 Jun DoD deck — before repeating "nothing is committed in writing" (Shai, with Arnon/Tali).
+- [ ] Confirm the signed contract matches the Drive quote (₪109,546 + ₪10k/mo) and which invoices were issued (Shai, via Elad/Eldar).
+- [ ] Frame the August meeting around the quote's existing out-of-scope-priced-separately clause; decide internally whether the late-payment/suspension clause is ever referenced (Shai, David, Elad Kobi).
+- [ ] Move `elal_ppt` out of the Drive IKEA folder — it is El Al's confidential weekly status deck, misfiled (Shai).
 
-_Source: context/meetings/2026-07-21-ikea-sync-onboarding.md, context/meetings/2026-07-28-internal-ikea-sync-commercial.md_
+_Source: context/meetings/2026-07-21-ikea-sync-onboarding.md, context/meetings/2026-07-28-internal-ikea-sync-commercial.md, context/comms/2026-01-29-sow-and-price-quote.md, context/research/2026-09-03-drive-ikea-folder-index.md_

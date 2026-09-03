@@ -7,6 +7,7 @@ This is the **customer mono-repo** for the Moveo ↔ IKEA relationship. One git 
 - **The account at a glance:** open [`CUSTOMER-STATUS.md`](CUSTOMER-STATUS.md).
 - **Who's who:** [`STAKEHOLDERS.md`](STAKEHOLDERS.md).
 - **The work:** each engagement is a project subfolder with its own spec, status, and context.
+- **The paper trail before July 2026:** the shared Drive folder `Clients › IKEA` is indexed in [`context/research/2026-09-03-drive-ikea-folder-index.md`](context/research/2026-09-03-drive-ikea-folder-index.md); every readable document there is digested into `context/` or `whatsapp-agent/context/`.
 
 ## Projects
 
