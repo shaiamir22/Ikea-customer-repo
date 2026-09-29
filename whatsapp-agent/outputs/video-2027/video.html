@@ -1,0 +1,463 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<title>IKEA AI 2027 Video</title>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--blue:#0058A3;--blue-d:#003E75;--yellow:#FFDB00;--ink:#0B1220;--ok:#15803d;--okb:#1DB954}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1080px;height:1920px;overflow:hidden;background:#070B16}
+body{font-family:Heebo,Arial,sans-serif;color:#fff}
+#stage{position:absolute;inset:0;overflow:hidden;background:radial-gradient(ellipse at 50% 55%,#12234a 0,#080d1c 62%,#05070f 100%)}
+.blob{position:absolute;border-radius:50%;filter:blur(90px);opacity:.55}
+#grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:60px 60px;mask-image:radial-gradient(ellipse at 50% 60%,#000 20%,transparent 70%)}
+/* captions */
+.cap{position:absolute;top:110px;left:60px;right:60px;text-align:center;opacity:0}
+.cap h2{font-size:92px;font-weight:900;line-height:1.02;letter-spacing:-1px;text-shadow:0 6px 30px rgba(0,0,0,.5)}
+.cap h2 .y{color:var(--yellow)}
+.cap p{font-size:38px;font-weight:500;color:#b9c6dc;margin-top:14px}
+#wm{position:absolute;bottom:52px;left:0;right:0;text-align:center;font-size:24px;letter-spacing:6px;color:rgba(255,255,255,.45);font-weight:500;direction:ltr}
+/* phone rig */
+#rig{position:absolute;left:193px;top:360px;width:694px;height:1432px;transform-origin:50% 50%}
+#glow{position:absolute;inset:-60px;border-radius:160px;background:radial-gradient(ellipse at center,rgba(0,88,163,.55),transparent 65%);filter:blur(30px)}
+.phone{zoom:3.1;width:224px;height:462px;border-radius:34px;background:#05070c;padding:7px;box-shadow:0 20px 50px rgba(0,0,0,.7),0 0 0 1px #34405c;position:relative}
+.scr{width:210px;height:448px;border-radius:28px;overflow:hidden;position:relative;background:#F5F6F8;color:var(--ink);font-size:11px}
+.notch{position:absolute;top:6px;left:50%;transform:translateX(-50%);width:70px;height:18px;background:#05070c;border-radius:12px;z-index:50}
+.screen{position:absolute;inset:0;opacity:0;background:#F5F6F8}
+.sb{height:24px;display:flex;justify-content:space-between;align-items:center;padding:0 16px;font-size:10px;font-weight:700;direction:ltr}
+.appbar{display:flex;align-items:center;gap:7px;padding:6px 10px;background:#fff;border-bottom:1px solid #e6e9ef}
+.logo{background:var(--blue);color:var(--yellow);font-weight:900;font-size:10px;padding:3px 5px;border-radius:4px;letter-spacing:.5px;direction:ltr}
+.appbar .t{font-weight:700;font-size:11px}.appbar .s{font-size:9px;color:#1a9a4a}
+.body{padding:8px}
+.b-ag{background:#fff;border-radius:12px 12px 3px 12px;padding:7px 9px;margin:5px 0 5px auto;max-width:88%;box-shadow:0 1px 2px rgba(0,0,0,.06);line-height:1.45;margin-right:0;opacity:0}
+.b-us{background:var(--blue);color:#fff;border-radius:12px 12px 12px 3px;padding:7px 9px;margin:5px auto 5px 0;max-width:80%;line-height:1.45;opacity:0;width:fit-content}
+.btn{background:var(--blue);color:#fff;border-radius:18px;text-align:center;padding:7px;font-weight:700;font-size:10.5px;margin-top:6px}
+.btn.y{background:var(--yellow);color:var(--ink)}.btn.o{background:#fff;color:var(--blue);border:1.5px solid var(--blue)}
+.inbar{position:absolute;bottom:0;left:0;right:0;background:#fff;border-top:1px solid #e6e9ef;padding:7px 8px 12px;display:flex;gap:6px;align-items:center}
+.inbar .f{flex:1;background:#F0F2F5;border-radius:16px;height:26px;font-size:9.5px;color:#8a93a3;display:flex;align-items:center;padding:0 10px}
+.ic{width:26px;height:26px;border-radius:50%;background:var(--blue);display:flex;align-items:center;justify-content:center;flex:none}
+.ic svg{width:13px;height:13px;fill:#fff}
+.lat{direction:ltr;unicode-bidi:isolate;font-weight:800}
+.mut{color:#6b7589}.ok{color:var(--ok);font-weight:700}
+.row{display:flex;justify-content:space-between}
+.tap{position:absolute;width:44px;height:44px;margin:-22px 0 0 -22px;border-radius:50%;background:rgba(255,255,255,.55);border:2px solid rgba(255,219,0,.95);box-shadow:0 0 0 8px rgba(255,219,0,.25);opacity:0;z-index:60}
+.bar{height:4px;background:#e6e9ef;border-radius:3px;overflow:hidden}
+.bar i{display:block;height:100%;border-radius:3px;transform-origin:100% 50%;transform:scaleX(0)}
+/* kiosk + end */
+#kiosk{position:absolute;left:14px;top:372px;zoom:3;width:150px;opacity:0;z-index:5}
+#end{position:absolute;inset:0;background:radial-gradient(circle at 50% 45%,#0a66b8 0,#003E75 70%,#002a52 100%);clip-path:circle(0px at 540px 1076px);z-index:20;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+#end>*{opacity:0}
+</style>
+</head>
+<body>
+<div id="stage">
+  <div class="blob" id="bl1" style="width:700px;height:700px;background:#0058A3;left:-200px;top:300px"></div>
+  <div class="blob" id="bl2" style="width:520px;height:520px;background:#FFDB00;opacity:.16;right:-160px;top:1200px"></div>
+  <div class="blob" id="bl3" style="width:600px;height:600px;background:#1d4ed8;opacity:.35;right:-100px;top:-150px"></div>
+  <div id="grid"></div>
+
+  <div class="cap" id="c1"><h2>הסוכן של איקאה<br><span class="y">עובר דירה.</span></h2></div>
+  <div class="cap" id="c2"><h2><span class="y">מצלמים.</span></h2><p>מחיר, מלאי ומיקום במדף — בשנייה</p></div>
+  <div class="cap" id="c3"><h2>רואים מה יש<br><span class="y">בכל סניף.</span></h2></div>
+  <div class="cap" id="c4"><h2>שואלים. <span class="y">בקול.</span></h2><p>שעות, חגים, מסעדה — בלי לחפש</p></div>
+  <div class="cap" id="c5"><h2>ישר <span class="y">למדף.</span></h2><p>ניווט בתוך החנות</p></div>
+  <div class="cap" id="c6"><h2>אוספים <span class="y">סל.</span></h2><p>ממשיכים לקופה או להזמנה</p></div>
+  <div class="cap" id="c7"><h2>סריקה אחת<br><span class="y">בקופה.</span></h2></div>
+  <div class="cap" id="c8"><h2>או <span class="y">עד הבית.</span></h2><p>מעקב משלוח בזמן אמת</p></div>
+  <div class="cap" id="c9"><h2>שירות<br><span class="y">שסוגר עניין.</span></h2></div>
+
+  <div id="rig"><div id="float">
+    <div id="glow"></div>
+    <div class="phone"><div class="scr">
+      <div class="notch"></div>
+
+      <!-- HOME -->
+      <div class="screen" id="s-home" style="background:linear-gradient(160deg,#1a3b6e,#0b1830);color:#fff">
+        <div class="sb"><span>9:41</span><span>●●● 5G</span></div>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px 10px;padding:18px 16px">
+          <div style="height:38px;border-radius:11px;background:#e25b45"></div><div style="height:38px;border-radius:11px;background:#3c9d5d"></div><div style="height:38px;border-radius:11px;background:#8e6bd8"></div><div style="height:38px;border-radius:11px;background:#e0a430"></div>
+          <div style="height:38px;border-radius:11px;background:#4a78d6"></div><div style="height:38px;border-radius:11px;background:#d64a8e"></div><div style="height:38px;border-radius:11px;background:#2bb3b1"></div><div style="height:38px;border-radius:11px;background:#6f7888"></div>
+        </div>
+        <div id="icon" style="position:absolute;left:74px;top:200px;width:62px;text-align:center">
+          <div style="width:62px;height:62px;border-radius:15px;background:var(--blue);display:flex;align-items:center;justify-content:center;box-shadow:0 0 26px rgba(255,219,0,.5)">
+            <div style="background:var(--yellow);border-radius:50%/60%;padding:5px 7px;color:var(--blue);font-weight:900;font-size:13px;direction:ltr">IKEA</div>
+          </div>
+          <div style="font-size:10px;margin-top:5px;font-weight:600">IKEA AI</div>
+        </div>
+        <div style="position:absolute;bottom:14px;left:14px;right:14px;height:56px;border-radius:20px;background:rgba(255,255,255,.14);display:flex;justify-content:space-around;align-items:center">
+          <div style="width:38px;height:38px;border-radius:11px;background:#3a9bdc"></div><div style="width:38px;height:38px;border-radius:11px;background:#25D366"></div><div style="width:38px;height:38px;border-radius:11px;background:#f2f2f2"></div><div style="width:38px;height:38px;border-radius:11px;background:#e25b45"></div>
+        </div>
+        <div id="wa" style="position:absolute;top:118px;right:12px;width:150px;background:#fff;color:var(--ink);border-radius:12px;padding:7px 9px;font-size:9.5px;box-shadow:0 6px 18px rgba(0,0,0,.35);opacity:0">
+          <div style="display:flex;gap:5px;align-items:center;margin-bottom:3px"><span style="width:14px;height:14px;border-radius:50%;background:#25D366;display:inline-block"></span><b>WhatsApp · הסוכן של איקאה</b></div>
+          היי! מה מחפשים היום?
+        </div>
+        <div class="tap" id="tap1" style="left:105px;top:231px"></div>
+      </div>
+
+      <!-- SPLASH -->
+      <div class="screen" id="s-splash" style="opacity:1;background:var(--blue);clip-path:circle(0px at 105px 231px);display:flex;align-items:center;justify-content:center;flex-direction:column;z-index:30">
+        <div id="splogo" style="background:var(--yellow);border-radius:50%/60%;padding:12px 20px;color:var(--blue);font-weight:900;font-size:30px;direction:ltr">IKEA</div>
+        <div style="color:#fff;font-weight:700;font-size:12px;margin-top:12px;letter-spacing:2px">AI AGENT</div>
+      </div>
+
+      <!-- CAMERA -->
+      <div class="screen" id="s-cam" style="background:#1d1a16">
+        <div id="aisle" style="position:absolute;inset:0 -20px;background:linear-gradient(180deg,#5b5146 0,#3a332b 45%,#8c7a63 46%,#6f604e 100%)">
+          <div style="position:absolute;top:60px;left:0;right:0;height:6px;background:#c9a24a;opacity:.7"></div>
+          <div style="position:absolute;top:150px;left:0;right:0;height:6px;background:#c9a24a;opacity:.7"></div>
+          <div style="position:absolute;top:66px;left:20px;width:30px;height:80px;background:#7d6a55;border-radius:3px"></div>
+          <div style="position:absolute;top:80px;right:24px;width:40px;height:66px;background:#6b5a48;border-radius:3px"></div>
+          <svg viewBox="0 0 120 120" style="position:absolute;top:110px;left:50%;transform:translateX(-50%);width:130px">
+            <path d="M25 30 Q60 5 95 30 L88 75 L32 75 Z" fill="#d9c7a5"/><path d="M20 70 Q60 60 100 70 L96 88 L24 88Z" fill="#c9b48e"/>
+            <path d="M30 88 Q20 110 14 116 M90 88 Q100 110 106 116" stroke="#b07a3b" stroke-width="5" fill="none"/>
+          </svg>
+        </div>
+        <div class="sb" style="color:#fff;position:relative"><span>9:41</span><span>●●● 5G</span></div>
+        <div style="position:absolute;top:30px;left:10px;right:10px;display:flex;justify-content:space-between;color:#fff;font-size:9px;font-weight:700">
+          <span style="background:rgba(0,0,0,.45);padding:3px 8px;border-radius:10px">ראשון לציון · קומה 0</span><span class="logo">IKEA</span>
+        </div>
+        <div id="ret" style="position:absolute;top:92px;left:25px;width:160px;height:160px;opacity:0">
+          <svg viewBox="0 0 150 150" width="160" height="160"><g stroke="#FFDB00" stroke-width="4" fill="none" stroke-linecap="round"><path d="M4 30V4h26M120 4h26v26M146 120v26h-26M30 146H4v-26"/></g></svg>
+          <div id="scan" style="position:absolute;top:6px;left:8px;right:8px;height:3px;background:linear-gradient(90deg,transparent,#FFDB00,transparent);box-shadow:0 0 10px #FFDB00;opacity:0"></div>
+        </div>
+        <div id="chip" style="position:absolute;top:66px;left:73px;background:rgba(0,0,0,.6);color:var(--yellow);font-size:9.5px;font-weight:700;padding:3px 9px;border-radius:10px;opacity:0">✓ זוהה</div>
+        <div id="pcard" style="position:absolute;bottom:0;left:0;right:0;background:#fff;border-radius:18px 18px 0 0;padding:10px 11px 14px;transform:translateY(110%)">
+          <div class="row" style="align-items:baseline"><span class="lat" style="font-size:13px">POÄNG</span><span style="font-weight:900;font-size:13px">₪549</span></div>
+          <div class="mut" style="font-size:10px">כורסה, ליבנה / בז׳</div>
+          <div class="ok" style="margin-top:5px">● במלאי · ראשון לציון</div>
+          <div style="font-size:10px">מעבר <b>24</b> · תא <b>12</b> · שירות עצמי</div>
+          <div style="display:flex;gap:5px"><div class="btn y" id="addbtn" style="flex:1">+ לסל</div><div class="btn o" style="flex:1">צבעים אחרים</div></div>
+        </div>
+        <div class="tap" id="tap2" style="left:160px;top:418px"></div>
+      </div>
+
+      <!-- STOCK -->
+      <div class="screen" id="s-stock">
+        <div class="sb"><span>9:41</span><span>●●● 5G</span></div>
+        <div class="appbar"><span class="logo">IKEA</span><div><div class="t">הסוכן של איקאה</div><div class="s">● זמין</div></div></div>
+        <div class="body">
+          <div class="b-us" id="u3">יש בכחול כהה?</div>
+          <div class="b-ag" id="a3"><b>בראשון אזל</b> בכחול כהה — אבל יש בסניפים:
+            <div style="margin-top:6px;display:grid;gap:4px">
+              <div class="row"><span>אשתאול</span><span class="ok">12 יח׳</span></div><div class="bar"><i id="br1" style="width:90%;background:var(--okb)"></i></div>
+              <div class="row"><span>נתניה</span><span class="ok">7 יח׳</span></div><div class="bar"><i id="br2" style="width:55%;background:var(--okb)"></i></div>
+              <div class="row"><span>באר שבע</span><span style="color:#c27a00;font-weight:700">3 יח׳</span></div><div class="bar"><i id="br3" style="width:22%;background:#e0a430"></i></div>
+              <div class="row"><span>קריית אתא</span><span class="mut">אזל</span></div>
+            </div>
+            <div class="btn" id="b3">משלוח מאשתאול עד הבית</div>
+          </div>
+        </div>
+        <div class="inbar"><div class="ic"><svg viewBox="0 0 24 24"><path d="M9 3h6l2 3h3a1 1 0 011 1v12a1 1 0 01-1 1H4a1 1 0 01-1-1V7a1 1 0 011-1h3z"/></svg></div><div class="f">כתבו או דברו…</div><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 15a3 3 0 003-3V6a3 3 0 00-6 0v6a3 3 0 003 3zm5-3a5 5 0 01-10 0H5a7 7 0 006 6.9V21h2v-2.1A7 7 0 0019 12z"/></svg></div></div>
+      </div>
+
+      <!-- VOICE -->
+      <div class="screen" id="s-voice">
+        <div class="sb"><span>9:41</span><span>●●● 5G</span></div>
+        <div class="appbar"><span class="logo">IKEA</span><div><div class="t">הסוכן של איקאה</div><div class="s">● מקשיב…</div></div></div>
+        <div class="body">
+          <div class="b-us" id="wv" style="display:flex;gap:6px;align-items:center">
+            <div style="display:flex;gap:3px;align-items:center;height:18px">
+              <i class="wb" style="width:3px;height:16px;background:#fff;border-radius:2px"></i><i class="wb" style="width:3px;height:16px;background:#fff;border-radius:2px"></i><i class="wb" style="width:3px;height:16px;background:#fff;border-radius:2px"></i><i class="wb" style="width:3px;height:16px;background:#fff;border-radius:2px"></i><i class="wb" style="width:3px;height:16px;background:#fff;border-radius:2px"></i><i class="wb" style="width:3px;height:16px;background:#fff;border-radius:2px"></i><i class="wb" style="width:3px;height:16px;background:#fff;border-radius:2px"></i><i class="wb" style="width:3px;height:16px;background:#fff;border-radius:2px"></i><i class="wb" style="width:3px;height:16px;background:#fff;border-radius:2px"></i><i class="wb" style="width:3px;height:16px;background:#fff;border-radius:2px"></i><i class="wb" style="width:3px;height:16px;background:#fff;border-radius:2px"></i><i class="wb" style="width:3px;height:16px;background:#fff;border-radius:2px"></i>
+            </div>
+            <span style="font-size:9px;opacity:.8;direction:ltr">0:04</span>
+          </div>
+          <div class="b-us" id="tr" style="background:#dce8f5;color:var(--ink);font-style:italic;font-size:10px">״מתי אתם פתוחים בחג? והמסעדה פתוחה?״</div>
+          <div class="b-ag" id="hrs">
+            <div style="font-weight:800;margin-bottom:4px">ראשון לציון · סוכות</div>
+            <div class="row"><span>ערב חג</span><b dir="ltr">09:00–14:00</b></div>
+            <div class="row"><span>חג</span><span class="mut">סגור</span></div>
+            <div class="row"><span>חול המועד</span><b dir="ltr">10:00–22:00</b></div>
+            <div style="border-top:1px dashed #d5dae3;margin:6px 0"></div>
+            <div style="font-weight:800">המסעדה</div>
+            <div>פתוחה עד <b>13:30</b> בערב החג</div>
+            <div class="mut">מנת היום: קציצות שוודיות</div>
+          </div>
+        </div>
+        <div class="inbar"><div class="f" id="recf" style="justify-content:center;background:#fff4b8;color:var(--ink);font-weight:700">● מקליט…</div><div class="ic" id="mic" style="background:#d33;box-shadow:0 0 0 6px rgba(221,51,51,.2)"><svg viewBox="0 0 24 24"><path d="M12 15a3 3 0 003-3V6a3 3 0 00-6 0v6a3 3 0 003 3zm5-3a5 5 0 01-10 0H5a7 7 0 006 6.9V21h2v-2.1A7 7 0 0019 12z"/></svg></div></div>
+      </div>
+
+      <!-- MAP -->
+      <div class="screen" id="s-map">
+        <div class="sb"><span>9:41</span><span>●●● 5G</span></div>
+        <div class="appbar"><span class="logo">IKEA</span><div><div class="t">ניווט בחנות</div><div class="s">● קומה 0 · שירות עצמי</div></div></div>
+        <svg viewBox="0 0 210 270" style="width:210px;height:300px;background:#eef1f5;display:block">
+          <g fill="#dfe4ec" stroke="#c9d0dc">
+            <rect x="15" y="20" width="40" height="95" rx="4"/><rect x="65" y="20" width="40" height="95" rx="4"/><rect x="115" y="20" width="40" height="95" rx="4"/><rect x="165" y="20" width="32" height="95" rx="4"/>
+            <rect x="15" y="140" width="40" height="95" rx="4"/><rect x="65" y="140" width="40" height="95" rx="4"/><rect id="a24" x="115" y="140" width="40" height="95" rx="4"/><rect x="165" y="140" width="32" height="95" rx="4"/>
+          </g>
+          <g font-family="Heebo" font-size="9" fill="#7a8599" text-anchor="middle"><text x="35" y="70">20</text><text x="85" y="70">21</text><text x="135" y="70">22</text><text x="181" y="70">23</text><text x="35" y="190">25</text><text x="85" y="190">26</text><text x="181" y="190">27</text></g>
+          <text x="135" y="185" font-family="Heebo" font-weight="900" font-size="16" fill="#0058A3" text-anchor="middle">24</text>
+          <path d="M30 258 L30 128 L110 128 L110 200 L122 205" stroke="#c7d3e3" stroke-width="4" fill="none" stroke-dasharray="6 5" stroke-linecap="round"/>
+          <path id="route" pathLength="1" d="M30 258 L30 128 L110 128 L110 200 L122 205" stroke="#0058A3" stroke-width="4.5" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="1 1" stroke-dashoffset="1"/>
+          <circle id="me" cx="30" cy="258" r="7" fill="#0058A3" stroke="#fff" stroke-width="3"/>
+          <g id="pin" style="transform-origin:135px 205px;transform-box:view-box"><circle cx="135" cy="205" r="10" fill="#FFDB00" stroke="#0058A3" stroke-width="2.5"/><text x="135" y="209" font-family="Heebo" font-size="9" font-weight="900" fill="#0058A3" text-anchor="middle">12</text></g>
+        </svg>
+        <div id="msheet" style="position:absolute;bottom:0;left:0;right:0;background:#fff;padding:10px 12px 16px;border-radius:16px 16px 0 0;box-shadow:0 -4px 12px rgba(0,0,0,.08);transform:translateY(110%)">
+          <div style="font-weight:800;font-size:12px">מעבר 24 · תא 12</div>
+          <div class="mut">כ-2 דקות הליכה · <span class="lat">POÄNG</span></div>
+        </div>
+      </div>
+
+      <!-- CART -->
+      <div class="screen" id="s-cart">
+        <div class="sb"><span>9:41</span><span>●●● 5G</span></div>
+        <div class="appbar"><span class="logo">IKEA</span><div><div class="t">הסל שלי</div><div class="s">3 פריטים</div></div></div>
+        <div class="body" style="display:grid;gap:7px">
+          <div class="it" id="it1" style="display:flex;gap:8px;background:#fff;border-radius:10px;padding:7px;align-items:center;opacity:0"><div style="width:38px;height:38px;border-radius:8px;background:#d9c7a5"></div><div style="flex:1"><div class="lat">POÄNG</div><div class="mut" style="font-size:9.5px">כורסה · מעבר 24</div></div><b>₪549</b></div>
+          <div class="it" id="it2" style="display:flex;gap:8px;background:#fff;border-radius:10px;padding:7px;align-items:center;opacity:0"><div style="width:38px;height:38px;border-radius:8px;background:#f1e7c9"></div><div style="flex:1"><div class="lat">HEKTAR</div><div class="mut" style="font-size:9.5px">מנורת רצפה · מעבר 8</div></div><b>₪299</b></div>
+          <div class="it" id="it3" style="display:flex;gap:8px;background:#fff;border-radius:10px;padding:7px;align-items:center;opacity:0"><div style="width:38px;height:38px;border-radius:8px;background:#9fb7cf"></div><div style="flex:1"><div class="lat">LACK</div><div class="mut" style="font-size:9.5px">שולחן צד · מעבר 31</div></div><b>₪79</b></div>
+          <div id="tot" class="row" style="font-size:13px;font-weight:900;padding:4px 2px;opacity:0"><span>סה״כ</span><span>₪927</span></div>
+          <div id="cq" style="opacity:0"><div class="mut" style="text-align:center;font-size:10px">איך ממשיכים?</div>
+          <div class="btn y" id="kbtn" style="padding:9px">סריקה אחת בקופה העצמית</div>
+          <div class="btn o" style="padding:9px">הזמנה אונליין + משלוח</div></div>
+        </div>
+        <div class="tap" id="tap3" style="left:105px;top:318px"></div>
+      </div>
+
+      <!-- QR -->
+      <div class="screen" id="s-qr">
+        <div class="sb"><span>9:41</span><span>●●● 5G</span></div>
+        <div class="appbar"><span class="logo">IKEA</span><div><div class="t">קוד לקופה העצמית</div><div class="s">3 פריטים · ₪927</div></div></div>
+        <div style="padding:22px 18px;text-align:center">
+          <svg id="qr" viewBox="0 0 29 29" width="150" height="150" style="background:#fff;padding:8px;border-radius:12px;box-shadow:0 2px 10px rgba(0,0,0,.08)" shape-rendering="crispEdges">
+            <g fill="#0B1220">
+              <rect x="0" y="0" width="7" height="7"/><rect x="1" y="1" width="5" height="5" fill="#fff"/><rect x="2" y="2" width="3" height="3"/>
+              <rect x="22" y="0" width="7" height="7"/><rect x="23" y="1" width="5" height="5" fill="#fff"/><rect x="24" y="2" width="3" height="3"/>
+              <rect x="0" y="22" width="7" height="7"/><rect x="1" y="23" width="5" height="5" fill="#fff"/><rect x="2" y="24" width="3" height="3"/>
+              <rect x="9" y="1" width="2" height="2"/><rect x="13" y="0" width="1" height="3"/><rect x="16" y="2" width="3" height="1"/><rect x="10" y="5" width="4" height="1"/><rect x="18" y="4" width="2" height="3"/>
+              <rect x="0" y="9" width="3" height="1"/><rect x="4" y="10" width="2" height="3"/><rect x="8" y="9" width="3" height="3"/><rect x="13" y="8" width="2" height="4"/><rect x="17" y="10" width="4" height="1"/><rect x="23" y="9" width="2" height="2"/><rect x="26" y="10" width="3" height="3"/>
+              <rect x="1" y="15" width="4" height="1"/><rect x="7" y="14" width="1" height="4"/><rect x="10" y="15" width="3" height="3"/><rect x="15" y="13" width="3" height="2"/><rect x="20" y="14" width="2" height="4"/><rect x="24" y="15" width="4" height="1"/>
+              <rect x="9" y="20" width="4" height="1"/><rect x="14" y="19" width="2" height="3"/><rect x="18" y="20" width="3" height="3"/><rect x="23" y="19" width="1" height="4"/><rect x="26" y="21" width="3" height="1"/>
+              <rect x="9" y="24" width="2" height="4"/><rect x="13" y="25" width="4" height="1"/><rect x="19" y="24" width="2" height="2"/><rect x="22" y="26" width="5" height="2"/><rect x="15" y="27" width="2" height="2"/>
+            </g>
+          </svg>
+          <div style="font-weight:800;font-size:12px;margin-top:14px">הציגו את הקוד לסורק</div>
+          <div class="mut" style="margin-top:3px">כל הסל נטען לקופה במכה אחת.<br>התשלום — בקופה של איקאה, כרגיל.</div>
+        </div>
+      </div>
+
+      <!-- TRACK -->
+      <div class="screen" id="s-track">
+        <div class="sb"><span>9:41</span><span>●●● 5G</span></div>
+        <div class="appbar"><span class="logo">IKEA</span><div><div class="t">ההזמנה שלי</div><div class="s" style="direction:ltr;text-align:right">#IL-48213</div></div></div>
+        <div style="position:relative;width:210px;height:110px;background:#e8eef5;overflow:hidden">
+          <svg viewBox="0 0 210 110" width="210" height="110" style="position:absolute;inset:0">
+            <path d="M-10 90 Q20 70 50 76 T120 60 T220 30" stroke="#fff" stroke-width="10" fill="none"/>
+            <path d="M-10 90 Q20 70 50 76 T120 60 T220 30" stroke="#0058A3" stroke-width="3" fill="none" stroke-dasharray="5 4" opacity=".4"/>
+            <path id="troute" pathLength="1" d="M-10 90 Q20 70 50 76 T120 60 T220 30" stroke="#0058A3" stroke-width="4" fill="none" stroke-dasharray="1 1" stroke-dashoffset="1"/>
+            <circle cx="186" cy="38" r="8" fill="#0058A3"/><path d="M182 39 l4 -5 4 5 v5 h-8z" fill="#fff"/>
+          </svg>
+          <div id="truck" style="position:absolute;left:0;top:0;width:22px;height:14px;border-radius:3px;background:#FFDB00;border:2px solid #0058A3;offset-path:path('M-10 90 Q20 70 50 76 T120 60 T220 30');offset-rotate:0deg;offset-distance:0%"></div>
+        </div>
+        <div class="body" style="padding:12px 14px">
+          <div id="eta" style="font-weight:900;font-size:13px">מגיע מחר · <span dir="ltr">10:00–14:00</span></div>
+          <div class="mut" style="margin-bottom:10px">3 פריטים · משלוח מאשתאול</div>
+          <div style="display:grid;gap:9px;border-right:2px solid #d5dae3;padding-right:12px;position:relative">
+            <div style="position:relative"><span class="dot" id="d1" style="position:absolute;right:-18px;top:3px;width:10px;height:10px;border-radius:50%;background:#d5dae3"></span>הוזמן <span class="mut">· א׳ 11:02</span></div>
+            <div style="position:relative"><span class="dot" id="d2" style="position:absolute;right:-18px;top:3px;width:10px;height:10px;border-radius:50%;background:#d5dae3"></span>נאסף במחסן <span class="mut">· א׳ 16:40</span></div>
+            <div style="position:relative" id="st3"><span class="dot" id="d3" style="position:absolute;right:-19px;top:2px;width:12px;height:12px;border-radius:50%;background:#d5dae3"></span>בדרך אליכם</div>
+            <div class="mut" style="position:relative"><span style="position:absolute;right:-18px;top:3px;width:10px;height:10px;border-radius:50%;background:#d5dae3"></span>נמסר</div>
+          </div>
+          <div class="btn o" id="wabtn" style="margin-top:14px;opacity:0">עדכונים גם בוואטסאפ ✓</div>
+        </div>
+      </div>
+
+      <!-- CS -->
+      <div class="screen" id="s-cs">
+        <div class="sb"><span>9:41</span><span>●●● 5G</span></div>
+        <div class="appbar"><span class="logo">IKEA</span><div><div class="t">הסוכן של איקאה</div><div class="s">● שירות לקוחות</div></div></div>
+        <div class="body">
+          <div class="b-us" id="u9a">אפשר להזיז את המשלוח לשישי? ולהוסיף הרכבה?</div>
+          <div class="b-ag" id="typ" style="width:44px;display:flex;gap:4px;justify-content:center"><i class="td" style="width:5px;height:5px;border-radius:50%;background:#9aa4b5"></i><i class="td" style="width:5px;height:5px;border-radius:50%;background:#9aa4b5"></i><i class="td" style="width:5px;height:5px;border-radius:50%;background:#9aa4b5"></i></div>
+          <div class="b-ag" id="a9a" style="margin-top:-24px">
+            <div class="ok" id="k1" style="opacity:0">✓ הזזתי לשישי, <span dir="ltr">08:00–12:00</span></div>
+            <div class="ok" id="k2" style="opacity:0">✓ הרכבה נוספה לכורסה</div>
+            <div class="mut" style="margin-top:4px">ל-<span class="lat">POÄNG</span> יש גם 10 שנות אחריות.</div>
+          </div>
+          <div class="b-us" id="u9b">ואם המנורה לא תתאים?</div>
+          <div class="b-ag" id="a9b">אפשר להחזיר עם הקבלה שבאפליקציה. לפתוח החזרה?
+            <div style="display:flex;gap:5px"><div class="btn" style="flex:1">פתיחת החזרה</div><div class="btn o" style="flex:1">נציג אנושי</div></div>
+          </div>
+        </div>
+        <div class="inbar"><div class="ic"><svg viewBox="0 0 24 24"><path d="M9 3h6l2 3h3a1 1 0 011 1v12a1 1 0 01-1 1H4a1 1 0 01-1-1V7a1 1 0 011-1h3z"/></svg></div><div class="f">כתבו או דברו…</div><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 15a3 3 0 003-3V6a3 3 0 00-6 0v6a3 3 0 003 3zm5-3a5 5 0 01-10 0H5a7 7 0 006 6.9V21h2v-2.1A7 7 0 0019 12z"/></svg></div></div>
+      </div>
+
+    </div></div>
+  </div></div>
+
+  <!-- KIOSK (stage level) -->
+  <div id="kiosk">
+    <div style="background:#1c2436;border-radius:10px;padding:7px;border:2px solid #3a4866;box-shadow:0 10px 30px rgba(0,0,0,.6)">
+      <div style="font-size:7px;color:#9fb0cc;font-weight:700;margin-bottom:4px;letter-spacing:.5px">IKEA · קופה עצמית 4</div>
+      <div style="background:#fff;border-radius:6px;padding:7px;font-size:9px;color:var(--ink);line-height:1.6;min-height:92px">
+        <div class="ok" id="kok" style="opacity:0">✓ 3 פריטים נטענו</div>
+        <div class="row ki" id="ki1" style="opacity:0"><span class="lat">POÄNG</span><span>549</span></div>
+        <div class="row ki" id="ki2" style="opacity:0"><span class="lat">HEKTAR</span><span>299</span></div>
+        <div class="row ki" id="ki3" style="opacity:0"><span class="lat">LACK</span><span>79</span></div>
+        <div class="row" id="kt" style="font-weight:900;border-top:1px solid #ddd;margin-top:2px;opacity:0"><span>סה״כ</span><span>₪927</span></div>
+      </div>
+      <div id="beam" style="height:7px;background:#FFDB00;margin:6px 34px 0;border-radius:3px;box-shadow:0 0 14px #FFDB00;opacity:.25"></div>
+    </div>
+  </div>
+
+  <div id="wm">CONCEPT 2027 · MOVEO AI</div>
+
+  <!-- END CARD -->
+  <div id="end">
+    <div id="elogo" style="display:inline-block;background:var(--blue);border:8px solid var(--yellow);border-radius:36px;padding:34px 44px">
+      <div style="background:var(--yellow);border-radius:50%/60%;padding:22px 44px;color:var(--blue);font-weight:900;font-size:76px;direction:ltr">IKEA</div>
+    </div>
+    <div id="e1" style="font-size:120px;font-weight:900;margin-top:80px;line-height:1">הסוכן שלכם.</div>
+    <div id="e2" style="font-size:120px;font-weight:900;color:var(--yellow);line-height:1.1">בכיס.</div>
+    <div id="e3" style="font-size:42px;margin-top:40px;color:#dbe7f7">מצלמים · שואלים · אוספים · יוצאים</div>
+    <div id="e4" style="font-size:30px;margin-top:150px;letter-spacing:8px;color:rgba(255,255,255,.75);direction:ltr">CONCEPT 2027 · MOVEO AI</div>
+    <div id="e5" style="font-size:24px;margin-top:18px;color:rgba(255,255,255,.5)">הדמיה · הנתונים להמחשה בלבד</div>
+  </div>
+</div>
+
+<script>
+const S=1000, EASE='cubic-bezier(.2,.8,.2,1)';
+const seen=new Map();
+function A(sel,kf,t,d,opt={}){
+  const els=typeof sel==='string'?document.querySelectorAll(sel):[sel];
+  els.forEach(el=>{
+    const n=seen.get(el)||0; seen.set(el,n+1);
+    const a=el.animate(kf,{delay:t*S,duration:d*S,easing:opt.easing||EASE,fill:n===0?'both':'forwards',iterations:opt.it||1,direction:opt.dir||'normal'});
+    a.pause();
+  });
+}
+const inn=(s,t,d=.45,y=14)=>A(s,[{opacity:0,transform:`translateY(${y}px)`},{opacity:1,transform:'none'}],t,d);
+const out=(s,t,d=.3)=>A(s,[{opacity:1},{opacity:0}],t,d);
+const pop=(s,t,d=.45)=>A(s,[{opacity:0,transform:'scale(.6)'},{opacity:1,transform:'scale(1.06)',offset:.7},{opacity:1,transform:'scale(1)'}],t,d);
+const scr=(s,t)=>A(s,[{opacity:0,transform:'translateX(-24px)'},{opacity:1,transform:'none'}],t,.4);
+const scrOut=(s,t)=>A(s,[{opacity:1,transform:'none'},{opacity:0,transform:'translateX(24px)'}],t,.35);
+const cap=(s,a,b)=>{A(s,[{opacity:0,transform:'translateY(30px)',filter:'blur(8px)'},{opacity:1,transform:'none',filter:'blur(0)'}],a,.55);A(s,[{opacity:1,transform:'none'},{opacity:0,transform:'translateY(-20px)'}],b,.35);};
+const tap=(s,t)=>A(s,[{opacity:0,transform:'scale(.4)'},{opacity:1,transform:'scale(1)',offset:.35},{opacity:0,transform:'scale(1.6)'}],t,.6);
+
+// ambient
+A('#bl1',[{transform:'translate(0,0)'},{transform:'translate(260px,-240px)'}],0,32,{easing:'ease-in-out'});
+A('#bl2',[{transform:'translate(0,0)'},{transform:'translate(-300px,-500px)'}],0,32,{easing:'ease-in-out'});
+A('#bl3',[{transform:'translate(0,0)'},{transform:'translate(-200px,300px)'}],0,32,{easing:'ease-in-out'});
+A('#float',[{transform:'translateY(0)'},{transform:'translateY(-14px)'}],0,2,{easing:'ease-in-out',it:16,dir:'alternate'});
+A('#glow',[{opacity:.7},{opacity:1}],0,1.6,{easing:'ease-in-out',it:20,dir:'alternate'});
+A('#rig',[{opacity:0,transform:'translateY(80px) scale(.94)'},{opacity:1,transform:'none'}],0,.8);
+
+// S1 home 0-3
+A('#s-home',[{opacity:1},{opacity:1}],0,.01);
+cap('#c1',.3,2.75);
+out('#s-home',3.3,.1);
+inn('#wa',.35,.4);
+A('#wa',[{transform:'none',opacity:1},{transform:'translate(-28px,96px) scale(.08)',opacity:0}],1.15,.65,{easing:'cubic-bezier(.6,0,.4,1)'});
+A('#icon',[{transform:'scale(1)'},{transform:'scale(1.16)',offset:.4},{transform:'scale(1)'}],1.7,.5);
+tap('#tap1',2.0);
+A('#s-splash',[{clipPath:'circle(0px at 105px 231px)'},{clipPath:'circle(520px at 105px 231px)'}],2.3,.6,{easing:'cubic-bezier(.7,0,.3,1)'});
+pop('#splogo',2.55,.5);
+A('#s-splash',[{opacity:1},{opacity:0}],3.35,.35);
+
+// S2 camera 3-6.5
+A('#s-cam',[{opacity:0},{opacity:1}],3.2,.2);
+cap('#c2',3.35,6.25);
+A('#aisle',[{transform:'translateX(8px)'},{transform:'translateX(-12px)'}],3.2,3.3,{easing:'ease-in-out'});
+A('#ret',[{opacity:0,transform:'scale(1.6)'},{opacity:1,transform:'scale(1)'}],3.9,.55);
+A('#scan',[{opacity:0,transform:'translateY(0)'},{opacity:1,offset:.15},{opacity:1,offset:.85},{opacity:0,transform:'translateY(148px)'}],4.0,.7,{easing:'linear'});
+pop('#chip',4.6,.4);
+A('#pcard',[{transform:'translateY(110%)'},{transform:'none'}],4.9,.55);
+tap('#tap2',5.85);
+A('#addbtn',[{transform:'scale(1)',background:'#FFDB00'},{transform:'scale(.92)',background:'#1DB954',offset:.4},{transform:'scale(1)',background:'#1DB954'}],5.9,.4);
+scrOut('#s-cam',6.45);
+
+// S3 stock 6.5-9.5
+scr('#s-stock',6.5);
+cap('#c3',6.7,9.25);
+inn('#u3',6.8,.35);
+inn('#a3',7.3,.4);
+['#br1','#br2','#br3'].forEach((b,i)=>A(b,[{transform:'scaleX(0)'},{transform:'scaleX(1)'}],7.65+i*.22,.6));
+pop('#b3',8.5,.4);
+scrOut('#s-stock',9.45);
+
+// S4 voice 9.5-13
+scr('#s-voice',9.5);
+cap('#c4',9.7,12.75);
+inn('#wv',9.75,.35);
+document.querySelectorAll('.wb').forEach((w,i)=>A(w,[{transform:'scaleY(.25)'},{transform:'scaleY(1)'}],9.75+i*.04,.22+((i*7)%5)*.05,{easing:"ease-in-out",it:7,dir:"alternate"}));
+A('#mic',[{boxShadow:'0 0 0 3px rgba(221,51,51,.3)'},{boxShadow:'0 0 0 9px rgba(221,51,51,.12)'}],9.6,.4,{it:3,dir:'alternate',easing:'ease-in-out'});
+inn('#tr',10.75,.4);
+A('#recf',[{background:'#fff4b8'},{background:'#F0F2F5'}],10.9,.3);
+A('#mic',[{background:'#dd3333'},{background:'#0058A3'}],10.9,.3);
+inn('#hrs',11.35,.45);
+scrOut('#s-voice',12.95);
+
+// S5 map 13-15.5
+scr('#s-map',13.0);
+cap('#c5',13.15,15.25);
+A('#route',[{strokeDashoffset:1},{strokeDashoffset:0}],13.35,1.1,{easing:'cubic-bezier(.45,0,.3,1)'});
+A('#me',[{r:7},{r:9}],13.0,.4,{it:6,dir:'alternate',easing:'ease-in-out'});
+pop('#pin',14.35,.45);
+A('#a24',[{fill:'#dfe4ec',stroke:'#c9d0dc'},{fill:'#fff4b8',stroke:'#FFDB00'}],14.35,.3);
+A('#msheet',[{transform:'translateY(110%)'},{transform:'none'}],14.55,.45);
+scrOut('#s-map',15.45);
+
+// S6 cart 15.5-18.5
+scr('#s-cart',15.5);
+cap('#c6',15.65,18.25);
+['#it1','#it2','#it3'].forEach((s,i)=>A(s,[{opacity:0,transform:'translateX(-60px) scale(.9)'},{opacity:1,transform:'none'}],15.75+i*.3,.45));
+inn('#tot',16.75,.35);
+inn('#cq',17.05,.4);
+tap('#tap3',17.85);
+A('#kbtn',[{transform:'scale(1)'},{transform:'scale(.93)',offset:.4},{transform:'scale(1)'}],17.9,.35);
+scrOut('#s-cart',18.45);
+
+// S7 qr 18.5-22
+scr('#s-qr',18.5);
+cap('#c7',18.65,21.75);
+pop('#qr',18.7,.5);
+A('#rig',[{transform:'none'},{transform:'translate(150px,-10px) rotate(-6deg) scale(.8)'}],18.85,.65,{easing:'cubic-bezier(.6,0,.3,1)'});
+A('#kiosk',[{opacity:0,transform:'translateX(-60px)'},{opacity:1,transform:'none'}],19.15,.5);
+A('#beam',[{opacity:.25,transform:'scaleX(1)'},{opacity:1,transform:'scaleX(1.25)',offset:.3},{opacity:.25,transform:'scaleX(1)',offset:.6},{opacity:1,transform:'scaleX(1.25)',offset:.8},{opacity:.35,transform:'scaleX(1)'}],19.8,.6,{easing:'linear'});
+pop('#kok',20.35,.35);
+['#ki1','#ki2','#ki3'].forEach((s,i)=>inn(s,20.55+i*.18,.3,6));
+inn('#kt',21.15,.3,6);
+A('#kiosk',[{opacity:1},{opacity:0,transform:'translateX(-40px)'}],21.65,.4);
+A('#rig',[{transform:'translate(150px,-10px) rotate(-6deg) scale(.8)'},{transform:'none'}],21.7,.55,{easing:'cubic-bezier(.6,0,.3,1)'});
+scrOut('#s-qr',21.95);
+
+// S8 track 22-25.5
+scr('#s-track',22.0);
+cap('#c8',22.15,25.25);
+A('#truck',[{offsetDistance:'0%'},{offsetDistance:'58%'}],22.3,2.3,{easing:'cubic-bezier(.4,0,.3,1)'});
+A('#troute',[{strokeDashoffset:1},{strokeDashoffset:.42}],22.3,2.3,{easing:'cubic-bezier(.4,0,.3,1)'});
+A('#d1',[{background:'#d5dae3',transform:'scale(1)'},{background:'#1DB954',transform:'scale(1.4)',offset:.5},{background:'#1DB954',transform:'scale(1)'}],22.6,.35);
+A('#d2',[{background:'#d5dae3',transform:'scale(1)'},{background:'#1DB954',transform:'scale(1.4)',offset:.5},{background:'#1DB954',transform:'scale(1)'}],23.0,.35);
+A('#d3',[{background:'#d5dae3',boxShadow:'0 0 0 0 rgba(0,88,163,.3)'},{background:'#0058A3',boxShadow:'0 0 0 5px rgba(0,88,163,.25)'}],23.45,.4);
+A('#st3',[{color:'#0B1220'},{color:'#0058A3'}],23.45,.3);
+A('#eta',[{transform:'scale(1)'},{transform:'scale(1.06)',offset:.5},{transform:'scale(1)'}],23.8,.4);
+inn('#wabtn',24.2,.4);
+scrOut('#s-track',25.45);
+
+// S9 cs 25.5-29
+scr('#s-cs',25.5);
+cap('#c9',25.65,28.75);
+inn('#u9a',25.75,.35);
+inn('#typ',26.15,.25);
+document.querySelectorAll('.td').forEach((d,i)=>A(d,[{transform:'translateY(0)'},{transform:'translateY(-3px)'}],26.15+i*.1,.18,{it:2,dir:'alternate'}));
+out('#typ',26.55,.1);
+inn('#a9a',26.6,.35);
+pop('#k1',26.8,.35); pop('#k2',27.1,.35);
+inn('#u9b',27.55,.35);
+inn('#a9b',28.05,.4);
+
+// S10 end 29-32
+out('#wm',28.9,.3);
+A('#end',[{clipPath:'circle(0px at 540px 1076px)'},{clipPath:'circle(1400px at 540px 1076px)'}],29.0,.75,{easing:'cubic-bezier(.7,0,.3,1)'});
+pop('#elogo',29.55,.6);
+inn('#e1',29.9,.5,30); inn('#e2',30.15,.5,30);
+inn('#e3',30.55,.45); inn('#e4',30.9,.45); inn('#e5',31.1,.45);
+
+const anims=document.getAnimations();
+window.seek=t=>{for(const a of anims)a.currentTime=t*S;};
+seek(0);
+window.READY=document.fonts.ready.then(()=>true);
+</script>
+</body>
+</html>
